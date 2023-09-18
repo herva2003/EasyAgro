@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.puc.easyagro.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_culturasFragment"
+            app:destination="@id/culturasFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.puc.easyagro.ui.market.MarketFragment"
+        android:label="@string/title_market"
+        tools:layout="@layout/fragment_market" />
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.puc.easyagro.ui.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_tarefaFragment"
+            app:destination="@id/tarefaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/culturasFragment"
+        android:name="com.puc.easyagro.ui.home.culturas.CulturasFragment"
+        android:label="fragment_culturas"
+        tools:layout="@layout/fragment_culturas" />
+
+    <fragment
+        android:id="@+id/tarefaFragment"
+        android:name="com.puc.easyagro.ui.perfil.tarefas.TarefaFragment"
+        android:label="fragment_tarefa"
+        tools:layout="@layout/fragment_tarefa" >
+        <action
+            android:id="@+id/action_tarefaFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+</navigation>

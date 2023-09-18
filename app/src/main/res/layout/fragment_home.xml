@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="home"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/btnCulturas"
+        android:layout_width="110dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="65dp"
+        android:padding="0dp"
+        android:textSize="14sp"
+        android:text="Culturas"
+        android:backgroundTint="@color/white"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnDaninhas"
+        android:layout_width="110dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="65dp"
+        android:padding="0dp"
+        android:text="Plantas daninhas"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/button_text_colors"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnMaquinas"
+        app:layout_constraintStart_toEndOf="@+id/btnCulturas"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnMaquinas"
+        android:layout_width="110dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="65dp"
+        android:padding="0dp"
+        android:text="Máquinas e Implementos"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/button_text_colors"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
