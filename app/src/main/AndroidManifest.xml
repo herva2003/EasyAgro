@@ -3,30 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.telephony" android:required="true" />
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_easyagro"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyAgro"
-        tools:targetApi="33"
-        android:enableOnBackInvokedCallback="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="33">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:name=".ui.SplashScreenActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

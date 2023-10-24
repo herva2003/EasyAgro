@@ -13,4 +13,105 @@
         Schedule notification: Incorrect Date and Time
     </string>
 
+
+
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="finish">Finalizar</string>
+    <string name="next">Próximo</string>
+    <string name="register_link_text">Não tem uma conta? Cadastre-se "</string>
+
+    <!-- TODO: Strings para itens de lista -->
+    <string name="string_card_title">Title</string>
+    <string name="string_card_body">Discription of the card body</string>
+    <string name="string_card_date">Date of this card</string>
+
+    <!-- TODO: Strings para cards com dados vindos do user -->
+    <string name="string_user_name">Name</string>
+    <string name="string_user_send_date">Send date</string>
+    <string name="string_user_phone">Phone</string>
+    <string name="string_user_distance">Distance</string>
+    <string name="string_user_time_remaining">Time remaining</string>
+    <string name="string_user_emergency_status">Status</string>
+    <string name="string_review_user_total_rating">Nota</string>
+    <string name="string_review_total_ratings">Total de notas</string>
+
+    <!-- TODO: Strings genericas -->
+    <string name="string_user_review_card_label">Você achou este comentário útil?</string>
+    <string name="string_state_list_emergency_off">Ative seu status para visualizar as emergências.</string>
+    <string name="string_address_register_title_fields">Onde você consulta?</string>
+    <string name="string_emergency_filter1">Disponível</string>
+    <string name="string_emergency_filter2">Em espera</string>
+    <string name="string_text_register_label">Não tem um conta?</string>
+    <string name="string_text_address_limit">Você atingiu o máximo de endereços permitidos.</string>
+    <string name="string_text_address_null">Não há endereços cadastrados.</string>
+    <string name="string_recover_account_page_label">Um link para recuperação de senha será enviado ao seu email, por favor, verifique a sua caixa de entrada</string>
+    <string name="string_review_page_label">As novas e avaliações são enviadas pelos usuários do app Dental Emergency - Client</string>
+
+    <!-- TODO: Strings de erros -->
+    <string name="string_error_internet_disconnected_text">Você está offline. Reconecte-se para continuar.</string>
+    <string name="string_error_internet_disconnected_text_bottom">Você está Offline.</string>
+    <string name="string_error_login">Email ou senha inválidos. Tente novamente!</string>
+    <string name="string_recover_account_text_error">E-mail inválido ou incompleto. Tente novamente!</string>
+
+    <!-- TODO: Strings para textos de botões -->
+    <string name="string_text_btn_send_revision">Solicitar Revisão</string>
+    <string name="string_text_btn_add">Adicionar</string>
+    <string name="string_text_btn_delete">Excluir</string>
+    <string name="string_text_btn_edit">Editar</string>
+    <string name="string_text_btn_cancel">Cancelar</string>
+    <string name="string_text_btn_camera">Tirar foto</string>
+    <string name="string_text_btn_gallery">Pegar da Galeira</string>
+    <string name="string_text_btn_reconnect">Reconectar</string>
+    <string name="string_text_btn_accept">Aceitar</string>
+    <string name="string_text_btn_cancel2">Recusar</string>
+    <string name="string_text_btn_recover">Esqueceu sua senha?</string>
+    <string name="string_text_btn_login">Entrar</string>
+    <string name="string_text_btn_register">Cadastre-se</string>
+    <string name="string_text_btn_send_location">Enviar Localização</string>
+    <string name="string_text_btn_view_map">Ver no mapa</string>
+    <string name="string_text_btn_finish_emergency">Finalizar Ocorrência</string>
+    <string name="string_btn_text_update">Atualizar</string>
+
+    <!-- TODO: Strings para dialogs de endereço -->
+    <string name="string_dialog_add_address_title">Novo Endereço</string>
+    <string name="string_dialog_edit_address_title">Address</string>
+    <string name="string_dialog_update_image_title">Foto do perfil</string>
+    <string name="string_dialog_update_image_discription">Uma foto ajuda as pessoas a reconhecerem você e permite que você saiba quando a conta está conectada.</string>
+
+    <!-- TODO: Strings para os campos do endereço -->
+    <string name="string_address_zip_field">Insira seu cep</string>
+    <string name="string_address_street_name">Rua</string>
+    <string name="string_address_neighborhood">Bairro</string>
+    <string name="string_address_state">Estado</string>
+    <string name="string_address_city">Cidade</string>
+    <string name="string_address_number">Número</string>
+
+    <!-- TODO: Strings para titulos -->
+    <string name="string_education_register_page_title">Onde você estudou?</string>
+    <string name="string_login_page_title">Seja bem vindo!</string>
+    <string name="string_help_page_title">Sobre o App</string>
+    <string name="string_address_register_page_title">Onde podemos te encontrar?</string>
+    <string name="string_personal_informations_page_title">Nos conte sobre você</string>
+    <string name="string_recover_account_page_title">Recuperar senha</string>
+    <string name="string_review_page_title">Notas e avaliações</string>
+
+    <!-- TODO: Strings para os campos de input -->
+    <string name="string_login_email_field">Seu E-mail</string>
+    <string name="string_login_password_field">Sua Senha</string>
+    <string name="string_login_confirm_password_field">Confirme sua senha</string>
+    <string name="string_education_institution_field">Nome da instituição</string>
+    <string name="string_education_graduation_field">Data de formação</string>
+    <string name="string_profile_name_field">Nome Completo</string>
+    <string name="string_profile_email_field">Endereço de E-mail</string>
+    <string name="string_profile_age_field">Data de Nascimento</string>
+    <string name="string_profile_phone_field">Telefone</string>
+    <string name="string_profile_cro_field">Número do CRO</string>
+
+    <!-- TODO: Strings para os campos da tela de ajuda -->
+    <string name="string_help_app_name_label">Nome do aplicativo</string>
+    <string name="string_help_app_version_label">Versão do aplicativo</string>
+    <string name="string_help_security_label">Segurança</string>
 </resources>

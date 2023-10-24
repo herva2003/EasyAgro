@@ -2,6 +2,8 @@
 <resources>
 
     <color name="colorNull">#fafafa</color>
+    <color name="green_pi">#12DBA9</color>
+    <color name="green_bar">#09B187</color>
 
     <color name="blue_100">#E3F2FD</color>
     <color name="blue_200">#BBDEFB</color>

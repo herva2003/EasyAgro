@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 
-class CulturasAdapter(private var culturasList: List<Cultura>) : RecyclerView.Adapter<CulturasAdapter.ViewHolder>() {
+class CulturasAdapter(private var culturasList: List<Cultura>, private val onItemClickListener: (String, String) -> Unit) :
+    RecyclerView.Adapter<CulturasAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nomeCulturaTextView: TextView = itemView.findViewById(R.id.text_view_nome_cultura)
     }
 
@@ -21,6 +23,13 @@ class CulturasAdapter(private var culturasList: List<Cultura>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cultura = culturasList[position]
         holder.nomeCulturaTextView.text = cultura.nome
+
+        holder.itemView.setOnClickListener {
+            cultura._id?.let { id ->
+                cultura.nome?.let { it1 -> onItemClickListener(id, it1) }
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {

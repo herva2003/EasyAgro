@@ -1,4 +1,4 @@
-package com.puc.easyagro
+package com.puc.easyagro.ui
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.puc.easyagro.R
 import com.puc.easyagro.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,9 +31,27 @@ class MainActivity : AppCompatActivity() {
                 // Oculta a BottomNavigationView em destinos específicos
                 R.id.tarefaFragment -> navView.visibility = View.GONE
                 R.id.culturasFragment -> navView.visibility = View.GONE
+                R.id.detalhesCulturaFragment -> navView.visibility = View.GONE
+                R.id.detalhesFinalFragment -> navView.visibility = View.GONE
+                R.id.addProdutoFragment -> navView.visibility = View.GONE
+                R.id.loginFragment -> navView.visibility = View.GONE
+                R.id.photoFragment -> navView.visibility = View.GONE
+                R.id.profileFragment -> navView.visibility = View.GONE
+                R.id.addressFragment -> navView.visibility = View.GONE
+                R.id.cadastroFragment -> navView.visibility = View.GONE
 
                 else -> navView.visibility = View.VISIBLE
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            // Se houver fragmentos na pilha de retrocesso, volte ao anterior
+            supportFragmentManager.popBackStack()
+        } else {
+            // Caso contrário, execute o comportamento padrão (sair da atividade, por exemplo)
+            super.onBackPressed()
         }
     }
 }

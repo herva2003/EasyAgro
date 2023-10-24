@@ -26,7 +26,7 @@ import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.work.ListenableWorker.Result.success
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.puc.easyagro.MainActivity
+import com.puc.easyagro.ui.MainActivity
 import com.puc.easyagro.R
 
 class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, params) {

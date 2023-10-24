@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.EasyAgro" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryVariant">@color/green_500</item>
+        <item name="colorPrimary">@color/green_bar</item>
+        <item name="colorPrimaryVariant">@color/green_bar</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
