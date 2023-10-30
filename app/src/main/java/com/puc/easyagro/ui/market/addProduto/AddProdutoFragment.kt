@@ -90,6 +90,4 @@ class AddProdutoFragment : Fragment() {
             }
         }
     }
-
-
 }
