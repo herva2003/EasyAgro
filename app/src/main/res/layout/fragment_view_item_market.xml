@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.market.viewItemMarket.ViewItemMarketFragment">
+
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:iss_corner_radius="5"
+        app:iss_delay="0"
+        app:iss_period="1000"
+        app:iss_selected_dot="@drawable/default_selected_dot"
+        app:iss_unselected_dot="@drawable/default_unselected_dot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_arrow"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle_background"
+            android:contentDescription="voltar"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.denzcoskun.imageslider.ImageSlider>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Produto: "
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_preco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Preço:"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_preco_valor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_preco" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/divider_2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_preco_valor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_descricao"
+        android:layout_width="229dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/detalhes_emergencia"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_descricao_valor"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_descricao" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoria"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_descricao_valor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_categoria_valor"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_categoria" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_categoria_valor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout >

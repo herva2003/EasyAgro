@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.culturasFragment -> navView.visibility = View.GONE
                 R.id.detalhesCulturaFragment -> navView.visibility = View.GONE
                 R.id.detalhesFinalFragment -> navView.visibility = View.GONE
+                R.id.detalhesItemFragment -> navView.visibility = View.GONE
                 R.id.addProdutoFragment -> navView.visibility = View.GONE
                 R.id.loginFragment -> navView.visibility = View.GONE
                 R.id.photoFragment -> navView.visibility = View.GONE

@@ -25,6 +25,17 @@
         <action
             android:id="@+id/action_marketFragment_to_addProdutoFragment"
             app:destination="@id/addProdutoFragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+            <argument
+                android:name="itemString"
+                app:argType="string" />
+        </action>
+
     </fragment>
 
     <fragment
@@ -103,7 +114,17 @@
             app:destination="@id/detalhesCulturaFragment" />
         <action
             android:id="@+id/action_detalhesFinalFragment_to_detalhesItemFragment"
-            app:destination="@id/detalhesItemFragment" />
+            app:destination="@id/detalhesItemFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+            <argument
+                android:name="item"
+                app:argType="string" />
+            <argument
+                android:name="itemClicked"
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addProdutoFragment"
@@ -168,16 +189,15 @@
         android:label="DetalhesItemFragment" >
         <action
             android:id="@+id/action_detalhesItemFragment_to_detalhesFinalFragment"
-            app:destination="@id/detalhesFinalFragment" >
-            <argument
-                android:name="itemId"
-                app:argType="string" />
-            <argument
-                android:name="item"
-                app:argType="string" />
-            <argument
-                android:name="itemClicked"
-                app:argType="string" />
-        </action>
+            app:destination="@id/detalhesFinalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewItemMarketFragment"
+        android:name="com.puc.easyagro.ui.market.viewItemMarket.ViewItemMarketFragment"
+        android:label="fragment_view_item_market"
+        tools:layout="@layout/fragment_view_item_market" >
+        <action
+            android:id="@+id/action_viewItemMarketFragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
     </fragment>
 </navigation>
