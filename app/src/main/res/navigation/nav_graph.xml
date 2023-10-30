@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -35,6 +35,9 @@
                 android:name="itemString"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_marketFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
 
     </fragment>
 
@@ -46,9 +49,6 @@
         <action
             android:id="@+id/action_perfilFragment_to_tarefaFragment"
             app:destination="@id/tarefaFragment" />
-        <action
-            android:id="@+id/action_perfilFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -141,8 +141,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_cadastroFragment"
-            app:destination="@id/cadastroFragment" />
+            android:id="@+id/action_loginFragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
     </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
@@ -152,9 +152,6 @@
         <action
             android:id="@+id/action_cadastroFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_cadastroFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"

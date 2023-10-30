@@ -37,8 +37,8 @@ class PerfilFragment : Fragment() {
             .build()
 
         binding.btnLogin.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
-            findNavController().navigate(action, navOptions)
+//            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
+//            findNavController().navigate(action, navOptions)
         }
 
         _binding?.btnTarefa?.setOnClickListener {

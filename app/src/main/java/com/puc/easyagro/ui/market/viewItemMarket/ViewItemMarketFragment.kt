@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.denzcoskun.imageslider.models.SlideModel
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import com.puc.easyagro.ui.constants.Constants
@@ -76,18 +75,18 @@ class ViewItemMarketFragment : Fragment() {
                     if (detalhesItemMarket != null) {
                         val mercado = Market(
                             _id = detalhesItemMarket._id,
-                            nome = detalhesItemMarket.nome,
-                            preco = detalhesItemMarket.preco,
-                            descricao = detalhesItemMarket.descricao,
-                            categoria = detalhesItemMarket.categoria
+                            name = detalhesItemMarket.name,
+                            price = detalhesItemMarket.price,
+                            description = detalhesItemMarket.description,
+                            category = detalhesItemMarket.category
                         )
 
                         Log.d("Resposta da API", detalhesItemMarket.toString())
 
                         launch(Dispatchers.Main) {
-                            binding.txtPrecoValor.text = "R$ ${mercado.preco}"
-                            binding.txtDescricaoValor.text = mercado.descricao
-                            binding.txtCategoriaValor.text = mercado.categoria
+                            binding.txtPrecoValor.text = "R$ ${mercado.price}"
+                            binding.txtDescricaoValor.text = mercado.description
+                            binding.txtCategoriaValor.text = mercado.category
                         }
                     }
                 } else {

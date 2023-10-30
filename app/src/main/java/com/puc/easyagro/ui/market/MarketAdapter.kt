@@ -21,11 +21,11 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemMarket = marketList[position]
-        holder.itemMarketTextView.text = itemMarket.nome
+        holder.itemMarketTextView.text = itemMarket.name
 
         holder.itemView.setOnClickListener {
             itemMarket._id?.let { id ->
-                itemMarket.nome?.let { it1 -> onItemClickListener(id, it1) }
+                itemMarket.name?.let { it1 -> onItemClickListener(id, it1) }
             }
         }
 

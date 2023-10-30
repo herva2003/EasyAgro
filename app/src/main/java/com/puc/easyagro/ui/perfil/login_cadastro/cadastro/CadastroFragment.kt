@@ -9,7 +9,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentCadastroBinding
-import com.puc.easyagro.ui.perfil.login_cadastro.login.LoginFragmentDirections
 
 class CadastroFragment : Fragment() {
 

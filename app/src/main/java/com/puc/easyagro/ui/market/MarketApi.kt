@@ -9,10 +9,10 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface MarketApi {
-    @GET("mercado/games/")
+    @GET("api/products")
     fun getItemsMarket(): Call<List<Market>>
 
-    @POST("mercado/games/")
+    @POST("api/products/create")
     fun addProduct(@Body produto: Market): Call<ResponseBody>
 }
 

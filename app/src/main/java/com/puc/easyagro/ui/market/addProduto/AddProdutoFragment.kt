@@ -55,9 +55,9 @@ class AddProdutoFragment : Fragment() {
         val nome = binding.tituloAnuncioInput.text.toString()
         val descricao = binding.descricaoInput.text.toString()
         val categoria = binding.categoriasSpinner.selectedItem.toString()
-        val preco = binding.precoInput.text.toString().toDouble()
+        val preco = binding.precoInput.text.toString().toBigDecimal()
 
-        return Market(nome = nome, preco = preco, categoria = categoria, descricao = descricao)
+        return Market(name = nome, price = preco, category = categoria, description = descricao)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
