@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentDetalhesFinalBinding
-import com.puc.easyagro.ui.home.culturas.Cultura
+import com.puc.easyagro.ui.constants.Constants
 import com.puc.easyagro.ui.home.culturas.CulturasApiDetalheClicado
-import com.puc.easyagro.ui.home.culturas.CulturasFragmentDirections
 import com.puc.easyagro.ui.home.culturas.Deficiencia
 import com.puc.easyagro.ui.home.culturas.Doenca
 import com.puc.easyagro.ui.home.culturas.Praga
-import com.puc.easyagro.ui.home.culturas.detalhesPlanta.DetalhesCulturaAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,7 +64,7 @@ class DetalhesFinalFragment : Fragment() {
 
         adapter = DetalhesFinalAdapter(emptyList()) { item ->
             if (itemId != null && itemClicked != null) {
-                val action = DetalhesFinalFragmentDirections.actionDetalhesFinalFragmentToDetalhesItemFragment()
+                val action = DetalhesFinalFragmentDirections.actionDetalhesFinalFragmentToDetalhesItemFragment(itemId, item, itemClicked)
                 findNavController().navigate(action, navOptions)
             }
         }
@@ -91,15 +89,14 @@ class DetalhesFinalFragment : Fragment() {
         Log.d("dff", "Sending itemId: $itemId")
         Log.d("dff", "Sending type: $type")
 
-        val baseUrl = "http://192.168.0.243:8080/"
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val apiService = retrofit.create(CulturasApiDetalheClicado::class.java)
 
-        val url = "${baseUrl}games/$itemId/info?type=$type"
+        val url = "${Constants.BASE_URL}games/$itemId/info?type=$type"
         Log.d("dff", "Complete URL: $url")
 
         GlobalScope.launch(Dispatchers.IO) {

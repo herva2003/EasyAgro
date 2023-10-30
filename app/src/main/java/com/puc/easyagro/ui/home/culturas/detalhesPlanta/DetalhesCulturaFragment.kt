@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentDetalhesCulturaBinding
+import com.puc.easyagro.ui.constants.Constants
 import com.puc.easyagro.ui.home.culturas.Cultura
 import com.puc.easyagro.ui.home.culturas.CulturasApiDetalhe
 import com.puc.easyagro.ui.home.culturas.CulturasFragmentDirections
@@ -71,7 +72,8 @@ class DetalhesCulturaFragment : Fragment() {
     }
 
     private fun fetchDataFromServer(itemId: String) {
-        val baseUrl = "http://192.168.0.243:8080/games/"
+
+        val baseUrl = Constants.BASE_URL
         val apiUrl = "$baseUrl$itemId/"
 
         val retrofit = Retrofit.Builder()

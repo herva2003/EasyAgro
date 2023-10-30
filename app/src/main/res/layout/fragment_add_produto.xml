@@ -166,6 +166,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categoria_label" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/preco_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15dp"
+                android:text="Preço"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categorias_spinner" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/preco_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/edittext_border"
+                android:hint="Ex: R$100,00"
+                android:padding="13dp"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preco_label" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_anunciar"
                 android:layout_width="match_parent"
@@ -180,7 +208,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categorias_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/preco_input" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"

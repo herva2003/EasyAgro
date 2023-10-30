@@ -87,5 +87,8 @@ dependencies {
     // teste
     implementation "com.github.leandroborgesferreira:loading-button-android:2.3.0"
 
+    // imageSlider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }

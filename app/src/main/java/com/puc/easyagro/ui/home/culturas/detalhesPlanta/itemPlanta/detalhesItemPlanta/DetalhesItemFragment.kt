@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.databinding.FragmentDetalhesItemBinding
+import com.puc.easyagro.ui.constants.Constants
 import com.puc.easyagro.ui.home.culturas.CulturasApiItem
 import com.puc.easyagro.ui.home.culturas.Deficiencia
 import com.puc.easyagro.ui.home.culturas.Doenca
@@ -67,14 +68,13 @@ class DetalhesItemFragment : Fragment() {
 
     private fun fetchDataFromServer(itemId: String, type: String, item: String) {
 
-        val baseUrl = "http://192.168.0.243:8080/"
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val apiService = retrofit.create(CulturasApiItem::class.java)
-        val url = "${baseUrl}games/$itemId/info/$item?type=$type"
+        val url = "${Constants.BASE_URL}games/$itemId/info/$item?type=$type"
         Log.d("dif", "Complete URL: $url")
         Log.d("dif", "type: $type")
 
