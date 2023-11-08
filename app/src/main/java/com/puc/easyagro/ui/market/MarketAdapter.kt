@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
+import com.puc.easyagro.model.Market
 
 class MarketAdapter(private var marketList: List<Market>, private val onItemClickListener: (String, String) -> Unit) :
     RecyclerView.Adapter<MarketAdapter.ViewHolder>() {

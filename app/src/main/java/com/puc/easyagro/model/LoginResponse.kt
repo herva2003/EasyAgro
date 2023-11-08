@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.perfil.models
+package com.puc.easyagro.model
 
 data class LoginResponse(
     val token: String

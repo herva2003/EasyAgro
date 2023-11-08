@@ -21,8 +21,6 @@ class PerfilFragment : Fragment() {
 
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
 
-
-
         return binding.root
     }
 

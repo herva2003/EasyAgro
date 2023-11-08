@@ -1,8 +1,7 @@
-package com.puc.easyagro.ui.market
+package com.puc.easyagro.model
 
-import com.puc.easyagro.ui.market.viewItemMarket.Review
+import com.google.maps.model.PlaceDetails
 import java.math.BigDecimal
-import java.time.Instant
 
 data class Market(
     var _id: String? = null,
@@ -14,5 +13,5 @@ data class Market(
     val quantityInStock: Int? = null,
     val createdAt: String? = null,
     val images: List<String>? = null,
-    val reviewIds: List<Review>? = null
+    val reviewIds: List<PlaceDetails.Review>? = null
 )

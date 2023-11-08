@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
+import com.puc.easyagro.model.Cultura
 
 class CulturasAdapter(private var culturasList: List<Cultura>, private val onItemClickListener: (String, String) -> Unit) :
     RecyclerView.Adapter<CulturasAdapter.ViewHolder>() {

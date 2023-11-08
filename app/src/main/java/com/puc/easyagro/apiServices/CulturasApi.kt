@@ -1,5 +1,9 @@
-package com.puc.easyagro.ui.home.culturas
+package com.puc.easyagro.apiServices
 
+import com.puc.easyagro.model.Cultura
+import com.puc.easyagro.model.Deficiencia
+import com.puc.easyagro.model.Doenca
+import com.puc.easyagro.model.Praga
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,8 +38,5 @@ interface CulturasApiItem {
     @GET("cultura/games/{itemId}/info/{item}")
     fun getDeficiencia(@Path("itemId") itemId: String, @Path("item") item: String, @Query("type") type: String): Call<Deficiencia>
 }
-
-//172.16.224.21 puc
-//192.168.0.243 casa
 
 

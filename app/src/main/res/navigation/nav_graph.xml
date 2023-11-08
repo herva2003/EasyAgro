@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,6 +15,9 @@
             app:destination="@id/culturasFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_cotacaoFragment"
+            app:destination="@id/cotacaoFragment" />
     </fragment>
 
     <fragment
@@ -196,5 +199,14 @@
         <action
             android:id="@+id/action_viewItemMarketFragment_to_marketFragment"
             app:destination="@id/marketFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cotacaoFragment"
+        android:name="com.puc.easyagro.ui.cotacao.CotacaoFragment"
+        android:label="fragment_cotacao"
+        tools:layout="@layout/fragment_cotacao" >
+        <action
+            android:id="@+id/action_cotacaoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

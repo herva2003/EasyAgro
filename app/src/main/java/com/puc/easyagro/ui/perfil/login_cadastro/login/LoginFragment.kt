@@ -9,12 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentLoginBinding
-import com.puc.easyagro.ui.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.perfil.models.LoginRequest
-import com.puc.easyagro.ui.perfil.models.LoginResponse
-import com.puc.easyagro.ui.perfil.services.api.ApiService
+import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.LoginRequest
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,6 +19,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import androidx.navigation.fragment.findNavController
+import com.puc.easyagro.apiServices.LoginApi
+import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.model.LoginResponse
 import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginFragment : Fragment() {
@@ -29,11 +29,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+
         _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
 
         val navOptions = NavOptions.Builder()
@@ -49,10 +46,6 @@ class LoginFragment : Fragment() {
             signIn(login, password)
         }
 
-
-//            val action = LoginFragmentDirections.actionLoginFragmentToCadastroFragment()
-//            findNavController().navigate(action, navOptions)
-
         return binding.root
     }
 
@@ -62,12 +55,12 @@ class LoginFragment : Fragment() {
 
         // Configurar o objeto Retrofit
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://ec2-52-67-161-184.sa-east-1.compute.amazonaws.com:8080/")
+            .baseUrl(Constants.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(ApiService::class.java)
+        val apiService = retrofit.create(LoginApi::class.java)
 
         val loginRequest = LoginRequest(login, password)
 
@@ -103,9 +96,4 @@ class LoginFragment : Fragment() {
             }
         })
     }
-
-
-
-
-
 }

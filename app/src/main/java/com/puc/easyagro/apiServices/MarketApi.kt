@@ -1,6 +1,6 @@
-package com.puc.easyagro.ui.market
+package com.puc.easyagro.apiServices
 
-import com.puc.easyagro.ui.home.culturas.Cultura
+import com.puc.easyagro.model.Market
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body

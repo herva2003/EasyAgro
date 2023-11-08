@@ -1,6 +1,7 @@
 package com.puc.easyagro.ui.home.culturas
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.CulturasApi
 import com.puc.easyagro.databinding.FragmentCulturasBinding
-import com.puc.easyagro.ui.constants.Constants
+import com.puc.easyagro.constants.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,6 +57,12 @@ class CulturasFragment : Fragment() {
 
         fetchDataFromServer()
 
+        val pullToRefresh = binding.pullToRefresh
+        pullToRefresh.setOnRefreshListener {
+            fetchDataFromServer()
+            pullToRefresh.isRefreshing = false
+        }
+
         return binding.root
     }
 
@@ -72,6 +80,8 @@ class CulturasFragment : Fragment() {
                 val response = apiService.getCulturas().execute()
                 if (response.isSuccessful) {
                     var culturasList = response.body() ?: emptyList()
+
+                    Log.d("clt", "Culturas: $culturasList")
 
                     culturasList = culturasList.sortedBy { it.nome }
 

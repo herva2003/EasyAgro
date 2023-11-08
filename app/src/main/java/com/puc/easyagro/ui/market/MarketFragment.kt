@@ -11,10 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.databinding.FragmentMarketBinding
-import com.puc.easyagro.ui.constants.Constants
-import com.puc.easyagro.ui.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.home.culturas.CulturasFragmentDirections
+import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -73,6 +73,7 @@ class MarketFragment : Fragment() {
     }
 
     private fun fetchDataFromServer(token: String) {
+
         val interceptor = Interceptor { chain ->
             val request = chain.request().newBuilder()
                 .header("Authorization", "Bearer $token")
@@ -117,5 +118,4 @@ class MarketFragment : Fragment() {
             }
         }
     }
-
 }

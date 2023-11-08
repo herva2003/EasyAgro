@@ -10,13 +10,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
-import com.puc.easyagro.ui.constants.Constants
-import com.puc.easyagro.ui.home.culturas.Cultura
-import com.puc.easyagro.ui.home.culturas.CulturasApiDetalhe
-import com.puc.easyagro.ui.home.culturas.CulturasFragmentDirections
-import com.puc.easyagro.ui.market.Market
-import com.puc.easyagro.ui.market.MarketApi
-import com.puc.easyagro.ui.market.MarketApiDetalhe
+import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.model.Market
+import com.puc.easyagro.apiServices.MarketApiDetalhe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentDetalhesFinalBinding
-import com.puc.easyagro.ui.constants.Constants
-import com.puc.easyagro.ui.home.culturas.CulturasApiDetalheClicado
-import com.puc.easyagro.ui.home.culturas.Deficiencia
-import com.puc.easyagro.ui.home.culturas.Doenca
-import com.puc.easyagro.ui.home.culturas.Praga
+import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.apiServices.CulturasApiDetalheClicado
+import com.puc.easyagro.model.Deficiencia
+import com.puc.easyagro.model.Doenca
+import com.puc.easyagro.model.Praga
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -79,6 +79,16 @@ class DetalhesFinalFragment : Fragment() {
             if (itemId != null) {
                 fetchDataFromServer(itemId, itemClicked)
             }
+        }
+
+        val pullToRefresh = binding.pullToRefresh
+        pullToRefresh.setOnRefreshListener {
+            if (itemClicked != null) {
+                if (itemId != null) {
+                    fetchDataFromServer(itemId, itemClicked)
+                }
+            }
+            pullToRefresh.isRefreshing = false
         }
 
         return binding.root

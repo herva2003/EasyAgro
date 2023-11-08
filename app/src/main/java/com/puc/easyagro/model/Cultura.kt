@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.home.culturas
+package com.puc.easyagro.model
 
 data class Cultura(
     val _id: String? = null,

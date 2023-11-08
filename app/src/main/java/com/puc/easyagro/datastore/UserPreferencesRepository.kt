@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.datastore
+package com.puc.easyagro.datastore
 
 import android.content.Context
 import androidx.core.content.edit

@@ -28,5 +28,9 @@ class HomeFragment : Fragment() {
         _binding?.btnCulturas?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_culturasFragment)
         }
+
+        _binding?.btnCotacao?.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_cotacaoFragment)
+        }
     }
 }
