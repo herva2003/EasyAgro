@@ -34,11 +34,6 @@ class PerfilFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        binding.btnLogin.setOnClickListener {
-//            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
-//            findNavController().navigate(action, navOptions)
-        }
-
         _binding?.btnTarefa?.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_tarefaFragment)
         }

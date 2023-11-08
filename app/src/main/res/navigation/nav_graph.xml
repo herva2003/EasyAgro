@@ -202,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/cotacaoFragment"
-        android:name="com.puc.easyagro.ui.cotacao.CotacaoFragment"
+        android:name="com.puc.easyagro.ui.home.cotacao.CotacaoFragment"
         android:label="fragment_cotacao"
         tools:layout="@layout/fragment_cotacao" >
         <action

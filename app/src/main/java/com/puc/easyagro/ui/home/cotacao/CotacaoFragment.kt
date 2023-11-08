@@ -1,6 +1,8 @@
-package com.puc.easyagro.ui.cotacao
+package com.puc.easyagro.ui.home.cotacao
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +18,8 @@ import com.puc.easyagro.apiServices.CotacaoApi
 import com.puc.easyagro.apiServices.CotacaoApiBasic
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCotacaoBinding
+import com.puc.easyagro.model.Produto
+import com.puc.easyagro.ui.cotacao.CotacaoFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,6 +30,7 @@ class CotacaoFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CotacaoAdapter
+    private var produtosList: List<Produto> = emptyList()
 
     private var _binding: FragmentCotacaoBinding? = null
 
@@ -55,8 +60,7 @@ class CotacaoFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-//        getCotacoesApi()
-        fetchDataFromServer()
+        checkStatusCot()
 
         val pullToRefresh = binding.pullToRefresh
         pullToRefresh.setOnRefreshListener {
@@ -64,7 +68,48 @@ class CotacaoFragment : Fragment() {
             pullToRefresh.isRefreshing = false
         }
 
+        val buscarCotacao = binding.buscarCotacao
+
+        buscarCotacao.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                adapter.filter.filter(s.toString())
+            }
+        })
+
         return binding.root
+    }
+
+    private fun checkStatusCot(){
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(CotacaoApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.checkStatusCot()
+                Log.d("cot", "Resposta: $response")
+                if (response.isSuccessful) {
+                    val statusResponse = response.body()
+                    val status = statusResponse?.statusCot ?: false
+                    if (status) {
+                        fetchDataFromServer()
+                    } else {
+                        getCotacoesApi()
+                        updateStatusCot()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("cot", "Deu erro, Resposta: $e")
+            }
+        }
     }
 
     private fun fetchDataFromServer(){
@@ -91,8 +136,6 @@ class CotacaoFragment : Fragment() {
                         adapter.updateData(produtosList)
                     }
                 }
-
-
             } catch (e: Exception) {
                 Log.e("cot", "Deu erro, Resposta: $e")
             }
@@ -144,11 +187,34 @@ class CotacaoFragment : Fragment() {
                 val response = apiService.sendDataToMongoDB(dados)
                 if (response.isSuccessful) {
                     Log.d("cot", "Dados enviados com sucesso: $response")
+                    fetchDataFromServer()
                 } else {
                     Log.d("cot", "Falha ao enviar dados, resposta: $response")
                 }
             } catch (e: Exception) {
                 Log.d("cot", "Exceção capturada: ", e)
+            }
+        }
+    }
+
+    private fun updateStatusCot(){
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(CotacaoApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.updateStatusCot()
+                Log.d("cot", "Resposta: $response")
+                if (!response.isSuccessful) {
+                    Log.e("cot", "Falha ao atualizar statusCot")
+                }
+            } catch (e: Exception) {
+                Log.e("cot", "Deu erro, Resposta: $e")
             }
         }
     }

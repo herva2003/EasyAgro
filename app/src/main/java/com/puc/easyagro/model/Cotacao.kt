@@ -21,3 +21,8 @@ data class ResponseBody(
     val site_receipts: List<String>,
     val errors: List<String>?
 )
+
+data class StatusResponse(
+    val _id: String,
+    val statusCot: Boolean
+)
