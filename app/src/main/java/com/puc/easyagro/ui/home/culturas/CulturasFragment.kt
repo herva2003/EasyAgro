@@ -90,6 +90,7 @@ class CulturasFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
+                Log.e("clt", "Exception during data fetch", e)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.puc.easyagro.ui.home.cotacao
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +69,7 @@ class CotacaoAdapter(private var produtosList: List<Produto>, private val onItem
                     }
                     filteredList
                 }
+                Log.d("cot", "Número de itens após a filtragem: ${produtosListFiltered.size}")
                 val filterResults = FilterResults()
                 filterResults.values = produtosListFiltered
                 return filterResults
@@ -75,6 +77,7 @@ class CotacaoAdapter(private var produtosList: List<Produto>, private val onItem
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 produtosListFiltered = filterResults.values as ArrayList<Produto>
+                Log.d("cot", "Publicando resultados. Número de itens: ${produtosListFiltered.size}")
                 notifyDataSetChanged()
             }
         }
@@ -86,4 +89,3 @@ class CotacaoAdapter(private var produtosList: List<Produto>, private val onItem
         notifyDataSetChanged()
     }
 }
-

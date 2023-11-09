@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.addressFragment -> navView.visibility = View.GONE
                 R.id.cadastroFragment -> navView.visibility = View.GONE
                 R.id.cotacaoFragment -> navView.visibility = View.GONE
+                R.id.viewItemMarketFragment -> navView.visibility = View.GONE
 
                 else -> navView.visibility = View.VISIBLE
             }

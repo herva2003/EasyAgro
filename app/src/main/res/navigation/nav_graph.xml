@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_perfilFragment_to_tarefaFragment"
             app:destination="@id/tarefaFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -146,6 +149,12 @@
         <action
             android:id="@+id/action_loginFragment_to_marketFragment"
             app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
     </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
@@ -155,6 +164,9 @@
         <action
             android:id="@+id/action_cadastroFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_cadastroFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"

@@ -29,7 +29,6 @@ class CulturasAdapter(private var culturasList: List<Cultura>, private val onIte
                 cultura.nome?.let { it1 -> onItemClickListener(id, it1) }
             }
         }
-
     }
 
     override fun getItemCount(): Int {

@@ -112,5 +112,4 @@
     <string name="string_help_security_label">Segurança</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="detalhes_emergencia">Detalhes do produto\n</string>
 </resources>

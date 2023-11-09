@@ -19,7 +19,6 @@ import com.puc.easyagro.apiServices.CotacaoApiBasic
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCotacaoBinding
 import com.puc.easyagro.model.Produto
-import com.puc.easyagro.ui.cotacao.CotacaoFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,7 +29,6 @@ class CotacaoFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CotacaoAdapter
-    private var produtosList: List<Produto> = emptyList()
 
     private var _binding: FragmentCotacaoBinding? = null
 

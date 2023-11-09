@@ -25,11 +25,15 @@ class CadastroFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        binding.btnEntrar.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val action = CadastroFragmentDirections.actionCadastroFragmentToProfileFragment()
             findNavController().navigate(action, navOptions)
         }
 
+        binding.btnEntrar.setOnClickListener {
+            val action = CadastroFragmentDirections.actionCadastroFragmentToLoginFragment()
+            findNavController().navigate(action, navOptions)
+        }
 
         return binding.root
     }

@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
-import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApiDetalhe
+import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -45,11 +45,18 @@ class ViewItemMarketFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
+        binding.btnAddCarrinho.setOnClickListener{
+            addItemCarrinho(itemId)
+        }
+
         fetchDataFromServer(itemId)
 
         return binding.root
     }
 
+    private fun addItemCarrinho(itemId: String){
+
+    }
     private fun fetchDataFromServer(itemId: String) {
 
         val baseUrl = Constants.BASE_URL
@@ -80,9 +87,8 @@ class ViewItemMarketFragment : Fragment() {
                         Log.d("Resposta da API", detalhesItemMarket.toString())
 
                         launch(Dispatchers.Main) {
-                            binding.txtPrecoValor.text = "R$ ${mercado.price}"
+                            binding.txtPrecoValor.text = "R$${mercado.price}"
                             binding.txtDescricaoValor.text = mercado.description
-                            binding.txtCategoriaValor.text = mercado.category
                         }
                     }
                 } else {

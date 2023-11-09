@@ -7,144 +7,308 @@
     android:layout_height="match_parent"
     tools:context=".ui.market.viewItemMarket.ViewItemMarketFragment">
 
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/image_slider"
+    <View
+        android:id="@+id/green_rectangle"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:iss_corner_radius="5"
-        app:iss_delay="0"
-        app:iss_period="1000"
-        app:iss_selected_dot="@drawable/default_selected_dot"
-        app:iss_unselected_dot="@drawable/default_unselected_dot"
+        android:layout_height="60dp"
+        android:background="@color/green_pi"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_arrow"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_arrow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/circle_background"
-            android:contentDescription="voltar"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </com.denzcoskun.imageslider.ImageSlider>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_nome"
+    <TextView
+        android:id="@+id/txt_anuncio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:text="Produto: "
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+        android:text="Anúncio"
+        android:textColor="@color/white"
+        android:paddingStart="20dp"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
+        app:layout_constraintStart_toEndOf="@+id/btn_arrow"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_preco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Preço:"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_preco_valor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_preco" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/divider_2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_preco_valor" />
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/green_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_descricao"
-        android:layout_width="229dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/detalhes_emergencia"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.market.viewItemMarket.ViewItemMarketFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_descricao_valor"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_descricao" />
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                app:iss_corner_radius="5"
+                app:iss_delay="0"
+                app:iss_period="1000"
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_categoria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Categoria"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_descricao_valor" />
+            </com.denzcoskun.imageslider.ImageSlider>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_categoria_valor"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_categoria" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:textColor="@color/grey_800"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_slider" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_categoria_valor" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_preco_valor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="24dp"
+                android:textColor="@color/grey_900"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
 
-</androidx.constraintlayout.widget.ConstraintLayout >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_preco_valor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="Descrição"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_descricao_valor"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_descricao" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_descricao_valor" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_referencia_preco"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Referência de preço"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <Button
+                android:id="@+id/ref_cotacao"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_marginTop="65dp"
+                android:backgroundTint="@color/white"
+                android:padding="20dp"
+                android:text="Cotação do produto"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_colors"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_referencia_preco" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ref_cotacao" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_caracteristicas"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Características"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+            <Button
+                android:id="@+id/det_caracteristicas"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_marginTop="65dp"
+                android:backgroundTint="@color/white"
+                android:padding="20dp"
+                android:text="Características do produto"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_colors"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_caracteristicas" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/det_caracteristicas" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_localizacao"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Localização"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+            <Button
+                android:id="@+id/det_localizacao"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_marginTop="65dp"
+                android:backgroundTint="@color/white"
+                android:padding="20dp"
+                android:text="Características da Localização"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_colors"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_localizacao" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/det_localizacao" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_anunciante"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="Anunciante"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+            <Button
+                android:id="@+id/det_anunciante"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_marginTop="65dp"
+                android:backgroundTint="@color/white"
+                android:padding="20dp"
+                android:text="Características do anunciante"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_colors"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txt_anunciante" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_carrinho"
+                android:layout_width="309dp"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/green_pi"
+                android:text="Adicionar ao carrinho"
+                android:textAllCaps="false"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/det_anunciante"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_comprar"
+                android:layout_width="309dp"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/green_bar"
+                android:layout_marginBottom="50dp"
+                android:text="Comprar agora"
+                android:textAllCaps="false"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_carrinho" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,12 +50,12 @@ class AddProdutoFragment : Fragment() {
     }
 
     private fun getFormData(): Market {
-        val nome = binding.tituloAnuncioInput.text.toString()
-        val descricao = binding.descricaoInput.text.toString()
-        val categoria = binding.categoriasSpinner.selectedItem.toString()
-        val preco = binding.precoInput.text.toString().toBigDecimal()
+        val name = binding.tituloAnuncioInput.text.toString()
+        val category = binding.categoriasSpinner.selectedItem.toString()
+        val price = binding.precoInput.text.toString().toBigDecimal()
+        val description = binding.descricaoInput.text.toString()
 
-        return Market(name = nome, price = preco, category = categoria, description = descricao)
+        return Market(name = name, price = price, category = category, description = description)
     }
 
     @OptIn(DelicateCoroutinesApi::class)

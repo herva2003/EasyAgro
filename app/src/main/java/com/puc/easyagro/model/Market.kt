@@ -8,10 +8,10 @@ data class Market(
     val name: String? = null,
     val price: BigDecimal? = null,
     val category: String? = null,
-    val description: String? = null,
-    val code: String? = null,
-    val quantityInStock: Int? = null,
-    val createdAt: String? = null,
-    val images: List<String>? = null,
-    val reviewIds: List<PlaceDetails.Review>? = null
+    val description: String? = null
+//    val code: String? = null,
+//    val quantityInStock: Int? = null,
+//    val createdAt: String? = null,
+//    val images: List<String>? = null,
+//    val reviewIds: List<PlaceDetails.Review>? = null
 )
