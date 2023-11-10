@@ -37,6 +37,12 @@ class CotacaoFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentCotacaoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         recyclerView = binding.recyclerViewCotacao
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -77,8 +83,6 @@ class CotacaoFragment : Fragment() {
                 adapter.filter.filter(s.toString())
             }
         })
-
-        return binding.root
     }
 
     private fun checkStatusCot(){

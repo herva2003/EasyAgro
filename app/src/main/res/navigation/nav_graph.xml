@@ -162,39 +162,15 @@
         android:label="fragment_cadastro"
         tools:layout="@layout/fragment_cadastro" >
         <action
-            android:id="@+id/action_cadastroFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_cadastroFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addressFragment"
-        android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.AddressFragment"
-        android:label="fragment_address"
-        tools:layout="@layout/fragment_address" >
         <action
-            android:id="@+id/action_addressFragment_to_photoFragment"
-            app:destination="@id/photoFragment" />
+            android:id="@+id/action_cadastroFragment_to_completeCadastroFragment"
+            app:destination="@id/completeCadastroFragment"
+            app:popUpToInclusive="true" />
+
     </fragment>
-    <fragment
-        android:id="@+id/photoFragment"
-        android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.PhotoFragment"
-        android:label="fragment_photo"
-        tools:layout="@layout/fragment_photo" >
-        <action
-            android:id="@+id/action_photoFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_addressFragment"
-            app:destination="@id/addressFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/detalhesItemFragment"
         android:name="com.puc.easyagro.ui.home.culturas.detalhesPlanta.itemPlanta.detalhesItemPlanta.DetalhesItemFragment"
@@ -203,6 +179,7 @@
             android:id="@+id/action_detalhesItemFragment_to_detalhesFinalFragment"
             app:destination="@id/detalhesFinalFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/viewItemMarketFragment"
         android:name="com.puc.easyagro.ui.market.viewItemMarket.ViewItemMarketFragment"
@@ -212,6 +189,7 @@
             android:id="@+id/action_viewItemMarketFragment_to_marketFragment"
             app:destination="@id/marketFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/cotacaoFragment"
         android:name="com.puc.easyagro.ui.home.cotacao.CotacaoFragment"
@@ -221,4 +199,15 @@
             android:id="@+id/action_cotacaoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/completeCadastroFragment"
+        android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.CompleteCadastroFragment"
+        android:label="fragment_complete_cadastro"
+        tools:layout="@layout/fragment_complete_cadastro" >
+        <action
+            android:id="@+id/action_completeCadastroFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+
 </navigation>

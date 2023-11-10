@@ -31,6 +31,12 @@ class DetalhesCulturaFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         _binding = FragmentDetalhesCulturaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         recyclerView = binding.recyclerViewDetalhes
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -71,8 +77,6 @@ class DetalhesCulturaFragment : Fragment() {
         _binding?.btnArrow?.setOnClickListener {
             findNavController().popBackStack()
         }
-
-        return binding.root
     }
 
     private fun fetchDataFromServer(itemId: String) {

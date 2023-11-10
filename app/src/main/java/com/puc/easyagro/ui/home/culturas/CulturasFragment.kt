@@ -29,8 +29,13 @@ class CulturasFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-
         _binding = FragmentCulturasBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         recyclerView = binding.recyclerViewCulturas
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -62,8 +67,6 @@ class CulturasFragment : Fragment() {
             fetchDataFromServer()
             pullToRefresh.isRefreshing = false
         }
-
-        return binding.root
     }
 
     private fun fetchDataFromServer() {

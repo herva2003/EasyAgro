@@ -1,5 +1,6 @@
 package com.puc.easyagro.ui.home.culturas.detalhesPlanta.itemPlanta.detalhesItemPlanta
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -36,6 +37,11 @@ class DetalhesItemFragment : Fragment() {
     ): View {
 
         _binding = FragmentDetalhesItemBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerViewDetalhes
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -75,8 +81,6 @@ class DetalhesItemFragment : Fragment() {
             }
             pullToRefresh.isRefreshing = false
         }
-
-        return binding.root
     }
 
     private fun fetchDataFromServer(itemId: String, type: String, item: String) {

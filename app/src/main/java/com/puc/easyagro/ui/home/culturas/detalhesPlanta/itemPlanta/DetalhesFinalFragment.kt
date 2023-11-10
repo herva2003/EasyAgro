@@ -39,6 +39,12 @@ class DetalhesFinalFragment : Fragment() {
     ): View {
 
         _binding = FragmentDetalhesFinalBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         recyclerView = binding.recyclerViewDetalhesFinal
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -90,8 +96,6 @@ class DetalhesFinalFragment : Fragment() {
             }
             pullToRefresh.isRefreshing = false
         }
-
-        return binding.root
     }
 
     private fun fetchDataFromServer(itemId: String, type: String) {

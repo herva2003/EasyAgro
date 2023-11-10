@@ -26,6 +26,12 @@ class ViewItemMarketFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         _binding = FragmentViewItemMarketBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         val itemId = arguments?.getString("itemId")!!
         val itemString = arguments?.getString("itemString")
@@ -50,8 +56,6 @@ class ViewItemMarketFragment : Fragment() {
         }
 
         fetchDataFromServer(itemId)
-
-        return binding.root
     }
 
     private fun addItemCarrinho(itemId: String){

@@ -20,7 +20,9 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
     var marketListFiltered = marketList
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemMarketTextView: TextView = itemView.findViewById(R.id.text_view_item_market)
+        val nomeItemMarket: TextView = itemView.findViewById(R.id.nome_item_market)
+        val precoItemMarket: TextView = itemView.findViewById(R.id.preco_item_market)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +32,8 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemMarket = marketListFiltered[position]
-        holder.itemMarketTextView.text = itemMarket.name
+        holder.nomeItemMarket.text = itemMarket.name
+        holder.precoItemMarket.text = "R$${itemMarket.price.toString()}"
 
         holder.itemView.setOnClickListener {
             itemMarket._id?.let { id ->

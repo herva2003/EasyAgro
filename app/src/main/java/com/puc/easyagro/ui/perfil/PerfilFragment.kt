@@ -9,7 +9,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentPerfilBinding
-import com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.ProfileFragmentDirections
 
 class PerfilFragment : Fragment() {
 
@@ -18,9 +17,7 @@ class PerfilFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 

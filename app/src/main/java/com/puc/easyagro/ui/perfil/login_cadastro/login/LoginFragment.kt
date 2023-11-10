@@ -31,8 +31,12 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-
         _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
@@ -51,8 +55,6 @@ class LoginFragment : Fragment() {
             val action = LoginFragmentDirections.actionLoginFragmentToCadastroFragment()
             findNavController().navigate(action, navOptions)
         }
-
-        return binding.root
     }
 
     private fun signIn(login: String, password: String) {
