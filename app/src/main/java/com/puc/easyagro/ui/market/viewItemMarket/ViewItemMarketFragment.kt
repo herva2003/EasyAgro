@@ -5,10 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.gson.JsonObject
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.CarrinhoApi
+import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApiDetalhe
@@ -16,6 +20,9 @@ import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -58,9 +65,38 @@ class ViewItemMarketFragment : Fragment() {
         fetchDataFromServer(itemId)
     }
 
-    private fun addItemCarrinho(itemId: String){
+    private fun addItemCarrinho(itemId: String) {
 
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(CarrinhoApi::class.java)
+        val userId = "65403d09c49bbd1b44fd2f52"
+
+        val itemUser = JsonObject()
+        itemUser.addProperty("itemId", itemId)
+        itemUser.addProperty("userId", userId)
+
+        val call = apiService.addItem(itemUser)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("mkt","Item adicionado ao carrinho")
+                    Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.d("mkt","Erro ao adicionar item ao carrinho: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, e: Throwable) {
+                Log.e("mkt", "Falha na chamada: ${e.message}")
+            }
+        })
     }
+
     private fun fetchDataFromServer(itemId: String) {
 
         val baseUrl = Constants.BASE_URL
@@ -88,7 +124,7 @@ class ViewItemMarketFragment : Fragment() {
                             category = detalhesItemMarket.category
                         )
 
-                        Log.d("Resposta da API", detalhesItemMarket.toString())
+                        Log.d("mkt", detalhesItemMarket.toString())
 
                         launch(Dispatchers.Main) {
                             binding.txtPrecoValor.text = "R$${mercado.price}"
@@ -96,10 +132,10 @@ class ViewItemMarketFragment : Fragment() {
                         }
                     }
                 } else {
-                    Log.e("Resposta da API", "Código de status: ${response.code()}")
+                    Log.e("mkt", "Código de status: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("Resposta da API", "Erro de rede: ${e.message}")
+                Log.e("mkt", "Erro de rede: ${e.message}")
             }
         }
     }

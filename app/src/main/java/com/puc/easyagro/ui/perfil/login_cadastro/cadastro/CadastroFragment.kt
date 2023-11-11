@@ -8,18 +8,31 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.LoginApi
+import com.puc.easyagro.apiServices.RegisterApi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCadastroBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.datastore.UserViewModel
+import com.puc.easyagro.model.RegisterRequest
+import com.puc.easyagro.model.RegisterResponse
 import com.puc.easyagro.model.Usuario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -36,6 +49,9 @@ class CadastroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val email = binding.inputEmail.text.toString()
+        val password = binding.inputSenha.text.toString()
 
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
@@ -64,7 +80,6 @@ class CadastroFragment : Fragment() {
     }
 
     private fun registerUser(conta: Usuario) {
-
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -72,29 +87,24 @@ class CadastroFragment : Fragment() {
 
         val apiService = retrofit.create(UserApi::class.java)
 
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
-                Log.d("cad", "Criando conta: $conta")
+                Log.d("cad", "Criando conta: ${conta.login}")
                 val response = apiService.addUser(conta).execute()
                 if (response.isSuccessful) {
                     val gson = Gson()
-
                     val contaInserida: Usuario = gson.fromJson(response.body()?.string(), Usuario::class.java)
-
                     conta._id = contaInserida._id
-
                     Log.d("cad", "Conta criada com sucesso: ${contaInserida._id}")
-
                     val action = contaInserida._id?.let {
                         viewModel.userId = it
                         CadastroFragmentDirections.actionCadastroFragmentToCompleteCadastroFragment()
                     }
                     if (action != null) {
-                        findNavController().navigate(action)
-                    }
-
-                    launch(Dispatchers.Main) {
-                        Toast.makeText(context, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+                        withContext(Dispatchers.Main) {
+                            findNavController().navigate(action)
+                            Toast.makeText(context, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
                     Log.d("cad", "Falha ao criar conta: $response")
@@ -103,6 +113,7 @@ class CadastroFragment : Fragment() {
             }
         }
     }
+
 
     private fun validateInputFields(): Boolean {
         // Validation Rules

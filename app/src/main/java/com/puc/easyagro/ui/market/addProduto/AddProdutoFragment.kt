@@ -94,7 +94,6 @@ class AddProdutoFragment : Fragment() {
         return true
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun sendDataToServer(produto: Market) {
 
         val retrofit = Retrofit.Builder()

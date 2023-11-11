@@ -80,10 +80,10 @@ class LoginFragment : Fragment() {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     val accessToken = loginResponse?.token
-                    Log.d("token", accessToken ?: "Token não disponível")
+                    Log.d("log", accessToken ?: "Token não disponível")
                     // Log.d("token", loginResponse.toString())
                     userPreferencesRepository.updateToken(accessToken.toString())
-                    Log.d("token", userPreferencesRepository.token)
+                    Log.d("log", userPreferencesRepository.token)
                     findNavController().navigate(R.id.action_loginFragment_to_marketFragment)
                 } else {
                     // Tratar erro de login
@@ -91,7 +91,7 @@ class LoginFragment : Fragment() {
                     try {
                         val jsonError = JSONObject(errorBody)
                         val errorMessage = jsonError.getString("message")
-                        Log.e("LoginFragment", "Erro no login: $errorMessage")
+                        Log.e("log", "Erro no login: $errorMessage")
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -100,7 +100,7 @@ class LoginFragment : Fragment() {
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 // Tratar falha na chamada
-                Log.e("LoginFragment", "Falha na chamada: ${t.message}")
+                Log.e("log", "Falha na chamada: ${t.message}")
             }
         })
     }

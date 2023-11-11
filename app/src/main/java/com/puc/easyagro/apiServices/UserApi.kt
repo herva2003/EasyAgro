@@ -9,9 +9,9 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface UserApi {
-    @POST("/user/games/")
+    @POST("/user/")
     fun addUser(@Body user: Usuario): Call<ResponseBody>
 
-    @PUT("/user/games/{id}")
+    @PUT("/user/{id}")
     fun updateUser(@Path("id") id: String, @Body user: Usuario): Call<ResponseBody>
 }

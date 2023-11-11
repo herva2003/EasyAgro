@@ -18,15 +18,15 @@ interface CotacaoApiBasic {
 }
 
 interface CotacaoApi {
-    @GET("cotacoes/games/statusCot")
+    @GET("cotacoes/statusCot")
     suspend fun checkStatusCot(): Response<StatusResponse>
 
-    @POST("cotacoes/games/statusCot")
+    @POST("cotacoes/statusCot")
     suspend fun updateStatusCot(): Response<StatusResponse>
 
-    @POST("cotacoes/games")
+    @POST("cotacoes")
     suspend fun sendDataToMongoDB(@Body data: Any): Response<Unit>
 
-    @GET("cotacoes/games/produtos")
+    @GET("cotacoes/produtos")
     suspend fun fetchDataFromMongoDB(): Response<List<Cotacao>>
 }

@@ -1,6 +1,5 @@
 package com.puc.easyagro.model
 
-data class LoginResponse(
+data class RegisterResponse(
     val token: String
 )
-

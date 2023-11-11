@@ -1,5 +1,6 @@
 package com.puc.easyagro.apiServices
 
+import com.google.gson.JsonObject
 import com.puc.easyagro.model.Market
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -13,17 +14,23 @@ interface MarketApi {
 //    @GET("api/products")
 //    fun getItemsMarket(): Call<List<Market>>
 
-    @GET("/mercado/games/")
+    @GET("/mercado/")
     fun getItemsMarket(): Call<List<Market>>
 
 //    @POST("api/products/create")
 //    fun addProduct(@Body produto: Market): Call<ResponseBody>
 
-    @POST("/mercado/games/")
+    @POST("/mercado/")
     fun addProduct(@Body produto: Market): Call<ResponseBody>
 }
 
 interface MarketApiDetalhe {
-    @GET("/mercado/games/{id}")
+    @GET("/mercado/{id}")
     fun getItem(@Path("id") id: String): Call<Market>
 }
+
+interface CarrinhoApi {
+    @POST("/mercado/carrinho")
+    fun addItem(@Body itemUser: JsonObject): Call<Void>
+}
+
