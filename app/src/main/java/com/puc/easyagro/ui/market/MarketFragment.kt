@@ -16,6 +16,7 @@ import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.databinding.FragmentMarketBinding
 import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.home.cotacao.CotacaoFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -55,6 +56,8 @@ class MarketFragment : Fragment() {
             val action = MarketFragmentDirections.actionMarketFragmentToViewItemMarketFragment(itemId, itemString)
             findNavController().navigate(action, navOptions)
         }
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        _binding?.btnAddProduto?.isEnabled = userPreferencesRepository.token != ""
 
         _binding?.btnAddProduto?.setOnClickListener {
             val action = MarketFragmentDirections.actionMarketFragmentToAddProdutoFragment()

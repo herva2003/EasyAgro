@@ -80,10 +80,14 @@ class LoginFragment : Fragment() {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     val accessToken = loginResponse?.token
+                    val userId =  loginResponse?.userId
                     Log.d("log", accessToken ?: "Token não disponível")
-                    // Log.d("token", loginResponse.toString())
+                    Log.d("token", loginResponse.toString())
+                    Log.d("33", userId.toString())
                     userPreferencesRepository.updateToken(accessToken.toString())
+                    userPreferencesRepository.updateUserId(userId.toString())
                     Log.d("log", userPreferencesRepository.token)
+                    Log.d("log", userPreferencesRepository.userId)
                     findNavController().navigate(R.id.action_loginFragment_to_marketFragment)
                 } else {
                     // Tratar erro de login

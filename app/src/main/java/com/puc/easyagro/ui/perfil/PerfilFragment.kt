@@ -9,6 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentPerfilBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 
 class PerfilFragment : Fragment() {
 
@@ -31,9 +32,17 @@ class PerfilFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+       if(userPreferencesRepository.token != "") binding.btnLogin.text = "Sair"
         binding.btnLogin.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
-            findNavController().navigate(action, navOptions)
+            if(userPreferencesRepository.token == "") {
+                val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
+                findNavController().navigate(action, navOptions)
+            } else {
+                userPreferencesRepository.updateToken("")
+                binding.btnLogin.text = "Login"
+            }
+
         }
 
         _binding?.btnTarefa?.setOnClickListener {

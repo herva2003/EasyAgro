@@ -9,16 +9,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
 import com.google.gson.Gson
 import com.puc.easyagro.databinding.FragmentAddProdutoBinding
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApi
+import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.MarketDTO
 import com.puc.easyagro.ui.market.getCategoriasAdapter
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -28,7 +33,11 @@ class AddProdutoFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAddProdutoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,26 +59,30 @@ class AddProdutoFragment : Fragment() {
         binding.categoriasSpinner.adapter = adapter
     }
 
-    private fun getFormData(): Market {
+    private fun getFormData(): MarketDTO {
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+        Log.d("22", userId)
         val name = binding.anuncioInput.text.toString()
         val category = binding.categoriasSpinner.selectedItem.toString()
         val price = binding.precoInput.text.toString().toBigDecimal()
         val description = binding.descricaoInput.text.toString()
 
-        return Market(name = name, price = price, category = category, description = description)
+        return MarketDTO(name = name, price = price, category = category, description = description, userId = userId)
     }
 
     private fun validateInputFields(): Boolean {
         // Validation Rules
         val name: Boolean = binding.anuncioInput.text.toString().trim().isNotEmpty()
         val price: Boolean = binding.precoInput.text.toString().trim().isNotEmpty()
-        val category: Boolean = binding.categoriasSpinner.selectedItem.toString().trim().isNotEmpty()
+        val category: Boolean =
+            binding.categoriasSpinner.selectedItem.toString().trim().isNotEmpty()
         val description: Boolean = binding.descricaoInput.text.toString().trim().isNotEmpty()
 
         // Validation Message
         val blankMessage = "Esse campo não pode ser vazio"
 
-        if (!name  ) {
+        if (!name) {
             binding.anuncioInput.error = blankMessage
         }
 
@@ -94,11 +107,24 @@ class AddProdutoFragment : Fragment() {
         return true
     }
 
-    private fun sendDataToServer(produto: Market) {
+    private fun sendDataToServer(produto: MarketDTO) {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+
+        val interceptor = Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .header("Authorization", "Bearer ${userPreferencesRepository.token}")
+                .build()
+            chain.proceed(request)
+        }
+        val httpClient = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient)
             .build()
 
         val apiService = retrofit.create(MarketApi::class.java)
@@ -109,8 +135,7 @@ class AddProdutoFragment : Fragment() {
                 val response = apiService.addProduct(produto).execute()
                 if (response.isSuccessful) {
                     val gson = Gson()
-                    val produtoInserido: Market = gson.fromJson(response.body()?.string(), Market::class.java)
-                    produto._id = produtoInserido._id
+                    val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
                     Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
                     launch(Dispatchers.Main) {
                         Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
@@ -123,4 +148,34 @@ class AddProdutoFragment : Fragment() {
             }
         }
     }
+
+
+//    private fun sendDataToServer(produto: MarketDTO) {
+//
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(Constants.BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//
+//        val apiService = retrofit.create(MarketApi::class.java)
+//
+//        GlobalScope.launch(Dispatchers.IO) {
+//            try {
+//                Log.d("mkt", "Enviando produto: $produto")
+//                val response = apiService.addProduct(produto).execute()
+//                if (response.isSuccessful) {
+//                    val gson = Gson()
+//                    val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
+//                    Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
+//                    launch(Dispatchers.Main) {
+//                        Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
+//                    }
+//                } else {
+//                    Log.d("mkt", "Falha ao inserir produto: $response")
+//                }
+//            } catch (e: Exception) {
+//                Log.d("mkt", "Excessão ao inserir produto: $e")
+//            }
+//        }
+//    }
 }

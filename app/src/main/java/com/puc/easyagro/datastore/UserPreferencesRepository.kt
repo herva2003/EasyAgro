@@ -6,6 +6,7 @@ import androidx.core.content.edit
 private const val USER_PREFERENCES_NAME = "prefs_tokens"
 
 private const val UID_KEY = "uid"
+private const val USER_ID = "userID"
 private const val FCMTOKEN_KEY = "fcmToken"
 
 /**
@@ -23,6 +24,17 @@ class UserPreferencesRepository private constructor(context: Context) {
         get() {
             return sharedPreferences.getString(UID_KEY, "")!!
         }
+
+    var userId: String = ""
+        get() {
+            return sharedPreferences.getString(USER_ID, "")!!
+        }
+
+    fun updateUserId(newUid: String) {
+        sharedPreferences.edit {
+            putString(USER_ID, newUid)
+        }
+    }
 
     fun updateToken(newUid: String) {
         sharedPreferences.edit {
