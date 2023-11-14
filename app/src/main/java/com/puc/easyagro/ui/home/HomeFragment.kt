@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
 import com.puc.easyagro.databinding.FragmentHomeBinding
@@ -23,12 +24,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.fade_in)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.fade_out)
+            .build()
+
         _binding?.btnCulturas?.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_culturasFragment)
+            val action = HomeFragmentDirections.actionHomeFragmentToCulturasFragment()
+            findNavController().navigate(action, navOptions)
         }
 
         _binding?.btnCotacao?.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_cotacaoFragment)
+            val action = HomeFragmentDirections.actionHomeFragmentToCotacaoFragment()
+            findNavController().navigate(action, navOptions)
         }
     }
 }

@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/inspection_card_view"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="16dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/grey_300"
-    app:strokeWidth="2dp">
+    android:layout_height="140dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="8dp" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:id="@+id/relative_layout" >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="content_description_media" />
+            android:id="@+id/imgAnuncio"
+            android:layout_width="120dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0sp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitXY"
+            />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/nome_item_market"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxEms="20"
+            android:layout_toEndOf="@id/imgAnuncio"
+            android:textSize="14sp"            />
 
-            <TextView
-                android:id="@+id/nome_item_market"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <TextView
-                android:id="@+id/preco_item_market"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
+        <TextView
+            android:id="@+id/preco_item_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nome_item_market"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@id/imgAnuncio"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/data_publicacao"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_below="@id/preco_item_market"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:layout_toEndOf="@id/imgAnuncio"
+            android:text="13 novembro 18:30"
+            android:textSize="10sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

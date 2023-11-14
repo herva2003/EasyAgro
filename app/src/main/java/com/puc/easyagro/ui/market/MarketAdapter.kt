@@ -22,7 +22,6 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nomeItemMarket: TextView = itemView.findViewById(R.id.nome_item_market)
         val precoItemMarket: TextView = itemView.findViewById(R.id.preco_item_market)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -83,9 +82,9 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
         }
     }
 
-    fun updateData(newCulturasList: List<Market>) {
-        this.marketList = newCulturasList
-        this.marketListFiltered = newCulturasList
+    fun updateData(newProdutoList: List<Market>) {
+        this.marketList = newProdutoList
+        this.marketListFiltered = newProdutoList
         notifyDataSetChanged()
     }
 }

@@ -55,6 +55,24 @@
         <action
             android:id="@+id/action_perfilFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_minhaContaFragment"
+            app:destination="@id/minhaContaFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_meusAnunciosFragment"
+            app:destination="@id/meusAnunciosFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_minhasVendasFragment"
+            app:destination="@id/minhasVendasFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_minhasComprasFragment"
+            app:destination="@id/minhasComprasFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_favoritosFragment"
+            app:destination="@id/favoritosFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_carrinhoFragment"
+            app:destination="@id/carrinhoFragment" />
     </fragment>
 
     <fragment
@@ -209,5 +227,96 @@
             android:id="@+id/action_completeCadastroFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/minhaContaFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.MinhaContaFragment"
+        android:label="fragment_minha_conta"
+        tools:layout="@layout/fragment_minha_conta" >
+        <action
+            android:id="@+id/action_minhaContaFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_minhaContaFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/meusAnunciosFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.MeusAnunciosFragment"
+        android:label="fragment_meus_anuncios"
+        tools:layout="@layout/fragment_meus_anuncios">
+        <action
+            android:id="@+id/action_meusAnuncios_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_meusAnuncios_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/minhasVendasFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.MinhasVendasFragment"
+        android:label="fragment_minhas_vendas"
+        tools:layout="@layout/fragment_minhas_vendas" >
+        <action
+            android:id="@+id/action_minhasVendasFragment_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" />
+        <action
+            android:id="@+id/action_minhasVendasFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/minhasComprasFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.MinhasComprasFragment"
+        android:label="fragment_minhas_compras"
+        tools:layout="@layout/fragment_minhas_compras" >
+        <action
+            android:id="@+id/action_minhasComprasFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_minhasComprasFragment_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.FavoritosFragment"
+        android:label="fragment_favoritos"
+        tools:layout="@layout/fragment_favoritos" >
+        <action
+            android:id="@+id/action_favoritosFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_favoritosFragment_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/carrinhoFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.CarrinhoFragment"
+        android:label="CarrinhoFragment" >
+        <action
+            android:id="@+id/action_carrinhoFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_carrinhoFragment_to_viewItemMarketFragment"
+            app:destination="@id/viewItemMarketFragment" >
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+        </action>
+    </fragment>
 </navigation>

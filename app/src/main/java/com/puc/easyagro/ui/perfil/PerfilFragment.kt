@@ -33,20 +33,45 @@ class PerfilFragment : Fragment() {
             .build()
 
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
-       if(userPreferencesRepository.token != "") binding.btnLogin.text = "Sair"
-        binding.btnLogin.setOnClickListener {
-            if(userPreferencesRepository.token == "") {
-                val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
-                findNavController().navigate(action, navOptions)
-            } else {
-                userPreferencesRepository.updateToken("")
-                binding.btnLogin.text = "Login"
-            }
-
+        if(userPreferencesRepository.token == ""){
+            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
+            findNavController().navigate(action, navOptions)
+            return
         }
 
-        _binding?.btnTarefa?.setOnClickListener {
+        binding.btnProfile.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhaContaFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnMeusAnuncios.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToMeusAnunciosFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnMinhasVendas.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasVendasFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnMinhasCompras.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasComprasFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnFavoritos.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToFavoritosFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnCarrinho.setOnClickListener {
+            val action = PerfilFragmentDirections.actionPerfilFragmentToCarrinhoFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnTarefa.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_tarefaFragment)
         }
     }
+
 }

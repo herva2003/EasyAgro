@@ -22,7 +22,6 @@ import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.apiServices.LoginApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.LoginResponse
-import com.puc.easyagro.ui.perfil.PerfilFragmentDirections
 import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginFragment : Fragment() {

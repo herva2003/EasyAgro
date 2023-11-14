@@ -40,6 +40,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.cotacaoFragment -> navView.visibility = View.GONE
                 R.id.viewItemMarketFragment -> navView.visibility = View.GONE
                 R.id.completeCadastroFragment -> navView.visibility = View.GONE
+                R.id.minhaContaFragment -> navView.visibility = View.GONE
+                R.id.meusAnunciosFragment -> navView.visibility = View.GONE
+                R.id.minhasVendasFragment -> navView.visibility = View.GONE
+                R.id.minhasComprasFragment -> navView.visibility = View.GONE
+                R.id.favoritosFragment -> navView.visibility = View.GONE
+                R.id.carrinhoFragment -> navView.visibility = View.GONE
 
                 else -> navView.visibility = View.VISIBLE
             }

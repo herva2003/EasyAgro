@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.market
+package com.puc.easyagro.ui.perfil.buttons
 
 import android.os.Bundle
 import android.text.Editable
@@ -15,25 +15,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
-import com.puc.easyagro.databinding.FragmentMarketBinding
-import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.home.cotacao.CotacaoFragmentDirections
+import com.puc.easyagro.databinding.FragmentMeusAnunciosBinding
+import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MarketFragment : Fragment() {
+class MeusAnunciosFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MarketAdapter
 
-    private var _binding: FragmentMarketBinding? = null
+    private var _binding: FragmentMeusAnunciosBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        _binding = FragmentMarketBinding.inflate(inflater, container, false)
+        _binding = FragmentMeusAnunciosBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,17 +52,14 @@ class MarketFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        adapter = MarketAdapter(emptyList()) { itemId, itemString ->
-            val action = MarketFragmentDirections.actionMarketFragmentToViewItemMarketFragment(itemId, itemString)
+        adapter = MarketAdapter(emptyList()) { itemId, _ ->
+            val action =
+                MeusAnunciosFragmentDirections.actionMeusAnunciosToViewItemMarketFragment(itemId)
             findNavController().navigate(action, navOptions)
         }
 
-        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
-        _binding?.btnAddProduto?.isEnabled = userPreferencesRepository.token != ""
-
-        _binding?.btnAddProduto?.setOnClickListener {
-            val action = MarketFragmentDirections.actionMarketFragmentToAddProdutoFragment()
-            findNavController().navigate(action, navOptions)
+        binding.btnArrow.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         recyclerView.adapter = adapter

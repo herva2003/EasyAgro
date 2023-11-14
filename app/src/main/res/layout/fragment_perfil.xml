@@ -7,165 +7,164 @@
     android:layout_height="match_parent"
     tools:context=".ui.perfil.PerfilFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_profile"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_profile"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_perfil"
-        android:drawableEnd="@drawable/ic_arrow_forward"
-        android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="Minha conta"
-        android:textAllCaps="false"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
-        android:textColor="@color/grey_700"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_profile" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_perfil"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Herva"
+                android:textAllCaps="false"
+                android:textColor="@color/button_text_colors"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minha conta"
+                android:textAllCaps="false"
+                android:textColor="@color/green_pi"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_meus_anuncios"
+        android:id="@+id/btn_meus_anuncios"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@null"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
         android:drawableStart="@drawable/ic_anuncios"
-        android:drawableEnd="@drawable/ic_arrow_forward"
         android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="Meus Anúncios"
-        android:textAllCaps="false"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Meus anuncios"
         android:textAlignment="textStart"
-        android:textSize="12sp"
-        android:textColor="@color/grey_700"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_profile" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_minhas_vendas"
+        android:id="@+id/btn_minhas_vendas"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@null"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
         android:drawableStart="@drawable/ic_vendas"
-        android:drawableEnd="@drawable/ic_arrow_forward"
         android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="Minhas Vendas"
-        android:textAllCaps="false"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Minhas vendas"
         android:textAlignment="textStart"
-        android:textSize="12sp"
-        android:textColor="@color/grey_700"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_meus_anuncios" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_minhas_vendas" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_meus_anuncios" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_minhas_compras"
+        android:id="@+id/btn_minhas_compras"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@null"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
         android:drawableStart="@drawable/ic_compras"
-        android:drawableEnd="@drawable/ic_arrow_forward"
         android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="Minhas Compras"
-        android:textAllCaps="false"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Minhas compras"
         android:textAlignment="textStart"
-        android:textSize="12sp"
-        android:textColor="@color/grey_700"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_minhas_vendas" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_favoritos"
+        android:id="@+id/btn_favoritos"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_market"
-        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
+        android:drawableStart="@drawable/ic_compras"
         android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
         android:text="Favoritos"
         android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="@color/grey_700"
-        android:textSize="12sp"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_minhas_compras" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_carrinho"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
+        android:drawableStart="@drawable/ic_market"
+        android:drawablePadding="10dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Carrinho"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_favoritos" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_todas_tarefas"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/grey_bg"
+        android:drawableStart="@drawable/ic_task"
+        android:drawablePadding="10dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Tarefa"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/button_text_colors"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_minhas_compras" />
-
-    <View
-        android:id="@+id/divider4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_favoritos" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_view_todas_tarefas"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@null"
-        android:drawableStart="@drawable/ic_task"
-        android:drawableEnd="@drawable/ic_arrow_forward"
-        android:drawablePadding="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="Todas as Tarefas"
-        android:textAllCaps="false"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
-        android:textColor="@color/grey_700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4" />
-
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_view_todas_tarefas" />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userProfilePostsRecycler" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_carrinho" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userProfilePostsRecycler"
