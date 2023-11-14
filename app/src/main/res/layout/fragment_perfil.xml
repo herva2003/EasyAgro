@@ -167,27 +167,13 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_carrinho" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userProfilePostsRecycler"
-        android:layout_width="413dp"
-        android:layout_height="350dp"
+        android:id="@+id/recycler_view_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tvProfileNoDataFound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:text="Nenhuma tarefa encontrada"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/userProfilePostsRecycler"
-        app:layout_constraintEnd_toEndOf="@+id/userProfilePostsRecycler"
-        app:layout_constraintStart_toStartOf="@+id/userProfilePostsRecycler"
-        app:layout_constraintTop_toTopOf="@+id/userProfilePostsRecycler" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_todas_tarefas" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnTarefa"

@@ -1,6 +1,8 @@
-package com.puc.easyagro.ui.perfil
+package com.puc.easyagro.ui.perfil.buttons
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +13,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.CulturasApi
+import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
-import com.puc.easyagro.databinding.FragmentPerfilBinding
+import com.puc.easyagro.databinding.FragmentMinhasTarefasBinding
+import com.puc.easyagro.databinding.FragmentMinhasVendasBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.ui.market.MarketAdapter
 import com.puc.easyagro.ui.perfil.tarefas.TarefaAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,32 +28,27 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PerfilFragment : Fragment() {
-
+class MinhasTarefasFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TarefaAdapter
 
-    private var _binding: FragmentPerfilBinding? = null
+    private var _binding: FragmentMinhasTarefasBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        _binding = FragmentPerfilBinding.inflate(inflater, container, false)
+        _binding = FragmentMinhasTarefasBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = binding.recyclerViewPerfil
+        recyclerView = binding.recyclerViewTarefas
 
         val numberOfColumns = 1
         recyclerView.layoutManager = GridLayoutManager(requireContext(), numberOfColumns)
-
-        adapter = TarefaAdapter(emptyList())
-
-        recyclerView.adapter = adapter
 
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
@@ -56,53 +57,21 @@ class PerfilFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
-        if(userPreferencesRepository.token == ""){
-            val action = PerfilFragmentDirections.actionPerfilFragmentToLoginFragment()
-            findNavController().navigate(action, navOptions)
-            return
+        adapter = TarefaAdapter(emptyList())
+
+        binding.btnArrow.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        binding.btnProfile.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhaContaFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMeusAnuncios.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMeusAnunciosFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMinhasVendas.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasVendasFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMinhasCompras.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasComprasFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnFavoritos.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToFavoritosFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnCarrinho.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToCarrinhoFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnTodasTarefas.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasTarefasFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnTarefa.setOnClickListener {
-            findNavController().navigate(R.id.action_perfilFragment_to_tarefaFragment)
-        }
+        recyclerView.adapter = adapter
 
         fetchDataFromServer()
+
+        val pullToRefresh = binding.pullToRefresh
+        pullToRefresh.setOnRefreshListener {
+            fetchDataFromServer()
+            pullToRefresh.isRefreshing = false
+        }
     }
 
     private fun fetchDataFromServer() {
@@ -121,12 +90,7 @@ class PerfilFragment : Fragment() {
             try {
                 val response = apiService.getTarefa(userId).execute()
                 if (response.isSuccessful) {
-
                     var tarefaList = response.body() ?: emptyList()
-
-                    if (tarefaList.size > 2) {
-                        tarefaList = tarefaList.take(2)
-                    }
 
                     Log.d("taf", "Culturas: $tarefaList")
 
@@ -141,5 +105,4 @@ class PerfilFragment : Fragment() {
             }
         }
     }
-
 }

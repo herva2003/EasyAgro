@@ -68,10 +68,18 @@
             android:layout_height="match_parent"
             android:background="@color/colorNull">
 
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título da notificação"
+                android:inputType="text" />
+
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 android:paddingStart="8dp"

@@ -17,6 +17,7 @@ import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApiDetalhe
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,6 +67,7 @@ class ViewItemMarketFragment : Fragment() {
     }
 
     private fun addItemCarrinho(itemId: String) {
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -73,7 +75,7 @@ class ViewItemMarketFragment : Fragment() {
             .build()
 
         val apiService = retrofit.create(CarrinhoApi::class.java)
-        val userId = "65403d09c49bbd1b44fd2f52"
+        val userId = userPreferencesRepository.userId
 
         val itemUser = JsonObject()
         itemUser.addProperty("itemId", itemId)
@@ -86,7 +88,7 @@ class ViewItemMarketFragment : Fragment() {
                     Log.d("mkt","Item adicionado ao carrinho")
                     Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
                 } else {
-                    val errorBody = response.errorBody()?.string()
+                    response.errorBody()?.string()
                     Log.d("mkt","Erro ao adicionar item ao carrinho: ${response.code()}")
                 }
             }

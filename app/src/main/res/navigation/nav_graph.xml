@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_perfilFragment_to_carrinhoFragment"
             app:destination="@id/carrinhoFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_minhasTarefasFragment"
+            app:destination="@id/minhasTarefasFragment" />
     </fragment>
 
     <fragment
@@ -318,5 +321,14 @@
                 android:name="itemId"
                 app:argType="string" />
         </action>
+    </fragment>
+    <fragment
+        android:id="@+id/minhasTarefasFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.MinhasTarefasFragment"
+        android:label="fragment_minhas_tarefas"
+        tools:layout="@layout/fragment_minhas_tarefas" >
+        <action
+            android:id="@+id/action_minhasTarefasFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
     </fragment>
 </navigation>
