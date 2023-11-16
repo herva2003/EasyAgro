@@ -18,7 +18,7 @@ interface UserApi {
     fun addUser(@Body user: Usuario): Call<ResponseBody>
 
     @PUT("/user/{id}")
-    fun updateUser(@Path("id") id: String, @Body user: Usuario): Call<ResponseBody>
+    fun completeUser(@Path("id") id: String, @Body user: Usuario): Call<ResponseBody>
 
     @PUT("/user/{id}/tarefa")
     fun addTarefa2(@Path("id") id: String, @Body tarefa: Tarefa): Call<ResponseBody>
@@ -28,5 +28,27 @@ interface UserApi {
 
     @GET("/user/{id}/tarefa")
     fun getTarefa(@Path("id") id: String): Call<List<Tarefa>>
+
+    @GET("/user/{id}/user")
+    fun getUser(@Path("id") id: String): Call<Usuario>
+
+    @PUT("/user/{id}/user")
+    fun updateUser(@Path("id") id: String, @Body user: Usuario): Call<ResponseBody>
+
+    @GET("/user/{id}/carrinho")
+    fun getItemCarrinho(@Path("id") id: String): Call<List<Market>>
+
+    @GET("/user/{id}/anuncios")
+    fun getMeusAnuncios(@Path("id") id: String): Call<List<Market>>
+
+    @GET("/user/{id}/favoritos")
+    fun getFavoritos(@Path("id") id: String): Call<List<Market>>
+
+
+    data class FavoritoResponse(
+        val isFavorito: Boolean
+    )
+    @GET("/user/{id}/favoritos/{itemId}")
+    fun isItemFavorito(@Path("id") id: String, @Path("itemId") itemId: String): Call<FavoritoResponse>
 
 }

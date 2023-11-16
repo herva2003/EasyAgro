@@ -99,7 +99,7 @@ class MinhasVendasFragment : Fragment() {
                 if (response.isSuccessful) {
                     var marketList = response.body() ?: emptyList()
 
-                    Log.d("mkt", "Produtos: $marketList")
+                    Log.d("user", "Produtos: $marketList")
 
                     marketList = marketList.sortedBy { it.name }
 
@@ -108,7 +108,7 @@ class MinhasVendasFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("mkt", "Exception during data fetch", e)
+                Log.e("user", "Exception during data fetch", e)
             }
         }
     }

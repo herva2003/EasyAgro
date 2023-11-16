@@ -39,21 +39,26 @@ class CompleteCadastroFragment : Fragment() {
         binding.btnRegister.setOnClickListener {
             if (validateInputFields()) {
                 if (userId != null) {
-                    updateACC(getFormData(), userId)
+                    updateACC(getFormData(), userId) {
+                        val action = CompleteCadastroFragmentDirections.actionCompleteCadastroFragmentToHomeFragment()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }
     }
 
     private fun getFormData(): Usuario {
-        val nome = binding.inputName.text.toString()
-        val endereco = binding.inputAddress1.text.toString()
-        val phoneNumber = binding.inputPhoneNumber.text.toString()
+        val apelido = binding.inputApelido.text.toString()
+        val nome = binding.inputNome.text.toString()
+        val endereco = binding.inputEndereco.text.toString()
+        val telefone = binding.inputTelefone.text.toString()
+        val cpf = binding.inputCpf.text.toString()
 
-        return Usuario(nome = nome, phoneNumber = phoneNumber, endereco = endereco)
+        return Usuario(nome = nome, telefone = telefone, endereco = endereco, apelido = apelido, cpf = cpf)
     }
 
-    private fun updateACC(user: Usuario, userId: String) {
+    private fun updateACC(user: Usuario, userId: String, onSuccess: () -> Unit) {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -65,15 +70,13 @@ class CompleteCadastroFragment : Fragment() {
             try {
                 Log.d("cad", "Atualizando conta: $userId")
 
-                val response = apiService.updateUser(userId, user).execute()
+                val response = apiService.completeUser(userId, user).execute()
                 if (response.isSuccessful) {
                     Log.d("cad", "Conta atualizada com sucesso")
 
-                    val action = CompleteCadastroFragmentDirections.actionCompleteCadastroFragmentToPerfilFragment()
-                    findNavController().navigate(action)
-
                     launch(Dispatchers.Main) {
                         Toast.makeText(context, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+                        onSuccess()
                     }
 
                 } else {
@@ -89,26 +92,36 @@ class CompleteCadastroFragment : Fragment() {
 
     private fun validateInputFields(): Boolean {
         // Validation Rules
-        val nameValidation: Boolean = binding.inputName.text.toString().trim().isNotEmpty()
-        val address1Validation: Boolean = binding.inputAddress1.text.toString().trim().isNotEmpty()
-        val phoneNumberValidation: Boolean = binding.inputPhoneNumber.text.toString().trim().isNotEmpty()
+        val nomeValidation: Boolean = binding.inputNome.text.toString().trim().isNotEmpty()
+        val enderecoValidation: Boolean = binding.inputEndereco.text.toString().trim().isNotEmpty()
+        val telefoneValidation: Boolean = binding.inputTelefone.text.toString().trim().isNotEmpty()
+        val apelidoValidation: Boolean = binding.inputApelido.text.toString().trim().isNotEmpty()
+        val cpfValidation: Boolean = binding.inputCpf.text.toString().trim().isNotEmpty()
 
         // Validation Message
         val blankMessage = "Esse campo não pode ser vazio"
 
-        if (!nameValidation  ) {
-            binding.inputName.error = blankMessage
+        if (!nomeValidation  ) {
+            binding.inputNome.error = blankMessage
         }
 
-        if (!address1Validation) {
-            binding.inputAddress1.error = blankMessage
+        if (!enderecoValidation) {
+            binding.inputEndereco.error = blankMessage
         }
 
-        if (!phoneNumberValidation) {
-            binding.inputPhoneNumber.error = blankMessage
+        if (!telefoneValidation) {
+            binding.inputTelefone.error = blankMessage
         }
 
-        if (!nameValidation || !address1Validation || !phoneNumberValidation) {
+        if (!apelidoValidation) {
+            binding.inputApelido.error = blankMessage
+        }
+
+        if (!cpfValidation) {
+            binding.inputCpf.error = blankMessage
+        }
+
+        if (!nomeValidation || !enderecoValidation || !telefoneValidation || !apelidoValidation || !cpfValidation) {
             Toast.makeText(activity, "Tente novamente!", Toast.LENGTH_SHORT).show()
             return false
         }

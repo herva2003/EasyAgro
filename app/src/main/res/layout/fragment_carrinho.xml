@@ -69,7 +69,8 @@
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_comprar"
         app:layout_constraintTop_toBottomOf="@+id/buscar_produto">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -77,9 +78,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="55dp"/>
+            android:paddingEnd="8dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_comprar"
+        android:layout_width="309dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/green_bar"
+        android:text="Comprar agora"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

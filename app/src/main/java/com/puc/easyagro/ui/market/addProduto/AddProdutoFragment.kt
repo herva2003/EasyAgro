@@ -110,6 +110,10 @@ class AddProdutoFragment : Fragment() {
     private fun sendDataToServer(produto: MarketDTO) {
 
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        // Adicione o ID do usuário ao produto
+        produto.userId = userId
 
         val interceptor = Interceptor { chain ->
             val request = chain.request().newBuilder()
@@ -134,8 +138,7 @@ class AddProdutoFragment : Fragment() {
                 Log.d("mkt", "Enviando produto: $produto")
                 val response = apiService.addProduct(produto).execute()
                 if (response.isSuccessful) {
-                    val gson = Gson()
-                    val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
+                    val produtoInserido: MarketDTO = response.body()!!
                     Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
                     launch(Dispatchers.Main) {
                         Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
@@ -149,33 +152,4 @@ class AddProdutoFragment : Fragment() {
         }
     }
 
-
-//    private fun sendDataToServer(produto: MarketDTO) {
-//
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//        val apiService = retrofit.create(MarketApi::class.java)
-//
-//        GlobalScope.launch(Dispatchers.IO) {
-//            try {
-//                Log.d("mkt", "Enviando produto: $produto")
-//                val response = apiService.addProduct(produto).execute()
-//                if (response.isSuccessful) {
-//                    val gson = Gson()
-//                    val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
-//                    Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
-//                    launch(Dispatchers.Main) {
-//                        Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else {
-//                    Log.d("mkt", "Falha ao inserir produto: $response")
-//                }
-//            } catch (e: Exception) {
-//                Log.d("mkt", "Excessão ao inserir produto: $e")
-//            }
-//        }
-//    }
 }

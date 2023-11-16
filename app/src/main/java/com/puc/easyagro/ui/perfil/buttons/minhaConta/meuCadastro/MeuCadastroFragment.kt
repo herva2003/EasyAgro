@@ -1,0 +1,109 @@
+package com.puc.easyagro.ui.perfil.buttons.minhaConta.meuCadastro
+
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.puc.easyagro.apiServices.UserApi
+import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.databinding.FragmentMeuCadastroBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.Usuario
+import com.puc.easyagro.ui.perfil.PerfilFragmentDirections
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class MeuCadastroFragment : Fragment() {
+    private lateinit var binding: FragmentMeuCadastroBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentMeuCadastroBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.arrowImage.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnUpdate.setOnClickListener{
+            updateUserOnServer()
+        }
+
+        fetchUserFromServer()
+
+    }
+
+    private fun fetchUserFromServer() {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(UserApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.getUser(userId).execute()
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    launch(Dispatchers.Main) {
+                        binding.inputApelido.setText(user?.apelido)
+                        binding.inputTelefone.setText(user?.telefone)
+                        binding.inputEndereco.setText(user?.endereco)
+                        binding.inputNome.setText(user?.nome)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("taf", "Exception during data fetch", e)
+            }
+        }
+    }
+
+
+    private fun updateUserOnServer() {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(UserApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val user = Usuario(
+                    apelido = binding.inputApelido.text.toString(),
+                    nome = binding.inputNome.text.toString(),
+                    endereco = binding.inputEndereco.text.toString(),
+                    telefone = binding.inputTelefone.text.toString()
+                )
+                val response = apiService.updateUser(userId, user).execute()
+                if (response.isSuccessful) {
+                    launch(Dispatchers.Main) {
+                        Toast.makeText(context, "Usuário atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("taf", "Exception during data update", e)
+            }
+        }
+    }
+
+}

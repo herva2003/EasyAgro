@@ -81,15 +81,21 @@ class TarefaFragment : Fragment() {
         }
     }
 
-    private fun scheduleNotification(delay: Long, data: Data) {
+    private fun scheduleNotification(delay: Long, title: String) {
+        val inputData = Data.Builder()
+            .putInt(NOTIFICATION_ID, 0)
+            .putString("title", title)
+            .build()
+
         val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS).setInputData(data).build()
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS).setInputData(inputData).build()
 
         val instanceWorkManager = WorkManager.getInstance(requireContext())
         instanceWorkManager.beginUniqueWork(
             NotifyWork.NOTIFICATION_WORK,
             ExistingWorkPolicy.REPLACE, notificationWork).enqueue()
     }
+
 
     private fun userInterface() {
 
@@ -112,7 +118,9 @@ class TarefaFragment : Fragment() {
                     if (customTime > currentTime) {
                         val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
                         val delay = customTime - currentTime
-                        scheduleNotification(delay, data)
+                        val titleNotification = binding.editText.text.toString()
+                        scheduleNotification(delay, titleNotification)
+
 
                         val titleNotificationSchedule = getString(R.string.notification_schedule_title)
                         val patternNotificationSchedule =

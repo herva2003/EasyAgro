@@ -27,6 +27,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Math.abs
+import java.time.Duration
+import java.time.LocalDateTime
 
 class MinhasTarefasFragment : Fragment() {
 
@@ -92,16 +95,21 @@ class MinhasTarefasFragment : Fragment() {
                 if (response.isSuccessful) {
                     var tarefaList = response.body() ?: emptyList()
 
-                    Log.d("taf", "Culturas: $tarefaList")
+                    Log.d("user", "Culturas: $tarefaList")
 
-                    tarefaList = tarefaList.sortedWith(compareBy({it.year}, {it.month}, { it.day }, { it.hour }, {it.minute})).reversed()
+                    val now = LocalDateTime.now()
+
+                    tarefaList = tarefaList.sortedBy {
+                        val tarefaDateTime = LocalDateTime.of(it.year, it.month, it.day, it.hour, it.minute)
+                        kotlin.math.abs(Duration.between(tarefaDateTime, now).toMinutes())
+                    }
 
                     launch(Dispatchers.Main) {
                         adapter.updateData(tarefaList)
                     }
                 }
             } catch (e: Exception) {
-                Log.e("taf", "Exception during data fetch", e)
+                Log.e("user", "Exception during data fetch", e)
             }
         }
     }

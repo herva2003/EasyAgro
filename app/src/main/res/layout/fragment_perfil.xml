@@ -38,9 +38,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/txt_apelido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Herva"
+                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/button_text_colors"
                 android:textSize="14sp" />

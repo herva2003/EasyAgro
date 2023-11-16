@@ -1,11 +1,17 @@
 package com.puc.easyagro.ui.market.viewItemMarket
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -16,6 +22,7 @@ import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApiDetalhe
+import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +47,6 @@ class ViewItemMarketFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val itemId = arguments?.getString("itemId")!!
         val itemString = arguments?.getString("itemString")
 
@@ -63,8 +69,86 @@ class ViewItemMarketFragment : Fragment() {
             addItemCarrinho(itemId)
         }
 
+        binding.btnCoracao.setOnClickListener{
+            addItemFavoritos(itemId)
+        }
+
+        isItemFavorito(itemId)
         fetchDataFromServer(itemId)
     }
+
+    private fun addItemFavoritos(itemId: String){
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(CarrinhoApi::class.java)
+        val userId = userPreferencesRepository.userId
+
+        val itemUser = JsonObject()
+        itemUser.addProperty("itemId", itemId)
+        itemUser.addProperty("userId", userId)
+
+        val call = apiService.addItemFavoritos(itemUser)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("mkt","Item adicionado aos favoritos")
+                    Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
+
+                    val heartIcon: ImageView = binding.btnCoracao
+                    val heartDrawable = context?.let { ContextCompat.getDrawable(it, R.drawable.coracao) } as VectorDrawable
+                    heartDrawable.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context!!, R.color.red_700), PorterDuff.Mode.SRC_IN)
+                    heartIcon.setImageDrawable(heartDrawable)
+                } else {
+                    response.errorBody()?.string()
+                    Log.d("mkt","Erro ao adicionar item aos favoritos: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, e: Throwable) {
+                Log.e("mkt", "Falha na chamada: ${e.message}")
+            }
+        })
+    }
+
+    private fun isItemFavorito(itemId: String) {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(UserApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.isItemFavorito(userId, itemId).execute()
+                if (response.isSuccessful) {
+                    val isFavorito = response.body()?.isFavorito ?: false
+
+                    launch(Dispatchers.Main) {
+                        if (isFavorito) {
+                            val heartIcon: ImageView = binding.btnCoracao
+                            val heartDrawable = context?.let { ContextCompat.getDrawable(it, R.drawable.coracao) } as VectorDrawable
+                            heartDrawable.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(requireContext(), R.color.red_700), PorterDuff.Mode.SRC_IN)
+                            heartIcon.setImageDrawable(heartDrawable)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("mkt", "Exception during data fetch", e)
+            }
+        }
+    }
+
+
 
     private fun addItemCarrinho(itemId: String) {
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
@@ -81,7 +165,7 @@ class ViewItemMarketFragment : Fragment() {
         itemUser.addProperty("itemId", itemId)
         itemUser.addProperty("userId", userId)
 
-        val call = apiService.addItem(itemUser)
+        val call = apiService.addItemCarrinnho(itemUser)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {

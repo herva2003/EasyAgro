@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.MarketApi
+import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentFavoritosBinding
 import com.puc.easyagro.databinding.FragmentMeusAnunciosBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -88,29 +90,30 @@ class FavoritosFragment : Fragment() {
 
     private fun fetchDataFromServer() {
 
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(MarketApi::class.java)
+        val apiService = retrofit.create(UserApi::class.java)
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.getItemsMarket().execute()
+                val response = apiService.getFavoritos(userId).execute()
                 if (response.isSuccessful) {
-                    var marketList = response.body() ?: emptyList()
+                    val favoritosList = response.body() ?: emptyList()
 
-                    Log.d("mkt", "Produtos: $marketList")
-
-                    marketList = marketList.sortedBy { it.name }
+                    Log.d("car", "Favoritos: $favoritosList")
 
                     launch(Dispatchers.Main) {
-                        adapter.updateData(marketList)
+                        adapter.updateData(favoritosList)
                     }
                 }
             } catch (e: Exception) {
-                Log.e("mkt", "Exception during data fetch", e)
+                Log.e("car", "Exception during data fetch", e)
             }
         }
     }

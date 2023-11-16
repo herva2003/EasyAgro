@@ -21,6 +21,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Duration
+import java.time.LocalDateTime
 
 class PerfilFragment : Fragment() {
 
@@ -103,6 +105,7 @@ class PerfilFragment : Fragment() {
         }
 
         fetchDataFromServer()
+        fetchUserFromServer()
     }
 
     private fun fetchDataFromServer() {
@@ -124,13 +127,18 @@ class PerfilFragment : Fragment() {
 
                     var tarefaList = response.body() ?: emptyList()
 
+                    Log.d("taf", "Culturas: $tarefaList")
+
+                    val now = LocalDateTime.now()
+
+                    tarefaList = tarefaList.sortedBy {
+                        val tarefaDateTime = LocalDateTime.of(it.year, it.month, it.day, it.hour, it.minute)
+                        kotlin.math.abs(Duration.between(tarefaDateTime, now).toMinutes())
+                    }
+
                     if (tarefaList.size > 2) {
                         tarefaList = tarefaList.take(2)
                     }
-
-                    Log.d("taf", "Culturas: $tarefaList")
-
-                    tarefaList = tarefaList.sortedWith(compareBy({it.year}, {it.month}, { it.day }, { it.hour }, {it.minute})).reversed()
 
                     launch(Dispatchers.Main) {
                         adapter.updateData(tarefaList)
@@ -142,4 +150,30 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    private fun fetchUserFromServer() {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(UserApi::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.getUser(userId).execute()
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    launch(Dispatchers.Main) {
+                        binding.txtApelido.text = user?.apelido
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("taf", "Exception during data fetch", e)
+            }
+        }
+    }
 }

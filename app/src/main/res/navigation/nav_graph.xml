@@ -227,12 +227,12 @@
         android:label="fragment_complete_cadastro"
         tools:layout="@layout/fragment_complete_cadastro" >
         <action
-            android:id="@+id/action_completeCadastroFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
+            android:id="@+id/action_completeCadastroFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/minhaContaFragment"
-        android:name="com.puc.easyagro.ui.perfil.buttons.MinhaContaFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.minhaConta.MinhaContaFragment"
         android:label="fragment_minha_conta"
         tools:layout="@layout/fragment_minha_conta" >
         <action
@@ -241,6 +241,9 @@
         <action
             android:id="@+id/action_minhaContaFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_minhaContaFragment_to_meuCadastroFragment"
+            app:destination="@id/meuCadastroFragment" />
     </fragment>
 
     <fragment
@@ -330,5 +333,14 @@
         <action
             android:id="@+id/action_minhasTarefasFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meuCadastroFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.minhaConta.meuCadastro.MeuCadastroFragment"
+        android:label="fragment_meu_cadastro"
+        tools:layout="@layout/fragment_meu_cadastro" >
+        <action
+            android:id="@+id/action_meuCadastroFragment_to_minhaContaFragment"
+            app:destination="@id/minhaContaFragment" />
     </fragment>
 </navigation>

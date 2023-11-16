@@ -22,7 +22,7 @@ interface MarketApi {
 //    fun addProduct(@Body produto: MarketDTO): Call<ResponseBody>
 
     @POST("/mercado/")
-    fun addProduct(@Body produto: MarketDTO): Call<ResponseBody>
+    fun addProduct(@Body produto: MarketDTO): Call<MarketDTO>
 }
 
 interface MarketApiDetalhe {
@@ -32,6 +32,9 @@ interface MarketApiDetalhe {
 
 interface CarrinhoApi {
     @POST("/mercado/carrinho")
-    fun addItem(@Body itemUser: JsonObject): Call<Void>
+    fun addItemCarrinnho(@Body itemUser: JsonObject): Call<Void>
+
+    @POST("/mercado/favoritos")
+    fun addItemFavoritos(@Body itemUser: JsonObject): Call<Void>
 }
 

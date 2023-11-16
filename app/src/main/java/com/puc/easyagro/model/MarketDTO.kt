@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 data class MarketDTO (
     val name: String? = null,
-    val userId: String,
+    var userId: String,
     val price: BigDecimal? = null,
     val category: String? = null,
     val description: String? = null,

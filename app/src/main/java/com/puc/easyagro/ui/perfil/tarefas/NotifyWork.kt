@@ -33,13 +33,15 @@ class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, p
 
     override fun doWork(): Result {
         val id = inputData.getLong(NOTIFICATION_ID, 0).toInt()
-        sendNotification(id)
+        val title = inputData.getString("title") ?: ""
+
+        sendNotification(id, title)
 
         return success()
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
-    private fun sendNotification(id: Int) {
+    private fun sendNotification(id: Int, title: String) {
         val intent = Intent(applicationContext, MainActivity::class.java)
         intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         intent.putExtra(NOTIFICATION_ID, id)
@@ -57,7 +59,7 @@ class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, p
         }
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
             .setLargeIcon(bitmap).setSmallIcon(R.drawable.ic_schedule_white)
-            .setContentTitle(titleNotification).setContentText(subtitleNotification)
+            .setContentTitle(titleNotification).setContentText(title)
             .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
 
         notification.priority = PRIORITY_MAX

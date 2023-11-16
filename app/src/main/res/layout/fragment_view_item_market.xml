@@ -37,6 +37,18 @@
         app:layout_constraintStart_toEndOf="@+id/btn_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/btn_coracao"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/coracao"
+        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
+        app:layout_constraintEnd_toEndOf="@+id/green_rectangle"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toEndOf="@+id/txt_anuncio"
+        app:layout_constraintTop_toTopOf="@+id/green_rectangle"
+        app:layout_constraintVertical_bias="0.6" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
