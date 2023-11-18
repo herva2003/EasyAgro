@@ -168,7 +168,7 @@ class PerfilFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     launch(Dispatchers.Main) {
-                        binding.txtApelido.text = user?.apelido
+                        binding.txtApelido.text = user?.nickname
                     }
                 }
             } catch (e: Exception) {

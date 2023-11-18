@@ -3,38 +3,40 @@ package com.puc.easyagro.apiServices
 import com.google.gson.JsonObject
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.model.MarketDTO
+import com.puc.easyagro.model.Task
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MarketApi {
 
-//    @GET("api/products")
-//    fun getItemsMarket(): Call<List<Market>>
-
-    @GET("/mercado/")
+    @GET("api/products")
     fun getItemsMarket(): Call<List<Market>>
 
-//    @POST("api/products/create")
-//    fun addProduct(@Body produto: MarketDTO): Call<ResponseBody>
+//    @GET("/mercado/")
+//    fun getItemsMarket(): Call<List<Market>>
 
-    @POST("/mercado/")
-    fun addProduct(@Body produto: MarketDTO): Call<MarketDTO>
+    @POST("api/products/create")
+    fun addProduct(@Body produto: MarketDTO): Call<ResponseBody>
+
+//    @POST("/mercado/")
+//    fun addProduct(@Body produto: MarketDTO): Call<MarketDTO>
 }
 
 interface MarketApiDetalhe {
-    @GET("/mercado/{id}")
-    fun getItem(@Path("id") id: String): Call<Market>
+    @GET("api/products/single/{productId}")
+    fun getItem(@Path("productId") id: String): Call<Market>
 }
 
 interface CarrinhoApi {
-    @POST("/mercado/carrinho")
+    @POST("user/cart/add")
     fun addItemCarrinnho(@Body itemUser: JsonObject): Call<Void>
 
-    @POST("/mercado/favoritos")
+    @POST("user/favorite/add")
     fun addItemFavoritos(@Body itemUser: JsonObject): Call<Void>
 }
 

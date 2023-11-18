@@ -22,15 +22,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentTarefaBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.model.Tarefa
+import com.puc.easyagro.model.MarketDTO
+import com.puc.easyagro.model.Task
 import com.puc.easyagro.ui.perfil.tarefas.NotifyWork.Companion.NOTIFICATION_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
@@ -150,8 +153,8 @@ class TarefaFragment : Fragment() {
                 val editText = binding.editText
                 val text = editText.text.toString()
 
-                val tarefaData = Tarefa(
-                    titleNotification = text,
+                val tarefaData = Task(
+                    title = text,
                     year = binding.datePicker.year,
                     month = binding.datePicker.month + 1,
                     day = binding.datePicker.dayOfMonth,
@@ -164,8 +167,7 @@ class TarefaFragment : Fragment() {
         }
     }
 
-    private fun sendDataToServer(tarefa: Tarefa) {
-
+    private fun sendDataToServer(tarefa: Task) {
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
         val userId = userPreferencesRepository.userId
 
@@ -176,30 +178,66 @@ class TarefaFragment : Fragment() {
 
         val apiService = retrofit.create(UserApi::class.java)
 
-        val gson = Gson()
-        val tarefaJsonElement = gson.toJsonTree(tarefa)
-
-        val tarefaJson = JsonObject()
-        tarefaJson.add("tarefa", tarefaJsonElement)
-
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.addTarefa(userId, tarefaJson).execute()
+                val response = apiService.addTarefa(userId, tarefa).execute()
                 if (response.isSuccessful) {
-
                     launch(Dispatchers.Main) {
                         Toast.makeText(context, "Tarefa criada com sucesso!", Toast.LENGTH_SHORT).show()
                     }
-
                 } else {
                     Log.d("taf", "Falha ao criar tarefa: $response")
                 }
-
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d("taf", "Exception ao criar tarefa: ", e)
             }
         }
     }
+
+
+
+
+
+//    private fun sendDataToServer(tarefa: Task) {
+//
+//        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+//        val userId = userPreferencesRepository.userId
+//
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(Constants.BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//
+//        val apiService = retrofit.create(UserApi::class.java)
+//
+//        val gson = Gson()
+//        val tarefaJsonElement = gson.toJsonTree(tarefa)
+//
+//        val taskInserida: Task = gson.toJsonTree(tarefa)
+//
+//        val tarefaJson = JsonObject()
+//        tarefaJson.add("tarefa", tarefaJsonElement)
+//
+//        Log.d("oi",tarefaJsonElement.toString())
+//
+//        GlobalScope.launch(Dispatchers.IO) {
+//            try {
+//                val response = apiService.addTarefa(userId, tarefaJson).execute()
+//                if (response.isSuccessful) {
+//
+//                    launch(Dispatchers.Main) {
+//                        Toast.makeText(context, "Tarefa criada com sucesso!", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                } else {
+//                    Log.d("taf", "Falha ao criar tarefa: $response")
+//                }
+//
+//            }catch (e: Exception) {
+//                Log.d("taf", "Exception ao criar tarefa: ", e)
+//            }
+//        }
+//    }
 
     private fun validateInputFields(): Boolean {
         val name: Boolean = binding.editText.text.toString().trim().isNotEmpty()

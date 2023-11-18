@@ -15,12 +15,14 @@ import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.apiServices.CulturasApiItem
 import com.puc.easyagro.model.Deficiencia
 import com.puc.easyagro.model.Doenca
+import com.puc.easyagro.model.NameRequestBody
 import com.puc.easyagro.model.Praga
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URLEncoder
 
 class DetalhesItemFragment : Fragment() {
 
@@ -91,20 +93,20 @@ class DetalhesItemFragment : Fragment() {
             .build()
 
         val apiService = retrofit.create(CulturasApiItem::class.java)
-        val url = "${Constants.BASE_URL}games/$itemId/info/$item?type=$type"
-        Log.d("dif", "Complete URL: $url")
-        Log.d("dif", "type: $type")
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = when(type) {
-                    "doencas" -> apiService.getDoenca(itemId, item, type).execute()
-                    "pragas" -> apiService.getPraga(itemId, item, type).execute()
-                    "deficiencias" -> apiService.getDeficiencia(itemId, item, type).execute()
+                    "doencas" -> apiService.getDoenca(itemId, type, item).execute()
+                    "pragas" -> apiService.getPraga(itemId, type, item).execute()
+                    "deficiencias" -> apiService.getDeficiencia(itemId, type, item).execute()
                     else -> throw IllegalArgumentException("Tipo desconhecido: $type")
                 }
+
+                Log.d("tag", response.toString())
                 if (response.isSuccessful) {
                     val detalhesCultura = response.body()
+                    Log.d("tag", detalhesCultura.toString())
                     if (detalhesCultura != null) {
                         val detalhesList = when (detalhesCultura) {
                             is Doenca -> listOf(
@@ -144,4 +146,5 @@ class DetalhesItemFragment : Fragment() {
             }
         }
     }
+
 }

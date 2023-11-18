@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
-import com.puc.easyagro.model.Tarefa
+import com.puc.easyagro.model.Task
 
-class TarefaAdapter(private var tarefaList: List<Tarefa>) :
+class TarefaAdapter(private var tarefaList: List<Task>) :
     RecyclerView.Adapter<TarefaAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,7 +24,7 @@ class TarefaAdapter(private var tarefaList: List<Tarefa>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemTarefa = tarefaList[position]
-        holder.tarefaTitle.text = itemTarefa.titleNotification
+        holder.tarefaTitle.text = itemTarefa.title
         holder.tarefaDate.text = "${itemTarefa.day}/${itemTarefa.month}/${itemTarefa.year}"
         holder.tarefaTime.text = "${itemTarefa.hour}:${itemTarefa.minute}"
     }
@@ -33,7 +33,7 @@ class TarefaAdapter(private var tarefaList: List<Tarefa>) :
         return tarefaList.size
     }
 
-    fun updateData(newTarefaList: List<Tarefa>) {
+    fun updateData(newTarefaList: List<Task>) {
         this.tarefaList = newTarefaList
         notifyDataSetChanged()
     }

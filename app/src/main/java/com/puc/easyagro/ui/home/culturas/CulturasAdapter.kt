@@ -35,8 +35,8 @@ class CulturasAdapter(private var culturasList: List<Cultura>, private val onIte
         return culturasList.size
     }
 
-    fun updateData(newCulturasList: List<Cultura>) {
-        culturasList = newCulturasList
+    fun updateData(newCulturesList: List<Cultura>) {
+        culturasList = newCulturesList
         notifyDataSetChanged()
     }
 }

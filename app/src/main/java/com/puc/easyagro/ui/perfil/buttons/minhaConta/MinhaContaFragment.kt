@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.puc.easyagro.R
@@ -14,7 +13,6 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentMinhaContaBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.model.Usuario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -81,7 +79,7 @@ class MinhaContaFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     launch(Dispatchers.Main) {
-                        binding.txtApelido.text = user?.apelido
+                        binding.txtApelido.text = user?.nickname
                         binding.txtEndereco.text = user?.endereco
                     }
                 }

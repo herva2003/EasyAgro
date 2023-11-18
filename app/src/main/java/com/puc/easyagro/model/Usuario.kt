@@ -3,26 +3,26 @@ package com.puc.easyagro.model
 class Usuario (
     var _id: String? = null,
     val login: String? = null,
-    val carrinho: List<Carrinho>? = null,
-    val meusAnuncios: List<MeusProdutos>? = null,
-    val minhasCompras: List<MinhasCompras>? = null,
-    val favoritos: List<Favoritos>? = null,
-    val tarefa: List<Carrinho>? = null,
+    val myCart: List<Cart>? = null,
+    val myAdverts: List<MyProducts>? = null,
+    val myShopping: List<MyShopping>? = null,
+    val myFavorites: List<Favorites>? = null,
+    val tarefa: List<Task>? = null,
     val password: String? = null,
-    val apelido: String? = null,
-    val nome: String? = null,
-    val telefone: String? = null,
-    val cpf: String? = null,
+    val nickname: String? = null,
+    val name: String? = null,
+    val phoneNumber: String? = null,
+    val cpf: Number? = null,
     val endereco: String? = null,
     val _class: String? = null
 )
 
-data class Carrinho(
+data class Cart(
     var _id: String? = null,
 )
 
-data class Tarefa(
-    val titleNotification: String,
+data class Task(
+    val title: String,
     val year: Int,
     val month: Int,
     val day: Int,
@@ -31,14 +31,14 @@ data class Tarefa(
     val isPermission: Boolean
 )
 
-data class MeusProdutos(
+data class MyProducts(
     var _id: String? = null,
 )
 
-data class MinhasCompras(
+data class MyShopping(
     var _id: String? = null,
 )
 
-data class Favoritos(
+data class Favorites(
     var _id: String? = null,
 )

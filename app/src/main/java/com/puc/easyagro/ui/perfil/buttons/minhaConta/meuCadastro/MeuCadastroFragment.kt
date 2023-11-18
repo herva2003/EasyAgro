@@ -12,8 +12,8 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentMeuCadastroBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
-import com.puc.easyagro.ui.perfil.PerfilFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -61,10 +61,10 @@ class MeuCadastroFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     launch(Dispatchers.Main) {
-                        binding.inputApelido.setText(user?.apelido)
-                        binding.inputTelefone.setText(user?.telefone)
+                        binding.inputApelido.setText(user?.nickname)
+                        binding.inputTelefone.setText(user?.phoneNumber)
                         binding.inputEndereco.setText(user?.endereco)
-                        binding.inputNome.setText(user?.nome)
+                        binding.inputNome.setText(user?.name)
                     }
                 }
             } catch (e: Exception) {
@@ -79,6 +79,8 @@ class MeuCadastroFragment : Fragment() {
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
         val userId = userPreferencesRepository.userId
 
+        Log.d("taf",userId.toString())
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -88,11 +90,11 @@ class MeuCadastroFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val user = Usuario(
-                    apelido = binding.inputApelido.text.toString(),
-                    nome = binding.inputNome.text.toString(),
-                    endereco = binding.inputEndereco.text.toString(),
-                    telefone = binding.inputTelefone.text.toString()
+                val user = UserUpdateDTO(
+                    nickname = binding.inputApelido.text.toString(),
+                    name = binding.inputNome.text.toString(),
+                    cpf = 223,
+                    phoneNumber = binding.inputTelefone.text.toString()
                 )
                 val response = apiService.updateUser(userId, user).execute()
                 if (response.isSuccessful) {

@@ -131,7 +131,7 @@ class ViewItemMarketFragment : Fragment() {
             try {
                 val response = apiService.isItemFavorito(userId, itemId).execute()
                 if (response.isSuccessful) {
-                    val isFavorito = response.body()?.isFavorito ?: false
+                    val isFavorito = response.body()?.isFavorite ?: false
 
                     launch(Dispatchers.Main) {
                         if (isFavorito) {
@@ -186,10 +186,10 @@ class ViewItemMarketFragment : Fragment() {
     private fun fetchDataFromServer(itemId: String) {
 
         val baseUrl = Constants.BASE_URL
-        val apiUrl = "$baseUrl$itemId/"
+
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(apiUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -203,7 +203,7 @@ class ViewItemMarketFragment : Fragment() {
 
                     if (detalhesItemMarket != null) {
                         val mercado = Market(
-                            _id = detalhesItemMarket._id,
+                            id = detalhesItemMarket.id,
                             name = detalhesItemMarket.name,
                             price = detalhesItemMarket.price,
                             description = detalhesItemMarket.description,

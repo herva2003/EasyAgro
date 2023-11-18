@@ -1,9 +1,12 @@
 package com.puc.easyagro.constants
 
 object Constants {
-    const val BASE_URL = "http://192.168.0.243:8080/"
+    const val BASE_URL = "http://192.168.15.101:8080/"
+
 }
 
+//
+// herva ip http://192.168.0.243
 //"http://ec2-15-228-187-70.sa-east-1.compute.amazonaws.com:8080/"
 
 //ipconfig
@@ -12,4 +15,4 @@ object Constants {
 
 //"http://192.168.0.243:8080/" gabriel
 
-// http://192.168.15.101:8080/ ?
+// http://192.168.15.101:8080/ ? josé kk

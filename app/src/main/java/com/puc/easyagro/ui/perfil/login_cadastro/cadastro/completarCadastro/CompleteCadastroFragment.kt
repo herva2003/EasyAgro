@@ -13,6 +13,7 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCompleteCadastroBinding
 import com.puc.easyagro.datastore.UserViewModel
+import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -48,17 +49,18 @@ class CompleteCadastroFragment : Fragment() {
         }
     }
 
-    private fun getFormData(): Usuario {
+    private fun getFormData(): UserUpdateDTO {
         val apelido = binding.inputApelido.text.toString()
         val nome = binding.inputNome.text.toString()
+        // vou fazer com via cep.....
         val endereco = binding.inputEndereco.text.toString()
         val telefone = binding.inputTelefone.text.toString()
         val cpf = binding.inputCpf.text.toString()
 
-        return Usuario(nome = nome, telefone = telefone, endereco = endereco, apelido = apelido, cpf = cpf)
+        return UserUpdateDTO(name = nome, phoneNumber = telefone, nickname = apelido, cpf = cpf.toInt())
     }
 
-    private fun updateACC(user: Usuario, userId: String, onSuccess: () -> Unit) {
+    private fun updateACC(user: UserUpdateDTO, userId: String, onSuccess: () -> Unit) {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

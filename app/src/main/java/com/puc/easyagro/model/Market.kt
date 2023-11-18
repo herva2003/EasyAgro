@@ -4,7 +4,7 @@ import com.google.maps.model.PlaceDetails
 import java.math.BigDecimal
 
 data class Market(
-    var _id: String? = null,
+    var id: String? = null,
     val userId: String? = null,
     val name: String? = null,
     val price: BigDecimal? = null,

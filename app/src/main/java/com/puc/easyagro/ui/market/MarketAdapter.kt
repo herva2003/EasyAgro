@@ -35,7 +35,7 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
         holder.precoItemMarket.text = "R$${itemMarket.price.toString()}"
 
         holder.itemView.setOnClickListener {
-            itemMarket._id?.let { id ->
+            itemMarket.id?.let { id ->
                 itemMarket.name?.let { it1 -> onItemClickListener(id, it1) }
             }
         }

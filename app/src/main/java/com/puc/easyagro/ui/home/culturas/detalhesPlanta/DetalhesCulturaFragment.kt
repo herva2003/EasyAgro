@@ -82,10 +82,9 @@ class DetalhesCulturaFragment : Fragment() {
     private fun fetchDataFromServer(itemId: String) {
 
         val baseUrl = Constants.BASE_URL
-        val apiUrl = "$baseUrl$itemId/"
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(apiUrl)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -94,6 +93,7 @@ class DetalhesCulturaFragment : Fragment() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = apiService.getCulturas(itemId).execute()
+                Log.e("45", response.toString())
                 if (response.isSuccessful) {
                     val detalhesCultura = response.body()
 
@@ -121,7 +121,7 @@ class DetalhesCulturaFragment : Fragment() {
                         }
                     }
                 } else {
-                    Log.e("Resposta da API", "Código de status: ${response.code()}")
+                    Log.e("45", "Código de status: ${response.code()}")
                 }
             } catch (e: Exception) {
                 Log.e("Resposta da API", "Erro de rede: ${e.message}")

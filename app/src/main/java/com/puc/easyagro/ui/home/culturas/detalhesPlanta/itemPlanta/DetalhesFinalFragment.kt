@@ -110,8 +110,6 @@ class DetalhesFinalFragment : Fragment() {
 
         val apiService = retrofit.create(CulturasApiDetalheClicado::class.java)
 
-        val url = "${Constants.BASE_URL}games/$itemId/info?type=$type"
-        Log.d("dff", "Complete URL: $url")
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
