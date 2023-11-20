@@ -78,7 +78,7 @@ class DetalhesCulturaFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        _binding?.toolbar?.screenName?.text = "Informações"
+        _binding?.toolbar?.screenName?.text = itemString
 
     }
 
