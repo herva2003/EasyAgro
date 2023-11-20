@@ -7,6 +7,7 @@ import com.puc.easyagro.model.Task
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -38,5 +39,11 @@ interface CarrinhoApi {
 
     @POST("user/favorite/add")
     fun addItemFavoritos(@Body itemUser: JsonObject): Call<Void>
+
+    @DELETE("user/myFavorites/user/{userId}/remove/{productId}")
+    fun removeItemFavoritos(
+        @Path("userId") userId: String,
+        @Path("productId") productId: String
+    ): Call<Void>
 }
 

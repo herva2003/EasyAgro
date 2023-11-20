@@ -1,7 +1,7 @@
 package com.puc.easyagro.constants
 
 object Constants {
-    const val BASE_URL = "http://ec2-18-229-107-23.sa-east-1.compute.amazonaws.com:8080/"
+    const val BASE_URL = "http://192.168.15.77:8080/"
 
 }
 
