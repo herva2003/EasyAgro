@@ -74,7 +74,7 @@ class DetalhesCulturaFragment : Fragment() {
             pullToRefresh.isRefreshing = false
         }
 
-        _binding?.btnArrow?.setOnClickListener {
+        _binding?.toolbar?.btnArrow?.setOnClickListener {
             findNavController().popBackStack()
         }
     }

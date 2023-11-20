@@ -53,12 +53,12 @@ class DetalhesItemFragment : Fragment() {
         val itemId = arguments?.getString("itemId")
         val item = arguments?.getString("item")
 
-        val textViewNomeCultura = binding.nomeCultura
+        val textViewNomeCultura = binding.toolbar.screenName
         textViewNomeCultura.text = item?.capitalize()
 
         adapter = DetalhesItemAdapter(emptyList()) {}
 
-        _binding?.btnArrow?.setOnClickListener {
+        _binding?.toolbar?.btnArrow?.setOnClickListener {
             findNavController().popBackStack()
         }
 

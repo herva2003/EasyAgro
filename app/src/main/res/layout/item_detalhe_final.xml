@@ -9,6 +9,7 @@
         android:id="@+id/text_view_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="teste"
         android:textSize="18sp"
         android:textColor="@android:color/black"/>
 
@@ -16,9 +17,10 @@
         android:id="@+id/text_view_nome_descricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:layout_marginTop="10dp"
-        android:visibility="gone" />
+        android:text="teste"
+        android:visibility="visible" />
 
     <View
         android:id="@+id/divider"

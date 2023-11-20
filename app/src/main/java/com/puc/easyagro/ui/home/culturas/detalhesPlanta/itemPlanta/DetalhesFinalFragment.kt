@@ -54,10 +54,10 @@ class DetalhesFinalFragment : Fragment() {
         val itemId = arguments?.getString("itemId")
         val itemString = arguments?.getString("itemString")
 
-        val clickedItem = binding.clickedItem
+        val clickedItem = binding.toolbar.clickedItem
         clickedItem.text = itemClicked?.capitalize()
 
-        val textViewNomeCultura = binding.nomeCultura
+        val textViewNomeCultura = binding.toolbar.nomeCultura
         textViewNomeCultura.text = itemString?.capitalize()
         Log.d("dff", "nome planta ${textViewNomeCultura.text}")
 
@@ -75,7 +75,7 @@ class DetalhesFinalFragment : Fragment() {
             }
         }
 
-        _binding?.btnArrow?.setOnClickListener {
+        _binding?.toolbar?.btnArrow?.setOnClickListener {
             findNavController().popBackStack()
         }
 
