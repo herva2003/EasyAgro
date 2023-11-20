@@ -58,6 +58,8 @@ class CulturasFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
+        _binding?.toolbar?.screenName?.text = "Culturas"
+
         recyclerView.adapter = adapter
 
         fetchDataFromServer()

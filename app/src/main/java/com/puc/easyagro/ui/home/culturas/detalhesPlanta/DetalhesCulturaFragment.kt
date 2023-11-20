@@ -77,6 +77,9 @@ class DetalhesCulturaFragment : Fragment() {
         _binding?.toolbar?.btnArrow?.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        _binding?.toolbar?.screenName?.text = "Informações"
+
     }
 
     private fun fetchDataFromServer(itemId: String) {
