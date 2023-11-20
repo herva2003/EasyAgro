@@ -3,47 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_return" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/btn_arrow"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:padding="10dp"-->
-<!--        android:src="@drawable/ic_arrow_back"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/img_cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@id/pullToRefresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-<!--    <View-->
-<!--        android:id="@+id/divider"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:background="@color/grey_300"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/btn_arrow" />-->
+        <ImageView
+            android:id="@+id/img_crops"
+            android:layout_width="match_parent"
+            android:layout_height="129dp"
+            android:background="@color/blue_600" />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/img_cardView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_detalhes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:paddingTop="8dp"
             android:paddingStart="8dp"
+            android:paddingTop="8dp"
             android:paddingEnd="8dp"
             android:paddingBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/img_cardView" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
