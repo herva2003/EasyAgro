@@ -148,8 +148,6 @@ class ViewItemMarketFragment : Fragment() {
         }
     }
 
-
-
     private fun addItemCarrinho(itemId: String) {
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
 

@@ -56,7 +56,7 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val charString = removeAccents(charSequence.toString().toLowerCase())
                 Log.d("mkt", "Texto de busca: $charString")
-                marketListFiltered = if (charString.isEmpty()) {
+                    marketListFiltered = if (charString.isEmpty()) {
                     marketList
                 } else {
                     val filteredList = ArrayList<Market>()

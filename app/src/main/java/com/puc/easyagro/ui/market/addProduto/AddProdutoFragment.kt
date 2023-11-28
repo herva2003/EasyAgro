@@ -79,7 +79,6 @@ class AddProdutoFragment : Fragment() {
             binding.categoriasSpinner.selectedItem.toString().trim().isNotEmpty()
         val description: Boolean = binding.descricaoInput.text.toString().trim().isNotEmpty()
 
-        // Validation Message
         val blankMessage = "Esse campo não pode ser vazio"
 
         if (!name) {
