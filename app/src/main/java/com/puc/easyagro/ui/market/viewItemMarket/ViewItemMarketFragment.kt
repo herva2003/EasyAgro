@@ -25,6 +25,7 @@ import com.puc.easyagro.apiServices.MarketApiDetalhe
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -62,8 +63,14 @@ class ViewItemMarketFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        _binding?.btnArrow?.setOnClickListener {
+
+        binding.btnArrow.setOnClickListener {
             val action = ViewItemMarketFragmentDirections.actionViewItemMarketFragmentToMarketFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        binding.btnComprar.setOnClickListener {
+            val action = ViewItemMarketFragmentDirections.actionViewItemMarketFragmentToPagamentoFragment()
             findNavController().navigate(action, navOptions)
         }
 

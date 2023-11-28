@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.carrinhoFragment -> navView.visibility = View.GONE
                 R.id.minhasTarefasFragment -> navView.visibility = View.GONE
                 R.id.meuCadastroFragment -> navView.visibility = View.GONE
+                R.id.pagamentoFragment -> navView.visibility = View.GONE
 
                 else -> navView.visibility = View.VISIBLE
             }

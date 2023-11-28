@@ -209,6 +209,9 @@
         <action
             android:id="@+id/action_viewItemMarketFragment_to_marketFragment"
             app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_viewItemMarketFragment_to_pagamentoFragment"
+            app:destination="@id/pagamentoFragment" />
     </fragment>
 
     <fragment
@@ -324,6 +327,9 @@
                 android:name="itemId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_carrinhoFragment_to_pagamentoFragment"
+            app:destination="@id/pagamentoFragment" />
     </fragment>
     <fragment
         android:id="@+id/minhasTarefasFragment"
@@ -342,5 +348,14 @@
         <action
             android:id="@+id/action_meuCadastroFragment_to_minhaContaFragment"
             app:destination="@id/minhaContaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pagamentoFragment"
+        android:name="com.puc.easyagro.ui.market.pagamento.PagamentoFragment"
+        android:label="fragment_pagamento"
+        tools:layout="@layout/fragment_pagamento" >
+        <action
+            android:id="@+id/action_pagamentoFragment_to_minhasComprasFragment"
+            app:destination="@id/minhasComprasFragment" />
     </fragment>
 </navigation>
