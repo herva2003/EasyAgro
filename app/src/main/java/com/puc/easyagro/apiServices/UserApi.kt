@@ -53,7 +53,7 @@ interface UserApi {
     data class FavoritoResponse(
         val isFavorite: Boolean
     )
-    @GET("/user/myFavorites/{userId}/check/{productId}")
+    @GET("user/myFavorites/{userId}/check/{productId}")
     fun isItemFavorito(@Path("userId") id: String, @Path("productId") itemId: String): Call<FavoritoResponse>
 
 }
