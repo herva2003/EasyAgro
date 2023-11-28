@@ -82,6 +82,10 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
         }
     }
 
+    fun getData(): List<Market> {
+        return marketListFiltered
+    }
+
     fun updateData(newProdutoList: List<Market>) {
         this.marketList = newProdutoList
         this.marketListFiltered = newProdutoList
