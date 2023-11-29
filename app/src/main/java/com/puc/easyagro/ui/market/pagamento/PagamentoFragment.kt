@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +58,8 @@ class PagamentoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fetchDataFromServer()
+
+        binding.btnVerCodigoPix.isVisible = false
 
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
@@ -107,6 +111,10 @@ class PagamentoFragment : Fragment() {
                 Toast.makeText(context, "Carrinho está vazio!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.btnVerCodigoPix.setOnClickListener{
+            showCopyCodeDialog(qrCode)
+        }
     }
 
     private fun makePayment(pixPaymentDTO: PixPaymentDTO) {
@@ -125,6 +133,9 @@ class PagamentoFragment : Fragment() {
                 response: Response<PixPaymentResponseDTO>
             ) {
                 if (response.isSuccessful) {
+                    binding.btnVerCodigoPix.isVisible = true
+                    binding.btnComprar.isEnabled = false
+                    clearCartAfterPayment()
                     val paymentResponse = response.body()
                     qrCode = paymentResponse!!.qrCode
                     showCopyCodeDialog(qrCode)
@@ -165,6 +176,34 @@ class PagamentoFragment : Fragment() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun clearCartAfterPayment() {
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val userApi = retrofit.create(UserApi::class.java)
+
+        val clearCartCall = userApi.clearCart(userId)
+
+        clearCartCall.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Log.d("ClearCart", "Cart cleared successfully.")
+                } else {
+                    Log.e("ClearCart", "Failed to clear cart. Code: ${response.code()}, Message: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("ClearCart", "Failed to clear cart. Error: ${t.message}", t)
+            }
+        })
     }
 
     private fun fetchDataFromServer() {

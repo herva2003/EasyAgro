@@ -8,6 +8,7 @@ import com.puc.easyagro.model.Usuario
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -45,6 +46,9 @@ interface UserApi {
 
     @GET("user/myFavorites/{userId}")
     fun getFavoritos(@Path("userId") id: String): Call<List<Market>>
+
+    @DELETE("user/cart/clean/{userId}")
+    fun clearCart(@Path("userId") userId: String): Call<ResponseBody>
 
 
 
