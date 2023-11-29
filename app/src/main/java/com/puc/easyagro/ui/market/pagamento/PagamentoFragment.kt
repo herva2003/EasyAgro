@@ -19,15 +19,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.puc.easyagro.R
+import com.puc.easyagro.apiServices.MarketApiDetalhe
 import com.puc.easyagro.apiServices.PaymentAPi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentPagamentoBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.Market
 import com.puc.easyagro.model.PayerDTO
 import com.puc.easyagro.model.PayerIdentificationDTO
 import com.puc.easyagro.model.PixPaymentDTO
 import com.puc.easyagro.model.PixPaymentResponseDTO
+import com.puc.easyagro.model.Product
 import com.puc.easyagro.model.ProdutosPix
 import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +52,11 @@ class PagamentoFragment : Fragment() {
     private lateinit var adapter: PagamentoAdapter
 
     private var qrCode: String = "";
+
+    private var produtoSend: Market? = null
+
+
+
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
         _binding = FragmentPagamentoBinding.inflate(inflater, container, false)
         return binding.root
@@ -57,7 +65,13 @@ class PagamentoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchDataFromServer()
+        val itemId = arguments?.getString("itemId")
+
+        if (itemId == null) {
+            fetchDataFromServer()
+        } else {
+            fetchDataFromServer(itemId)
+        }
 
         binding.btnVerCodigoPix.isVisible = false
 
@@ -68,7 +82,7 @@ class PagamentoFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        adapter = PagamentoAdapter(emptyList()) { _, _ ->}
+        adapter = PagamentoAdapter(emptyList()) { _, _ -> }
 
         binding.btnArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -79,22 +93,20 @@ class PagamentoFragment : Fragment() {
             val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
             val carrinhoList = adapter.getData()
 
-
-            if (carrinhoList.isNotEmpty()) {
-
-                val payerDTO = PayerDTO(
-                    firstName = "josé",
-                    lastName = "silva",
-                    email = "vivofixodante@gmail.com",
-                    identification = PayerIdentificationDTO(
-                        type = "cpf",
-                        number = "30089374894"
-                    )
+            val payerDTO = PayerDTO(
+                firstName = "josé",
+                lastName = "silva",
+                email = "vivofixodante@gmail.com",
+                identification = PayerIdentificationDTO(
+                    type = "cpf",
+                    number = "30089374894"
                 )
+            )
 
+            if (produtoSend == null && carrinhoList.isNotEmpty()) {
                 val pixPaymentDTO = PixPaymentDTO(
                     transactionAmount = BigDecimal(2),
-                    productDescription = "compra feito pelo app" ,
+                    productDescription = "compra feita pelo app",
                     payer = payerDTO,
                     buyerId = userPreferencesRepository.userId,
                     orders = carrinhoList.map { produto ->
@@ -103,21 +115,39 @@ class PagamentoFragment : Fragment() {
                             quantity = produto.quantityInStock,
                             buyerId = userPreferencesRepository.userId,
                             sellerId = produto.userId,
-                            price =  produto.price
+                            price = produto.price
                         )
                     }
                 )
                 makePayment(pixPaymentDTO)
-
+            } else if (produtoSend != null) {
+                val produto = listOf(
+                    ProdutosPix(
+                        productId = produtoSend!!.id,
+                        quantity = produtoSend!!.quantityInStock,
+                        buyerId = userPreferencesRepository.userId,
+                        sellerId = produtoSend!!.userId,
+                        price = produtoSend!!.price
+                    )
+                )
+                val pixPaymentDTO = PixPaymentDTO(
+                    transactionAmount = BigDecimal(2),
+                    productDescription = "compra feita pelo app",
+                    payer = payerDTO,
+                    buyerId = userPreferencesRepository.userId,
+                    orders = produto
+                )
+                makePayment(pixPaymentDTO)
             } else {
                 Toast.makeText(context, "Carrinho está vazio!", Toast.LENGTH_SHORT).show()
             }
         }
 
-        binding.btnVerCodigoPix.setOnClickListener{
+        binding.btnVerCodigoPix.setOnClickListener {
             showCopyCodeDialog(qrCode)
         }
     }
+
 
     private fun makePayment(pixPaymentDTO: PixPaymentDTO) {
         val retrofit = Retrofit.Builder()
@@ -137,7 +167,8 @@ class PagamentoFragment : Fragment() {
                 if (response.isSuccessful) {
                     binding.btnVerCodigoPix.isVisible = true
                     binding.btnComprar.isEnabled = false
-                    clearCartAfterPayment()
+                    if(produtoSend == null) { clearCartAfterPayment()}
+
                     val paymentResponse = response.body()
                     qrCode = paymentResponse!!.qrCode
                     showCopyCodeDialog(qrCode)
@@ -239,6 +270,39 @@ class PagamentoFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 Log.e("car", "Exception during data fetch", e)
+            }
+        }
+    }
+
+    private fun fetchDataFromServer(itemId: String) {
+
+        val baseUrl = Constants.BASE_URL
+
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(MarketApiDetalhe::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val response = apiService.getItem(itemId).execute()
+                if (response.isSuccessful) {
+                    val detalhesItemMarket = response.body()
+
+                    launch(Dispatchers.Main) {
+                        binding.txtSubtotalPrice.text = "R$ ${detalhesItemMarket?.price}"
+                        binding.txtTaxaServicoPrice.text = "R$ 0,0"
+                        binding.txtTotalPrice.text = "R$ ${detalhesItemMarket?.price}"
+                        produtoSend = detalhesItemMarket
+                    }
+                } else {
+                    Log.e("mkt", "Código de status: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("mkt", "Erro de rede: ${e.message}")
             }
         }
     }

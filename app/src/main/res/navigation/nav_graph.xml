@@ -201,18 +201,30 @@
             app:destination="@id/detalhesFinalFragment" />
     </fragment>
 
+
     <fragment
         android:id="@+id/viewItemMarketFragment"
         android:name="com.puc.easyagro.ui.market.viewItemMarket.ViewItemMarketFragment"
         android:label="fragment_view_item_market"
         tools:layout="@layout/fragment_view_item_market" >
+
         <action
             android:id="@+id/action_viewItemMarketFragment_to_marketFragment"
             app:destination="@id/marketFragment" />
+
         <action
             android:id="@+id/action_viewItemMarketFragment_to_pagamentoFragment"
-            app:destination="@id/pagamentoFragment" />
+            app:destination="@id/pagamentoFragment">
+            <argument
+                android:name="itemId"
+                app:argType="string" />
+        </action>
     </fragment>
+
+
+
+
+
 
     <fragment
         android:id="@+id/cotacaoFragment"

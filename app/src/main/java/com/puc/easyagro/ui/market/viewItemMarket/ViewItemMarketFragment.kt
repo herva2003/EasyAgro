@@ -2,7 +2,6 @@ package com.puc.easyagro.ui.market.viewItemMarket
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.util.Log
@@ -18,14 +17,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.CarrinhoApi
-import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.apiServices.MarketApiDetalhe
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.databinding.FragmentViewItemMarketBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -70,9 +67,10 @@ class ViewItemMarketFragment : Fragment() {
         }
 
         binding.btnComprar.setOnClickListener {
-            val action = ViewItemMarketFragmentDirections.actionViewItemMarketFragmentToPagamentoFragment()
+            val action = ViewItemMarketFragmentDirections.actionViewItemMarketFragmentToPagamentoFragment(itemId)
             findNavController().navigate(action, navOptions)
         }
+
 
         isItemFavorito(itemId)
         binding.btnAddCarrinho.setOnClickListener{
