@@ -4,6 +4,7 @@ import java.math.BigDecimal
 
 data class PixPaymentDTO(
     val transactionAmount: BigDecimal,
+    var buyerId: String? = null,
     val productDescription: String,
     val payer: PayerDTO,
     val orders: List<ProdutosPix>?
@@ -35,4 +36,24 @@ data class PixPaymentResponseDTO(
     val detail: String,
     val qrCodeBase64: String,
     val qrCode: String
+)
+
+
+//  fazer as telas disso...
+data class Order(
+    val id: String,
+    val transitionId: String,
+    val buyerId: String,
+    val totalPrice: BigDecimal,
+    val createdAt: String,
+    val status: String,
+    val products: List<Product>
+)
+
+data class Product(
+    val productId: String,
+    val quantity: Int,
+    val buyerId: String,
+    val sellerId: String,
+    val price: BigDecimal
 )

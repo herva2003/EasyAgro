@@ -1,7 +1,8 @@
 package com.puc.easyagro.apiServices
 
-import com.google.gson.JsonObject
 import com.puc.easyagro.model.Market
+import com.puc.easyagro.model.Order
+import com.puc.easyagro.model.ProdutosPix
 import com.puc.easyagro.model.Task
 import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
@@ -59,5 +60,17 @@ interface UserApi {
     )
     @GET("user/myFavorites/{userId}/check/{productId}")
     fun isItemFavorito(@Path("userId") id: String, @Path("productId") itemId: String): Call<FavoritoResponse>
+
+
+
+
+    // minhas compras e etc
+    @GET("user/myOrders/{id}")
+    fun getMyOrdersById(@Path("id") id: String): Call<List<Order>>
+
+    // minhas vendas
+
+    @GET("user/mySellerProducts/{sellerId}")
+    fun getSellerProducts(@Path("sellerId") sellerId: String?): Call<List<ProdutosPix?>?>?
 
 }

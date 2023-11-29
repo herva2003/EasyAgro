@@ -79,6 +79,7 @@ class PagamentoFragment : Fragment() {
             val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
             val carrinhoList = adapter.getData()
 
+
             if (carrinhoList.isNotEmpty()) {
 
                 val payerDTO = PayerDTO(
@@ -95,6 +96,7 @@ class PagamentoFragment : Fragment() {
                     transactionAmount = BigDecimal(2),
                     productDescription = "compra feito pelo app" ,
                     payer = payerDTO,
+                    buyerId = userPreferencesRepository.userId,
                     orders = carrinhoList.map { produto ->
                         ProdutosPix(
                             productId = produto.id,
