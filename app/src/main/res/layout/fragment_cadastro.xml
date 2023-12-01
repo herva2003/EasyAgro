@@ -35,6 +35,23 @@
         app:layout_constraintTop_toBottomOf="@+id/topIcon" />
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/input_cpf"
+        android:layout_width="309dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#DA666666"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_lock"
+        android:ems="10"
+        android:hint="CPF"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_senha"
         android:layout_width="309dp"
         android:layout_height="55dp"
@@ -49,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+        app:layout_constraintTop_toBottomOf="@+id/input_cpf" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_senha_confirm"

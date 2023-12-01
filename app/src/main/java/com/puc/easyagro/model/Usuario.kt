@@ -1,6 +1,8 @@
 package com.puc.easyagro.model
 
-class Usuario (
+import android.os.Parcelable
+
+ data class Usuario (
     var _id: String? = null,
     val login: String? = null,
     val myCart: List<Cart>? = null,
@@ -9,10 +11,10 @@ class Usuario (
     val myFavorites: List<Favorites>? = null,
     val tarefa: List<Task>? = null,
     val password: String? = null,
-    val nickname: String? = null,
-    val name: String? = null,
-    val phoneNumber: String? = null,
-    val cpf: Number? = null,
+    var nickname: String? = null,
+    var name: String? = null,
+    var phoneNumber: String? = null,
+    val cpf: String? = null,
     val endereco: String? = null,
     val _class: String? = null
 )

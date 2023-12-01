@@ -4,6 +4,7 @@ import com.puc.easyagro.model.Market
 import com.puc.easyagro.model.Order
 import com.puc.easyagro.model.ProdutosPix
 import com.puc.easyagro.model.Task
+import com.puc.easyagro.model.UserDTO
 import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
 import okhttp3.ResponseBody
@@ -17,8 +18,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserApi {
-    @POST("/user/")
-    fun addUser(@Body user: Usuario): Call<ResponseBody>
+    @POST("user/create")
+    fun addUser(@Body user: UserDTO): Call<ResponseBody>
 
     @PUT("user/update/{userId}")
     fun completeUser(@Query("userId") id: String, @Body user: UserUpdateDTO): Call<ResponseBody>

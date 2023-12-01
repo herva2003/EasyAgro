@@ -241,9 +241,13 @@
         android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.CompleteCadastroFragment"
         android:label="fragment_complete_cadastro"
         tools:layout="@layout/fragment_complete_cadastro" >
+
+        <argument
+            android:name="usuario"
+            app:argType="com.puc.easyagro.model.UserDTO" />
         <action
-            android:id="@+id/action_completeCadastroFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_completeCadastroFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/minhaContaFragment"

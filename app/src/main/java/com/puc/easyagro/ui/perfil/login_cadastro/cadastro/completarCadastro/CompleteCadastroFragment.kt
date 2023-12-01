@@ -8,18 +8,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
+import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCompleteCadastroBinding
 import com.puc.easyagro.datastore.UserViewModel
+import com.puc.easyagro.model.UserDTO
 import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
+import com.puc.easyagro.ui.perfil.login_cadastro.cadastro.CadastroFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.log
 
 class CompleteCadastroFragment : Fragment() {
 
@@ -34,33 +41,28 @@ class CompleteCadastroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = viewModel.userId
-        Log.d("cad", "UserId recebido: $userId")
+        val usuario: UserDTO? = arguments?.getParcelable("usuario")
+
+
 
         binding.btnRegister.setOnClickListener {
-            if (validateInputFields()) {
-                if (userId != null) {
-                    updateACC(getFormData(), userId) {
-                        val action = CompleteCadastroFragmentDirections.actionCompleteCadastroFragmentToHomeFragment()
-                        findNavController().navigate(action)
-                    }
-                }
+            if (validateInputFields() && usuario != null) {
+                val apelido = binding.inputApelido.text.toString()
+                val nome = binding.inputNome.text.toString()
+                val telefone = binding.inputTelefone.text.toString()
+
+                usuario.nickname =apelido
+                usuario.name = nome
+                usuario.phoneNumber = telefone
+                Log.d("12",usuario.toString())
+
+                registerUser(usuario)
             }
         }
+
     }
 
-    private fun getFormData(): UserUpdateDTO {
-        val apelido = binding.inputApelido.text.toString()
-        val nome = binding.inputNome.text.toString()
-        // vou fazer com via cep.....
-        val endereco = binding.inputEndereco.text.toString()
-        val telefone = binding.inputTelefone.text.toString()
-        val cpf = binding.inputCpf.text.toString()
-
-        return UserUpdateDTO(name = nome, phoneNumber = telefone, nickname = apelido, cpf = cpf.toInt())
-    }
-
-    private fun updateACC(user: UserUpdateDTO, userId: String, onSuccess: () -> Unit) {
+    private fun registerUser(conta: UserDTO) {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -68,29 +70,31 @@ class CompleteCadastroFragment : Fragment() {
 
         val apiService = retrofit.create(UserApi::class.java)
 
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
-                Log.d("cad", "Atualizando conta: $userId")
-
-                val response = apiService.completeUser(userId, user).execute()
+                Log.d("cad", "Criando conta: ${conta.login}")
+                val response = apiService.addUser(conta).execute()
                 if (response.isSuccessful) {
-                    Log.d("cad", "Conta atualizada com sucesso")
-
-                    launch(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(context, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
-                        onSuccess()
                     }
-
+                    findNavController().navigate(R.id.action_completeCadastroFragment_to_loginFragment)
                 } else {
-                    Log.d("cad", "Falha ao atualizar conta: $response")
+                    Log.d("cad", "Falha ao criar conta: $response")
+
+                    // Se desejar mostrar um Toast apenas em caso de falha, adicione o Toast aqui
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, "Falha ao criar conta. Tente novamente.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-            }catch (e: Exception) {
-                Log.d("cad", "Exception ao atualizar conta: ", e)
+            } catch (e: Exception) {
+                Log.e("cad", "Erro ao criar conta: ${e.message}")
             }
-
         }
     }
+
+
+
 
     private fun validateInputFields(): Boolean {
         // Validation Rules
@@ -98,7 +102,6 @@ class CompleteCadastroFragment : Fragment() {
         val enderecoValidation: Boolean = binding.inputEndereco.text.toString().trim().isNotEmpty()
         val telefoneValidation: Boolean = binding.inputTelefone.text.toString().trim().isNotEmpty()
         val apelidoValidation: Boolean = binding.inputApelido.text.toString().trim().isNotEmpty()
-        val cpfValidation: Boolean = binding.inputCpf.text.toString().trim().isNotEmpty()
 
         // Validation Message
         val blankMessage = "Esse campo não pode ser vazio"
@@ -119,11 +122,8 @@ class CompleteCadastroFragment : Fragment() {
             binding.inputApelido.error = blankMessage
         }
 
-        if (!cpfValidation) {
-            binding.inputCpf.error = blankMessage
-        }
 
-        if (!nomeValidation || !enderecoValidation || !telefoneValidation || !apelidoValidation || !cpfValidation) {
+        if (!nomeValidation || !enderecoValidation || !telefoneValidation || !apelidoValidation) {
             Toast.makeText(activity, "Tente novamente!", Toast.LENGTH_SHORT).show()
             return false
         }
