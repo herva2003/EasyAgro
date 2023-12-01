@@ -64,6 +64,8 @@ class MarketFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
+        _binding?.toolbar?.screenName?.text = "Mercado"
+
         recyclerView.adapter = adapter
 
         fetchDataFromServer()

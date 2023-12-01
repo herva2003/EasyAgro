@@ -1,56 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/green_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/green_pi"
-        android:elevation="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:elevation="2dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_arrow_back_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:elevation="2dp"
-        android:text="LIMPAR"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="2dp"
-        android:text="Inserir Anuncio"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/green_rectangle"
-        app:layout_constraintStart_toStartOf="@+id/green_rectangle"
-        app:layout_constraintTop_toTopOf="@+id/green_rectangle" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_sales" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -90,12 +47,11 @@
                 android:id="@+id/titulo_anuncio_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:text="Título do anúncio"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="Título do anúncio*"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/grey_rectangle" />
@@ -104,13 +60,15 @@
                 android:id="@+id/anuncio_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/edittext_border"
-                android:hint="Ex: Arroz"
+                android:hint="Ex: Saca de Arroz"
                 android:inputType="text"
                 android:padding="13dp"
-                android:textSize="15sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titulo_anuncio_label" />
 
@@ -118,11 +76,11 @@
                 android:id="@+id/descricao_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:text="Descrição"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Descrição*"
                 android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/anuncio_input" />
@@ -130,14 +88,17 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/descricao_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_height="138dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/edittext_border"
-                android:hint="Ex: arroz branco"
-                android:inputType="text"
+                android:gravity="top"
+                android:hint="Ex: Saca de arroz colhida no dia 27 de novembro na fazenda Santa Maria - PUC Campinas. "
+                android:inputType="textMultiLine"
                 android:padding="13dp"
-                android:textSize="15sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descricao_label" />
 
@@ -145,11 +106,11 @@
                 android:id="@+id/categoria_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="Categoria"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Categoria*"
                 android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descricao_input" />
@@ -158,9 +119,9 @@
                 android:id="@+id/categorias_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/spinner_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,12 +131,11 @@
                 android:id="@+id/preco_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                android:text="Preço"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Preço*"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categorias_spinner" />
@@ -184,38 +144,44 @@
                 android:id="@+id/preco_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/edittext_border"
                 android:hint="Ex: R$100,00"
                 android:inputType="numberDecimal"
                 android:padding="13dp"
-                android:textSize="15sp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/preco_label" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_anunciar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/green_pi"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#018241"
                 android:text="Enviar Anúncio"
                 android:textAllCaps="false"
                 app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/preco_input" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/btn_anunciar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_anunciar" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="24dp"
+                android:textSize="12sp"
+                android:text="Todos os campos com (*) são campos obrigatórios \npara publicação de seu anúncio."/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

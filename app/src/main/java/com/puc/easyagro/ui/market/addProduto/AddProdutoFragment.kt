@@ -45,7 +45,7 @@ class AddProdutoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -57,6 +57,8 @@ class AddProdutoFragment : Fragment() {
 
         val adapter = getCategoriasAdapter(requireContext())
         binding.categoriasSpinner.adapter = adapter
+
+        binding.toolbar.screenName.text = "Inserir Anúncio"
     }
 
     private fun getFormData(): MarketDTO {

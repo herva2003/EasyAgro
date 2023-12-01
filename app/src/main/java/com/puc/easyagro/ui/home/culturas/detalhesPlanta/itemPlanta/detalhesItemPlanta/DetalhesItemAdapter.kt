@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class DetalhesItemAdapter(private var culturasList: List<String>, private val on
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nomeCulturaTextView: TextView = itemView.findViewById(R.id.text_view_nome)
         val detalheTextView: TextView = itemView.findViewById(R.id.text_view_nome_descricao)
+        val icon: ImageView = itemView.findViewById(R.id.enterIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +30,7 @@ class DetalhesItemAdapter(private var culturasList: List<String>, private val on
         val currentItem = culturasList[position]
         holder.nomeCulturaTextView.text = currentItem.split(":")[0]
         holder.detalheTextView.text = currentItem.split(":")[1]
+        holder.icon.visibility = View.GONE
 
         holder.detalheTextView.visibility =
             if (position == 0 || position == 1) View.VISIBLE else View.GONE
@@ -44,7 +47,7 @@ class DetalhesItemAdapter(private var culturasList: List<String>, private val on
 
         if (position < 2) {
             holder.nomeCulturaTextView.textSize = 11f
-            holder.detalheTextView.textSize = 17f
+            holder.detalheTextView.textSize = 16f
             holder.nomeCulturaTextView.setTextColor(
                 ContextCompat.getColor(
                     holder.itemView.context,

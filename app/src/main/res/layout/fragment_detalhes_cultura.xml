@@ -26,8 +26,7 @@
         <ImageView
             android:id="@+id/img_crops"
             android:layout_width="match_parent"
-            android:layout_height="129dp"
-            android:background="@color/blue_600" />
+            android:layout_height="129dp" />
 
     </androidx.cardview.widget.CardView>
 

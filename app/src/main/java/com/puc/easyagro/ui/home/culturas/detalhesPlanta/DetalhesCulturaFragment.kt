@@ -80,6 +80,7 @@ class DetalhesCulturaFragment : Fragment() {
 
         _binding?.toolbar?.screenName?.text = itemString
 
+        _binding?.imgCrops?.setBackgroundColor(0xFF123577.toInt());
     }
 
     private fun fetchDataFromServer(itemId: String) {
