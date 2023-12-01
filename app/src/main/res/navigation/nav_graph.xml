@@ -280,7 +280,7 @@
 
     <fragment
         android:id="@+id/minhasVendasFragment"
-        android:name="com.puc.easyagro.ui.perfil.buttons.MinhasVendasFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.minhasVendas.MinhasVendasFragment"
         android:label="fragment_minhas_vendas"
         tools:layout="@layout/fragment_minhas_vendas" >
         <action
@@ -293,17 +293,17 @@
 
     <fragment
         android:id="@+id/minhasComprasFragment"
-        android:name="com.puc.easyagro.ui.perfil.buttons.MinhasComprasFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.minhasCompras.MinhasComprasFragment"
         android:label="fragment_minhas_compras"
         tools:layout="@layout/fragment_minhas_compras" >
         <action
             android:id="@+id/action_minhasComprasFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
         <action
-            android:id="@+id/action_minhasComprasFragment_to_viewItemMarketFragment"
-            app:destination="@id/viewItemMarketFragment" >
+            android:id="@+id/action_minhasComprasFragment_to_comprasDetalhesFragment"
+            app:destination="@id/comprasDetalhesFragment" >
             <argument
-                android:name="itemId"
+                android:name="products"
                 app:argType="string" />
         </action>
     </fragment>
@@ -369,5 +369,21 @@
         <action
             android:id="@+id/action_pagamentoFragment_to_minhasComprasFragment"
             app:destination="@id/minhasComprasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/comprasDetalhesFragment"
+        android:name="com.puc.easyagro.ui.perfil.buttons.minhasCompras.comprasDetalhes.ComprasDetalhesFragment"
+        android:label="fragment_compras_detalhes"
+        tools:layout="@layout/fragment_compras_detalhes" >
+        <action
+            android:id="@+id/action_minhasComprasFragment_to_comprasDetalhesFragment"
+            app:destination="@id/comprasDetalhesFragment" >
+            <argument
+                android:name="productsJson"
+                app:argType="string" />
+            <argument
+                android:name="orderId"
+                app:argType="string" />
+        </action>
     </fragment>
 </navigation>

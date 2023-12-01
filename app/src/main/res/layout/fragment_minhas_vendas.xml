@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.perfil.buttons.MinhasVendasFragment">
+    tools:context=".ui.perfil.buttons.minhasVendas.MinhasVendasFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/green_rectangle"

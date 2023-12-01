@@ -13,11 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
-import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentFavoritosBinding
-import com.puc.easyagro.databinding.FragmentMeusAnunciosBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers

@@ -17,17 +17,12 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCarrinhoBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.model.PayerDTO
-import com.puc.easyagro.model.PayerIdentificationDTO
-import com.puc.easyagro.model.PixPaymentDTO
-import com.puc.easyagro.model.ProdutosPix
 import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.math.BigDecimal
 
 class CarrinhoFragment : Fragment() {
 

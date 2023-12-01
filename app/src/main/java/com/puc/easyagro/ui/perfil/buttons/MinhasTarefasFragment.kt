@@ -1,8 +1,6 @@
 package com.puc.easyagro.ui.perfil.buttons
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
-import com.puc.easyagro.apiServices.CulturasApi
-import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentMinhasTarefasBinding
-import com.puc.easyagro.databinding.FragmentMinhasVendasBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.market.MarketAdapter
 import com.puc.easyagro.ui.perfil.tarefas.TarefaAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Math.abs
 import java.time.Duration
 import java.time.LocalDateTime
 

@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.perfil.buttons
+package com.puc.easyagro.ui.perfil.buttons.minhasCompras
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,28 +12,28 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.puc.easyagro.R
-import com.puc.easyagro.apiServices.MarketApi
+import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
-import com.puc.easyagro.databinding.FragmentMinhasVendasBinding
-import com.puc.easyagro.ui.market.MarketAdapter
+import com.puc.easyagro.databinding.FragmentMinhasComprasBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MinhasVendasFragment : Fragment() {
+class MinhasComprasFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MarketAdapter
+    private lateinit var adapter: MinhasComprasAdapter
 
-    private var _binding: FragmentMinhasVendasBinding? = null
-
+    private var _binding: FragmentMinhasComprasBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        _binding = FragmentMinhasVendasBinding.inflate(inflater, container, false)
+        _binding = FragmentMinhasComprasBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,8 +52,15 @@ class MinhasVendasFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        adapter = MarketAdapter(emptyList()) { itemId, _ ->
-            val action = MeusAnunciosFragmentDirections.actionMeusAnunciosToViewItemMarketFragment(itemId)
+        adapter = MinhasComprasAdapter(emptyList()) { order ->
+            val products = order.products
+
+            val gson = Gson()
+            val productsJson = gson.toJson(products)
+
+            val orderId = order.id
+
+            val action = MinhasComprasFragmentDirections.actionMinhasComprasFragmentToComprasDetalhesFragment(productsJson)
             findNavController().navigate(action, navOptions)
         }
 
@@ -75,9 +82,7 @@ class MinhasVendasFragment : Fragment() {
 
         buscarProduto.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
             override fun afterTextChanged(s: Editable?) {
                 adapter.filter.filter(s.toString())
             }
@@ -86,29 +91,30 @@ class MinhasVendasFragment : Fragment() {
 
     private fun fetchDataFromServer() {
 
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(MarketApi::class.java)
+        val apiService = retrofit.create(UserApi::class.java)
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.getItemsMarket().execute()
+                val response = apiService.getMyOrdersById(userId).execute()
                 if (response.isSuccessful) {
-                    var marketList = response.body() ?: emptyList()
+                    val carrinhoList = response.body() ?: emptyList()
 
-                    Log.d("user", "Produtos: $marketList")
-
-                    marketList = marketList.sortedBy { it.name }
+                    Log.d("minhasCompras", "Produtos: $carrinhoList")
 
                     launch(Dispatchers.Main) {
-                        adapter.updateData(marketList)
+                        adapter.updateData(carrinhoList)
                     }
                 }
             } catch (e: Exception) {
-                Log.e("user", "Exception during data fetch", e)
+                Log.e("minhasCompras", "Exception during data fetch", e)
             }
         }
     }

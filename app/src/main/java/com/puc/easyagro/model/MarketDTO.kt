@@ -1,6 +1,5 @@
 package com.puc.easyagro.model
 
-import com.google.maps.model.PlaceDetails
 import java.math.BigDecimal
 
 data class MarketDTO (

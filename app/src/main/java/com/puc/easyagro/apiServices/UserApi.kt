@@ -71,6 +71,6 @@ interface UserApi {
     // minhas vendas
 
     @GET("user/mySellerProducts/{sellerId}")
-    fun getSellerProducts(@Path("sellerId") sellerId: String?): Call<List<ProdutosPix?>?>?
+    fun getSellerProducts(@Path("sellerId") sellerId: String?): Call<List<ProdutosPix>?>?
 
 }

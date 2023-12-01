@@ -1,4 +1,4 @@
-package com.puc.easyagro.ui.perfil.buttons
+package com.puc.easyagro.ui.perfil.buttons.minhasVendas
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,27 +13,29 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
-import com.puc.easyagro.apiServices.MarketApi
+import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
-import com.puc.easyagro.databinding.FragmentMinhasComprasBinding
+import com.puc.easyagro.databinding.FragmentMinhasVendasBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.market.MarketAdapter
+import com.puc.easyagro.ui.perfil.buttons.MeusAnunciosFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MinhasComprasFragment : Fragment() {
+class MinhasVendasFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MarketAdapter
+    private lateinit var adapter: MinhasVendasAdapter
 
-    private var _binding: FragmentMinhasComprasBinding? = null
+    private var _binding: FragmentMinhasVendasBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
-        _binding = FragmentMinhasComprasBinding.inflate(inflater, container, false)
+        _binding = FragmentMinhasVendasBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,8 +54,9 @@ class MinhasComprasFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        adapter = MarketAdapter(emptyList()) { itemId, _ ->
-            val action = MinhasComprasFragmentDirections.actionMinhasComprasFragmentToViewItemMarketFragment(itemId)
+        adapter = MinhasVendasAdapter(emptyList()) { itemId, _ ->
+            val action =
+                MeusAnunciosFragmentDirections.actionMeusAnunciosToViewItemMarketFragment(itemId)
             findNavController().navigate(action, navOptions)
         }
 
@@ -86,29 +89,32 @@ class MinhasComprasFragment : Fragment() {
 
     private fun fetchDataFromServer() {
 
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val apiService = retrofit.create(MarketApi::class.java)
+        val apiService = retrofit.create(UserApi::class.java)
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.getItemsMarket().execute()
-                if (response.isSuccessful) {
-                    var marketList = response.body() ?: emptyList()
+                val response = apiService.getSellerProducts(userId)?.execute()
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        val carrinhoList = response.body() ?: emptyList()
 
-                    Log.d("user", "Produtos: $marketList")
+                        Log.d("minhasCompras", "Produtos: $carrinhoList")
 
-                    marketList = marketList.sortedBy { it.name }
-
-                    launch(Dispatchers.Main) {
-                        adapter.updateData(marketList)
+                        launch(Dispatchers.Main) {
+                            adapter.updateData(carrinhoList)
+                        }
                     }
                 }
             } catch (e: Exception) {
-                Log.e("user", "Exception during data fetch", e)
+                Log.e("minhasCompras", "Exception during data fetch", e)
             }
         }
     }

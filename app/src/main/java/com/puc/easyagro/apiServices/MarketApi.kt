@@ -18,14 +18,8 @@ interface MarketApi {
     @GET("api/products")
     fun getItemsMarket(): Call<List<Market>>
 
-//    @GET("/mercado/")
-//    fun getItemsMarket(): Call<List<Market>>
-
     @POST("api/products/create")
     fun addProduct(@Body produto: MarketDTO): Call<ResponseBody>
-
-//    @POST("/mercado/")
-//    fun addProduct(@Body produto: MarketDTO): Call<MarketDTO>
 }
 
 interface MarketApiDetalhe {

@@ -17,7 +17,6 @@ import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentMarketBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
-import com.puc.easyagro.ui.home.cotacao.CotacaoFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

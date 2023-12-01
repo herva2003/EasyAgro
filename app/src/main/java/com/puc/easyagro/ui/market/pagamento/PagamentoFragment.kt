@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.MarketApiDetalhe
@@ -30,9 +29,7 @@ import com.puc.easyagro.model.PayerDTO
 import com.puc.easyagro.model.PayerIdentificationDTO
 import com.puc.easyagro.model.PixPaymentDTO
 import com.puc.easyagro.model.PixPaymentResponseDTO
-import com.puc.easyagro.model.Product
 import com.puc.easyagro.model.ProdutosPix
-import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -105,7 +102,7 @@ class PagamentoFragment : Fragment() {
 
             if (produtoSend == null && carrinhoList.isNotEmpty()) {
                 val pixPaymentDTO = PixPaymentDTO(
-                    transactionAmount = BigDecimal(2),
+                    transactionAmount = BigDecimal(1),
                     productDescription = "compra feita pelo app",
                     payer = payerDTO,
                     buyerId = userPreferencesRepository.userId,
@@ -147,7 +144,6 @@ class PagamentoFragment : Fragment() {
             showCopyCodeDialog(qrCode)
         }
     }
-
 
     private fun makePayment(pixPaymentDTO: PixPaymentDTO) {
         val retrofit = Retrofit.Builder()
@@ -277,7 +273,6 @@ class PagamentoFragment : Fragment() {
     private fun fetchDataFromServer(itemId: String) {
 
         val baseUrl = Constants.BASE_URL
-
 
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)

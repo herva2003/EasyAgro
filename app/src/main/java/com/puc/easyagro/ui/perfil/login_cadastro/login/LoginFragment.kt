@@ -96,8 +96,10 @@ class LoginFragment : Fragment() {
                         val errorMessage = jsonError.getString("message")
                         Log.e("log", "Erro no login: $errorMessage")
                     } catch (e: JSONException) {
+                        Log.e("log", "Erro no login: $errorBody")
                         e.printStackTrace()
                     }
+
                 }
             }
 
