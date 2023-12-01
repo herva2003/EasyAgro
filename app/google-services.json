@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "825710346631",
+    "project_id": "storageimg-6b1f2",
+    "storage_bucket": "storageimg-6b1f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825710346631:android:610c63813bf1a2f9ca9322",
+        "android_client_info": {
+          "package_name": "com.puc.easyagro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5lzqhdDxbW4nwtOmrKLkl3lNWWvYIl6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
