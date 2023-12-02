@@ -63,6 +63,7 @@
                 android:text="OK"
                 android:textSize="16sp"
                 app:cornerRadius="20dp"
+                android:backgroundTint="#018241"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnCancel" />
