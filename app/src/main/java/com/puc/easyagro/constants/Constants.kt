@@ -1,7 +1,7 @@
 package com.puc.easyagro.constants
 
 object Constants {
-    const val BASE_URL = "https://6f03-2804-431-cfce-7b70-9c2f-3003-6f05-fb10.ngrok-free.app/"
+    const val BASE_URL = "http://10.0.0.126:8080/"
 }
 
 

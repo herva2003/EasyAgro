@@ -1,5 +1,6 @@
 package com.puc.easyagro.ui.perfil.buttons
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -59,9 +60,14 @@ class FavoritosFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.toolbar.screenName.text = "Anúncios Salvos"
+        binding.toolbar.toolbar.setBackgroundColor(Color.parseColor("#09B187"))
+        binding.toolbar.screenName.setTextColor(Color.parseColor("#FFFFFF"))
+        binding.toolbar.btnArrow.drawable.setTint(Color.parseColor("#FFFFFF"))
 
         recyclerView.adapter = adapter
 
