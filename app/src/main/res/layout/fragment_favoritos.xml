@@ -9,24 +9,6 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_return" />
 
-    <!--    <androidx.appcompat.widget.AppCompatEditText-->
-    <!--        android:id="@+id/buscar_produto"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:hint="Buscar produto"-->
-    <!--        android:inputType="text"-->
-    <!--        android:background="@drawable/backgroud_edittext"-->
-    <!--        android:paddingStart="24dp"-->
-    <!--        android:paddingEnd="24dp"-->
-    <!--        android:paddingBottom="10dp"-->
-    <!--        android:paddingTop="10dp"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:textSize="16sp"-->
-    <!--        android:textColor="@color/grey_700"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
