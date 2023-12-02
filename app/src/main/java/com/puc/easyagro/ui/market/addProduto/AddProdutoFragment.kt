@@ -3,8 +3,12 @@ package com.puc.easyagro.ui.market.addProduto
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +47,6 @@ class AddProdutoFragment : Fragment() {
     private val listUrl = ArrayList<String>(5)
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,7 +71,7 @@ class AddProdutoFragment : Fragment() {
             }
         }
 
-        binding.imageView.setOnClickListener{
+        binding.imageView.setOnClickListener {
             openGallery()
         }
 
@@ -78,9 +81,42 @@ class AddProdutoFragment : Fragment() {
         binding.toolbar.screenName.text = "Inserir Anúncio"
 
         binding.toolbar.btnClear.setOnClickListener { showCustomDialog() }
+
+        val customTextView = binding.infoText
+        val textoCompleto = customTextView.text.toString()
+        val spannableString = SpannableString(textoCompleto)
+        val corDestaque = "#018241"
+
+        val indicesCampos = textoCompleto.indexOf("campos")
+        val indicesAsterisco = textoCompleto.indexOf("(*)")
+        val indicesObrigatorios = textoCompleto.indexOf("obrigatórios")
+
+        spannableString.setSpan(
+            ForegroundColorSpan(Color.parseColor(corDestaque)),
+            indicesCampos,
+            indicesCampos + "campos".length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannableString.setSpan(
+            ForegroundColorSpan(Color.parseColor(corDestaque)),
+            indicesAsterisco,
+            indicesAsterisco + "(*)".length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannableString.setSpan(
+            ForegroundColorSpan(Color.parseColor(corDestaque)),
+            indicesObrigatorios,
+            indicesObrigatorios + "obrigatórios".length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        customTextView.text = spannableString
+
     }
 
-    private fun showCustomDialog(){
+    private fun showCustomDialog() {
         val customDialog = DialogClearAdBinding.inflate(LayoutInflater.from(requireContext()))
         val builder = AlertDialog.Builder(requireContext())
 
@@ -99,6 +135,7 @@ class AddProdutoFragment : Fragment() {
 
         dialog.show()
     }
+
     private fun clearAd() {
         binding.anuncioInput.setText("")
         binding.descricaoInput.setText("")
@@ -116,7 +153,14 @@ class AddProdutoFragment : Fragment() {
         val description = binding.descricaoInput.text.toString()
 
 
-        return MarketDTO(name = name, price = price, category = category, description = description, userId = userId,images = listUrl)
+        return MarketDTO(
+            name = name,
+            price = price,
+            category = category,
+            description = description,
+            userId = userId,
+            images = listUrl
+        )
     }
 
     private fun validateInputFields(): Boolean {
@@ -182,10 +226,15 @@ class AddProdutoFragment : Fragment() {
                 val response = apiService.addProduct(produto).execute()
                 if (response.isSuccessful) {
                     val gson = Gson()
-                    val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
+                    val produtoInserido: MarketDTO =
+                        gson.fromJson(response.body()?.string(), MarketDTO::class.java)
                     Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
                     launch(Dispatchers.Main) {
-                        Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Produto adicionado com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     Log.d("mkt", "Falha ao inserir produto: $response")
@@ -196,28 +245,29 @@ class AddProdutoFragment : Fragment() {
         }
     }
 
-    private val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val storageFirebase = StorageFirebase()
-            val imageUri = result.data?.data
-            if (imageUri != null) {
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val storageFirebase = StorageFirebase()
+                val imageUri = result.data?.data
+                if (imageUri != null) {
 
-                storageFirebase.uploadImage(imageUri, object : OnImageUploadListener {
-                    override fun onSuccess(imageUrl: String) {
-                        listUrl.add(imageUrl)
-                        Log.d("photo", "Lista de URLs após upload: $listUrl")
+                    storageFirebase.uploadImage(imageUri, object : OnImageUploadListener {
+                        override fun onSuccess(imageUrl: String) {
+                            listUrl.add(imageUrl)
+                            Log.d("photo", "Lista de URLs após upload: $listUrl")
 
-                    }
+                        }
 
-                    override fun onFailure(errorMessage: String) {
-                        // O upload falhou, trate o erro aqui
-                        Log.e("mkt", "Erro no upload da imagem: $errorMessage")
-                    }
-                })
+                        override fun onFailure(errorMessage: String) {
+                            // O upload falhou, trate o erro aqui
+                            Log.e("mkt", "Erro no upload da imagem: $errorMessage")
+                        }
+                    })
 
+                }
             }
         }
-    }
 
     private fun openGallery() {
         val storageFirebase = StorageFirebase()  // Crie uma nova instância aqui
