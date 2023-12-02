@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentFavoritosBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.Market
 import com.puc.easyagro.ui.market.MarketAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,7 +36,13 @@ class FavoritosFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
+    private var favoritosList: List<Market> = emptyList()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentFavoritosBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -71,7 +79,9 @@ class FavoritosFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        fetchDataFromServer()
+        if (favoritosList.isEmpty()) {
+            fetchDataFromServer()
+        }
 
         val pullToRefresh = binding.pullToRefresh
         pullToRefresh.setOnRefreshListener {
@@ -79,17 +89,17 @@ class FavoritosFragment : Fragment() {
             pullToRefresh.isRefreshing = false
         }
 
-        val buscarProduto = binding.buscarProduto
-
-        buscarProduto.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                adapter.filter.filter(s.toString())
-            }
-        })
+//        val buscarProduto = binding.buscarProduto
+//
+//        buscarProduto.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                adapter.filter.filter(s.toString())
+//            }
+//        })
     }
 
     private fun fetchDataFromServer() {
@@ -108,17 +118,33 @@ class FavoritosFragment : Fragment() {
             try {
                 val response = apiService.getFavoritos(userId).execute()
                 if (response.isSuccessful) {
-                    val favoritosList = response.body() ?: emptyList()
+                    favoritosList = response.body() ?: emptyList()
 
                     Log.d("car", "Favoritos: $favoritosList")
 
                     launch(Dispatchers.Main) {
-                        adapter.updateData(favoritosList)
+                        updateUI()
                     }
                 }
             } catch (e: Exception) {
                 Log.e("car", "Exception during data fetch", e)
             }
+        }
+    }
+
+    private fun updateUI() {
+        if (favoritosList.isEmpty()) {
+            binding.recyclerViewMarket.visibility = View.GONE
+            binding.label1.visibility = View.VISIBLE
+            binding.label2.visibility = View.VISIBLE
+            binding.labelIcon.visibility = View.VISIBLE
+        } else {
+            binding.recyclerViewMarket.visibility = View.VISIBLE
+            binding.label1.visibility = View.GONE
+            binding.label2.visibility = View.GONE
+            binding.labelIcon.visibility = View.GONE
+
+            adapter.updateData(favoritosList)
         }
     }
 }

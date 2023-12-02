@@ -1,5 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,25 +7,25 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_return"/>
+        layout="@layout/toolbar_return" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/buscar_produto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="Buscar produto"
-        android:inputType="text"
-        android:background="@drawable/backgroud_edittext"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
-        android:textColor="@color/grey_700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    <!--    <androidx.appcompat.widget.AppCompatEditText-->
+    <!--        android:id="@+id/buscar_produto"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:hint="Buscar produto"-->
+    <!--        android:inputType="text"-->
+    <!--        android:background="@drawable/backgroud_edittext"-->
+    <!--        android:paddingStart="24dp"-->
+    <!--        android:paddingEnd="24dp"-->
+    <!--        android:paddingBottom="10dp"-->
+    <!--        android:paddingTop="10dp"-->
+    <!--        android:layout_margin="16dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:textColor="@color/grey_700"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
@@ -34,7 +33,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buscar_produto">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_market"
@@ -42,8 +41,45 @@
             android:layout_height="match_parent"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:paddingBottom="55dp"/>
+            android:visibility="gone"
+            android:paddingBottom="55dp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:text="Você não tem nenhum anúncio salvo"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ImageView
+        android:id="@+id/labelIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/favorite"
+        app:layout_constraintBottom_toTopOf="@id/label2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label1" />
+
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="53dp"
+        android:layout_marginBottom="112dp"
+        android:text="Para salvar, use o ícone de coração na tela do anúncio."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
