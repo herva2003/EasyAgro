@@ -15,7 +15,7 @@ import android.os.Parcelable
     var name: String? = null,
     var phoneNumber: String? = null,
     val cpf: String? = null,
-    val endereco: String? = null,
+    val address: AddressDto? = null,
     val _class: String? = null
 )
 

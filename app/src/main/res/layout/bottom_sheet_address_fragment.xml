@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Address details -->
+    <TextView
+        android:id="@+id/textCep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CEP: " />
+
+    <TextView
+        android:id="@+id/textLocalidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Localidade: " />
+
+    <TextView
+        android:id="@+id/textUf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UF: " />
+
+    <TextView
+        android:id="@+id/textLogradouro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logradouro: " />
+
+    <TextView
+        android:id="@+id/textNumero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Número: " />
+
+    <!-- Add more TextViews for additional address details if needed -->
+
+</LinearLayout>

@@ -12,8 +12,10 @@ import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentMeuCadastroBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
+import com.puc.easyagro.model.AddressDto
 import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
+import com.puc.easyagro.ui.dialogs.AddressBottomSheetFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,6 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MeuCadastroFragment : Fragment() {
     private lateinit var binding: FragmentMeuCadastroBinding
+
+    private var myAddress: AddressDto? = null
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMeuCadastroBinding.inflate(inflater, container, false)
@@ -37,6 +43,13 @@ class MeuCadastroFragment : Fragment() {
 
         binding.btnUpdate.setOnClickListener{
             updateUserOnServer()
+        }
+
+        binding.btnVerEndereco.setOnClickListener {
+            myAddress?.let {
+                val bottomSheetFragment = AddressBottomSheetFragment(it)
+                bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            }
         }
 
         fetchUserFromServer()
@@ -60,11 +73,12 @@ class MeuCadastroFragment : Fragment() {
                 val response = apiService.getUser(userId).execute()
                 if (response.isSuccessful) {
                     val user = response.body()
+                    Log.d("34",user?.address.toString())
                     launch(Dispatchers.Main) {
                         binding.inputApelido.setText(user?.nickname)
                         binding.inputTelefone.setText(user?.phoneNumber)
-                        binding.inputEndereco.setText(user?.endereco)
                         binding.inputNome.setText(user?.name)
+                        myAddress = user?.address
                     }
                 }
             } catch (e: Exception) {

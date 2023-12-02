@@ -62,6 +62,10 @@ class AddressFragment : Fragment() {
             }
         })
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnCadastrar.setOnClickListener{
             if (isValid() && usuario != null) {
                 val zipe = binding.edtZipe.unMasked

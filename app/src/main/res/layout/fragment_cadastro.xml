@@ -7,6 +7,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.perfil.login_cadastro.cadastro.CadastroFragment">
 
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_arrow_back"
+        android:background="@drawable/circle_background"
+        android:contentDescription="voltar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/topIcon"
         android:layout_width="241dp"

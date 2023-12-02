@@ -42,6 +42,9 @@ class CompleteCadastroFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
 
         binding.btnRegister.setOnClickListener {
@@ -72,7 +75,6 @@ class CompleteCadastroFragment : Fragment() {
     private fun validateInputFields(): Boolean {
         // Validation Rules
         val nomeValidation: Boolean = binding.inputNome.text.toString().trim().isNotEmpty()
-        val enderecoValidation: Boolean = binding.inputEndereco.text.toString().trim().isNotEmpty()
         val telefoneValidation: Boolean = binding.inputTelefone.text.toString().trim().isNotEmpty()
         val apelidoValidation: Boolean = binding.inputApelido.text.toString().trim().isNotEmpty()
 
@@ -83,9 +85,6 @@ class CompleteCadastroFragment : Fragment() {
             binding.inputNome.error = blankMessage
         }
 
-        if (!enderecoValidation) {
-            binding.inputEndereco.error = blankMessage
-        }
 
         if (!telefoneValidation) {
             binding.inputTelefone.error = blankMessage
@@ -96,7 +95,7 @@ class CompleteCadastroFragment : Fragment() {
         }
 
 
-        if (!nomeValidation || !enderecoValidation || !telefoneValidation || !apelidoValidation) {
+        if (!nomeValidation || !telefoneValidation || !apelidoValidation) {
             Toast.makeText(activity, "Tente novamente!", Toast.LENGTH_SHORT).show()
             return false
         }
