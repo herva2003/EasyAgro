@@ -3,7 +3,7 @@ package com.puc.easyagro.apiServices
 import com.google.gson.JsonObject
 import com.puc.easyagro.model.Market
 import com.puc.easyagro.model.MarketDTO
-import com.puc.easyagro.model.Task
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -11,7 +11,6 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface MarketApi {
 

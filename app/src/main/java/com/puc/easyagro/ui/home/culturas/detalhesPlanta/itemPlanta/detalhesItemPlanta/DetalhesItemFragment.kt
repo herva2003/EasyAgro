@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +18,11 @@ import com.puc.easyagro.model.Deficiencia
 import com.puc.easyagro.model.Doenca
 import com.puc.easyagro.model.NameRequestBody
 import com.puc.easyagro.model.Praga
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.URLEncoder
@@ -31,6 +34,8 @@ class DetalhesItemFragment : Fragment() {
 
     private var _binding: FragmentDetalhesItemBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var imageView: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +49,9 @@ class DetalhesItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imageView = binding.imgCultura
+
         recyclerView = binding.recyclerViewDetalhes
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -71,18 +79,6 @@ class DetalhesItemFragment : Fragment() {
                 }
             }
         }
-
-        val pullToRefresh = binding.pullToRefresh
-        pullToRefresh.setOnRefreshListener {
-            if (itemClicked != null) {
-                if (itemId != null) {
-                    if (item != null) {
-                        fetchDataFromServer(itemId, itemClicked, item)
-                    }
-                }
-            }
-            pullToRefresh.isRefreshing = false
-        }
     }
 
     private fun fetchDataFromServer(itemId: String, type: String, item: String) {
@@ -103,33 +99,50 @@ class DetalhesItemFragment : Fragment() {
                     else -> throw IllegalArgumentException("Tipo desconhecido: $type")
                 }
 
-                Log.d("tag", response.toString())
                 if (response.isSuccessful) {
                     val detalhesCultura = response.body()
-                    Log.d("tag", detalhesCultura.toString())
                     if (detalhesCultura != null) {
+                        Log.d("dif", detalhesCultura.toString())
                         val detalhesList = when (detalhesCultura) {
-                            is Doenca -> listOf(
-                                "Nome comum: ${detalhesCultura.nome}",
-                                "Agente Causal: ${detalhesCultura.agenteCausal}",
-                                "Descrição/Sintomas: ${detalhesCultura.descricao}",
-                                "Disseminação: ${detalhesCultura.disseminacao}",
-                                "Condições Favoráveis: ${detalhesCultura.condicoesFavoraveis}",
-                                "Controle: ${detalhesCultura.controle}",
-                            )
-                            is Praga -> listOf(
-                                "Nome comum: ${detalhesCultura.nome}",
-                                "Nome científico: ${detalhesCultura.nomeCientifico}",
-                                "Descrição: ${detalhesCultura.descricao}",
-                                "Sintomas/Danos: ${detalhesCultura.sintomasDanos}",
-                                "Disseminação: ${detalhesCultura.disseminacao}",
-                                "Condições Favoráveis: ${detalhesCultura.condicoesFavoraveis}",
-                                "Controle: ${detalhesCultura.controle}"
-                            )
-                            is Deficiencia -> listOf(
-                                "Nome comum: ${detalhesCultura.nome}",
-                                "Sintomas de deficiência: ${detalhesCultura.sintomas}",
-                            )
+                            is Doenca -> {
+                                val imageUrl = detalhesCultura.imagem
+                                withContext(Dispatchers.Main) {
+                                    Picasso.get().load(imageUrl).into(imageView)
+                                }
+                                listOf(
+                                    "Nome comum: ${detalhesCultura.nome}",
+                                    "Agente Causal: ${detalhesCultura.agenteCausal}",
+                                    "Descrição/Sintomas: ${detalhesCultura.descricao}",
+                                    "Disseminação: ${detalhesCultura.disseminacao}",
+                                    "Condições Favoráveis: ${detalhesCultura.condicoesFavoraveis}",
+                                    "Controle: ${detalhesCultura.controle}",
+                                )
+                            }
+                            is Praga -> {
+                                val imageUrl = detalhesCultura.imagem
+                                withContext(Dispatchers.Main) {
+                                    Picasso.get().load(imageUrl).into(imageView)
+                                }
+                                listOf(
+                                    "Nome comum: ${detalhesCultura.nome}",
+                                    "Nome científico: ${detalhesCultura.nomeCientifico}",
+                                    "Descrição: ${detalhesCultura.descricao}",
+                                    "Sintomas/Danos: ${detalhesCultura.sintomasDanos}",
+                                    "Disseminação: ${detalhesCultura.disseminacao}",
+                                    "Condições Favoráveis: ${detalhesCultura.condicoesFavoraveis}",
+                                    "Controle: ${detalhesCultura.controle}",
+                                )
+                            }
+                            is Deficiencia -> {
+                                val imageUrl = detalhesCultura.imagem
+                                withContext(Dispatchers.Main) {
+                                    Picasso.get().load(imageUrl).into(imageView)
+                                }
+                                listOf(
+                                    "Nome comum: ${detalhesCultura.nome}",
+                                    "Sintomas de deficiência: ${detalhesCultura.sintomas}",
+                                )
+                            }
                             else -> throw IllegalArgumentException("Tipo de detalhe desconhecido: ${detalhesCultura::class.java}")
                         }
                         activity?.runOnUiThread {

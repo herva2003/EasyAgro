@@ -15,6 +15,7 @@ data class Doenca(
     val disseminacao: String? = null,
     val condicoesFavoraveis: String? = null,
     val controle: String? = null,
+    val imagem: String? = null,
 )
 
 data class Praga(
@@ -25,9 +26,11 @@ data class Praga(
     val disseminacao: String? = null,
     val condicoesFavoraveis: String? = null,
     val controle: String? = null,
+    val imagem: String? = null,
 )
 
 data class Deficiencia(
     val nome: String? = null,
     val sintomas: String? = null,
+    val imagem: String? = null,
 )

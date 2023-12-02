@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.model.Market
+import com.squareup.picasso.Picasso
 import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -26,6 +28,7 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
         val categoriaItemMarket: TextView = itemView.findViewById(R.id.categoria_item_market)
         val precoItemMarket: TextView = itemView.findViewById(R.id.preco_item_market)
         val createdAt: TextView = itemView.findViewById(R.id.data_publicacao)
+        val imagem: ImageView = itemView.findViewById(R.id.imgAnuncio)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +41,11 @@ class MarketAdapter(private var marketList: List<Market>, private val onItemClic
         holder.nomeItemMarket.text = itemMarket.name
         holder.categoriaItemMarket.text = itemMarket.category
         holder.precoItemMarket.text = "R$${itemMarket.price.toString()}"
+
+        if (itemMarket.images?.isNotEmpty() == true) {
+            val imageUrl = itemMarket.images[0]
+            Picasso.get().load(imageUrl).into(holder.imagem)
+        }
 
         val originalFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
         originalFormat.timeZone = TimeZone.getTimeZone("UTC")

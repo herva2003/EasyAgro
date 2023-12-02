@@ -2,13 +2,11 @@ package com.puc.easyagro.services;
 
 import android.net.Uri;
 import android.util.Log;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 
 public class StorageFirebase {
 
@@ -56,10 +54,8 @@ public class StorageFirebase {
                 });
     }
 
-
     public interface OnImageUploadListener {
         void onSuccess(String imageUrl);
-
         void onFailure(String errorMessage);
     }
 }

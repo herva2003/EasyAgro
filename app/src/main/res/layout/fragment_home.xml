@@ -60,11 +60,11 @@
         android:id="@+id/cardDaninhas"
         android:layout_width="111dp"
         android:layout_height="99dp"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="65dp"
-        app:cardElevation="8dp"
         app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toEndOf="@id/cardCulturas"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,11 +111,11 @@
         android:id="@+id/cardMaquinas"
         android:layout_width="111dp"
         android:layout_height="99dp"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="65dp"
-        app:cardElevation="8dp"
+        android:layout_marginEnd="18dp"
         app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toEndOf="@id/cardDaninhas"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout

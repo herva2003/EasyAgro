@@ -14,6 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.JsonObject
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.CarrinhoApi
@@ -37,7 +40,9 @@ class ViewItemMarketFragment : Fragment() {
     private var _binding: FragmentViewItemMarketBinding? = null
     private val binding get() = _binding!!
 
-    private var statusFavorite: Boolean = false;
+    private var statusFavorite: Boolean = false
+
+    private lateinit var imageSlider: ImageSlider
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         _binding = FragmentViewItemMarketBinding.inflate(layoutInflater, container, false)
@@ -46,6 +51,8 @@ class ViewItemMarketFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imageSlider = binding.imageSlider
 
         val itemId = arguments?.getString("itemId")!!
         val itemString = arguments?.getString("itemString")
@@ -79,18 +86,15 @@ class ViewItemMarketFragment : Fragment() {
 
         binding.btnCoracao.setOnClickListener {
             val itemId = arguments?.getString("itemId")!!
-            if(statusFavorite) {
+            statusFavorite = if(statusFavorite) {
                 removeItemFavoritos(itemId)
                 updateFavoriteButtonUI(false)
-                statusFavorite = false
+                false
             } else {
                 addItemFavoritos(itemId)
-                statusFavorite = true
+                true
             }
-
-
         }
-
         fetchDataFromServer(itemId)
     }
 
@@ -141,8 +145,6 @@ class ViewItemMarketFragment : Fragment() {
 
         heartIcon.setImageDrawable(heartDrawable)
     }
-
-
 
     private fun addItemFavoritos(itemId: String){
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
@@ -250,9 +252,7 @@ class ViewItemMarketFragment : Fragment() {
     }
 
     private fun fetchDataFromServer(itemId: String) {
-
         val baseUrl = Constants.BASE_URL
-
 
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -281,6 +281,20 @@ class ViewItemMarketFragment : Fragment() {
                         launch(Dispatchers.Main) {
                             binding.txtPrecoValor.text = "R$${mercado.price}"
                             binding.txtDescricaoValor.text = mercado.description
+
+                            // Verificar se o campo 'imageUrl' existe e não está vazio
+                            val imageList = mutableListOf<SlideModel>()
+                            detalhesItemMarket.images?.let { images ->
+                                for (imageUrl in images) {
+                                    if (!imageUrl.isNullOrEmpty()) {
+                                        imageList.add(SlideModel(imageUrl))
+                                    }
+                                }
+                            }
+
+                            if (imageList.isNotEmpty()) {
+                                imageSlider.setImageList(imageList, ScaleTypes.CENTER_INSIDE)
+                            }
                         }
                     }
                 } else {
@@ -291,4 +305,5 @@ class ViewItemMarketFragment : Fragment() {
             }
         }
     }
+
 }
