@@ -1,6 +1,7 @@
 package com.puc.easyagro.ui.market.addProduto
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
+import com.puc.easyagro.databinding.DialogClearAdBinding
 import com.puc.easyagro.databinding.FragmentAddProdutoBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.model.MarketDTO
@@ -74,6 +76,34 @@ class AddProdutoFragment : Fragment() {
         binding.categoriasSpinner.adapter = adapter
 
         binding.toolbar.screenName.text = "Inserir Anúncio"
+
+        binding.toolbar.btnClear.setOnClickListener { showCustomDialog() }
+    }
+
+    private fun showCustomDialog(){
+        val customDialog = DialogClearAdBinding.inflate(LayoutInflater.from(requireContext()))
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setView(customDialog.root)
+
+        val dialog = builder.create()
+
+        customDialog.btnAccept.setOnClickListener {
+            clearAd()
+            dialog.dismiss()
+        }
+
+        customDialog.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+    private fun clearAd() {
+        binding.anuncioInput.setText("")
+        binding.descricaoInput.setText("")
+        binding.precoInput.setText("")
+        binding.anuncioInput.requestFocus()
     }
 
     private fun getFormData(): MarketDTO {
