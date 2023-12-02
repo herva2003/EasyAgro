@@ -16,7 +16,7 @@
         android:layout_marginBottom="16dp">
 
         <ImageView
-            android:id="@+id/cultureIcon"
+            android:id="@+id/option_item_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/outlined_psychiatry"
@@ -25,14 +25,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_view_nome_cultura"
+            android:id="@+id/option_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:textColor="#1C1B1F"
             android:textSize="16sp"
+            android:text="Nome"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cultureIcon"
+            app:layout_constraintStart_toEndOf="@id/option_item_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView

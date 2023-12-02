@@ -26,12 +26,13 @@ import java.time.LocalDateTime
 
 class PerfilFragment : Fragment() {
 
+    private lateinit var recyclerViewTarefas: RecyclerView
+    private lateinit var adapterTarefas: TarefaAdapter
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: TarefaAdapter
+    private lateinit var recyclerViewOpcoes: RecyclerView
+    private lateinit var adapterOpcoes: PerfilAdapter
 
     private var _binding: FragmentPerfilBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View {
@@ -42,14 +43,27 @@ class PerfilFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = binding.recyclerViewPerfil
+        recyclerViewTarefas = binding.recyclerViewPerfil
+        val numberOfColumnsTarefas = 1
+        recyclerViewTarefas.layoutManager = GridLayoutManager(requireContext(), numberOfColumnsTarefas)
+        adapterTarefas = TarefaAdapter(emptyList())
+        recyclerViewTarefas.adapter = adapterTarefas
 
-        val numberOfColumns = 1
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), numberOfColumns)
+        recyclerViewOpcoes = binding.recyclerViewOptions
+        val numberOfColumnsOpcoes = 1
+        recyclerViewOpcoes.layoutManager = GridLayoutManager(requireContext(), numberOfColumnsOpcoes)
 
-        adapter = TarefaAdapter(emptyList())
-
-        recyclerView.adapter = adapter
+        adapterOpcoes = PerfilAdapter(requireContext()) { option ->
+            when (option.name) {
+                "Meus Anúncios" -> findNavController().navigate(R.id.action_perfilFragment_to_meusAnunciosFragment)
+                "Minhas Vendas" -> findNavController().navigate(R.id.action_perfilFragment_to_minhasVendasFragment)
+                "Minhas Compras" -> findNavController().navigate(R.id.action_perfilFragment_to_minhasComprasFragment)
+                "Favoritos" -> findNavController().navigate(R.id.action_perfilFragment_to_favoritosFragment)
+                "Carrinho" -> findNavController().navigate(R.id.action_perfilFragment_to_carrinhoFragment)
+                "Tarefas" -> findNavController().navigate(R.id.action_perfilFragment_to_minhasTarefasFragment)
+            }
+        }
+        recyclerViewOpcoes.adapter = adapterOpcoes
 
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
@@ -67,36 +81,6 @@ class PerfilFragment : Fragment() {
 
         binding.toolbar.btnProfile.setOnClickListener {
             val action = PerfilFragmentDirections.actionPerfilFragmentToMinhaContaFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMeusAnuncios.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMeusAnunciosFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMinhasVendas.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasVendasFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnMinhasCompras.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasComprasFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnFavoritos.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToFavoritosFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnCarrinho.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToCarrinhoFragment()
-            findNavController().navigate(action, navOptions)
-        }
-
-        binding.btnTodasTarefas.setOnClickListener {
-            val action = PerfilFragmentDirections.actionPerfilFragmentToMinhasTarefasFragment()
             findNavController().navigate(action, navOptions)
         }
 
@@ -141,7 +125,7 @@ class PerfilFragment : Fragment() {
                     }
 
                     launch(Dispatchers.Main) {
-                        adapter.updateData(tarefaList)
+                        adapterTarefas.updateData(tarefaList)
                     }
                 }
             } catch (e: Exception) {
