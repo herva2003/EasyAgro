@@ -5,10 +5,15 @@ import com.puc.easyagro.model.Order
 import com.puc.easyagro.model.ProdutosPix
 import com.puc.easyagro.model.Task
 import com.puc.easyagro.model.UserDTO
+import com.puc.easyagro.model.UserDTO2
 import com.puc.easyagro.model.UserUpdateDTO
 import com.puc.easyagro.model.Usuario
+import com.puc.easyagro.model.VIaCepDTO
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -19,7 +24,7 @@ import retrofit2.http.Query
 
 interface UserApi {
     @POST("user/create")
-    fun addUser(@Body user: UserDTO): Call<ResponseBody>
+    fun addUser(@Body user: UserDTO2): Call<ResponseBody>
 
     @PUT("user/update/{userId}")
     fun completeUser(@Query("userId") id: String, @Body user: UserUpdateDTO): Call<ResponseBody>
@@ -74,4 +79,13 @@ interface UserApi {
     @GET("user/mySellerProducts/{sellerId}")
     fun getSellerProducts(@Path("sellerId") sellerId: String?): Call<List<ProdutosPix>?>?
 
+    @GET("api/address/{cep}")
+    suspend fun getAddressByCep(@Path("cep") cep: String): Response<VIaCepDTO>
+
+
+
+
+
 }
+
+

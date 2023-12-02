@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.auth.register.AddressFragment">
+
+        <TextView
+            android:id="@+id/labelTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/string_address_register_page_title"
+            android:textAlignment="center"
+            android:textColor="#333333"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:src="@drawable/address"
+            app:layout_constraintBottom_toTopOf="@+id/zipCodeInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelTitle" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/zipCodeInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="@id/labelTitle"
+            app:layout_constraintStart_toStartOf="@id/labelTitle"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.santalu.maskara.widget.MaskEditText
+                android:id="@+id/edtZipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_zip_field"
+                android:inputType="number"
+                app:mask="_____-___"
+                app:maskCharacter="_"
+                app:maskStyle="completable" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/streetInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/numberInputLayout"
+            app:layout_constraintStart_toStartOf="@id/zipCodeInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/zipCodeInputLayout"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_street_name" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/neighborhoodCodeInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/numberInputLayout"
+            app:layout_constraintStart_toStartOf="@id/streetInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/streetInputLayout"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNeighbBorhood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_neighborhood"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/numberInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/streetInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/streetInputLayout"
+            app:layout_constraintTop_toTopOf="@id/streetInputLayout"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_number"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cityInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/stateInputLayout"
+            app:layout_constraintStart_toStartOf="@id/neighborhoodCodeInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/neighborhoodCodeInputLayout"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_city" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stateInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cityInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cityInputLayout"
+            app:layout_constraintTop_toTopOf="@id/cityInputLayout"
+            app:startIconDrawable="@drawable/baseline_gps_fixed_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/string_address_state" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Adicione este bloco ao final do ConstraintLayout -->
+        <Button
+            android:id="@+id/btnCadastrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="cadastrar"
+            android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@id/labelTitle"
+        app:layout_constraintEnd_toEndOf="@id/labelTitle"
+        app:layout_constraintTop_toBottomOf="@id/stateInputLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

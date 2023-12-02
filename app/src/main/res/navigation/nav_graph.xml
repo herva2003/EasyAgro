@@ -248,6 +248,10 @@
         <action
             android:id="@+id/action_completeCadastroFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_completeCadastroFragment_to_addressFragment2"
+            app:destination="@id/addressFragment2" />
     </fragment>
     <fragment
         android:id="@+id/minhaContaFragment"
@@ -390,4 +394,21 @@
                 app:argType="string" />
         </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/addressFragment2"
+        android:name="AddressFragment"
+        android:label="AddressFragment" >
+        <argument
+            android:name="usuario"
+            app:argType="com.puc.easyagro.model.UserDTO" />
+        <action
+            android:id="@+id/action_addressFragment_to_completeCadastroFragment"
+            app:destination="@id/completeCadastroFragment" />
+        <action
+            android:id="@+id/action_addressFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+
 </navigation>
