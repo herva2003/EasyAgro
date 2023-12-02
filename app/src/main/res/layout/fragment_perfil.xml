@@ -7,57 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.perfil.PerfilFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btn_profile"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/grey_bg"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_perfil"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/txt_apelido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAllCaps="false"
-                android:textColor="@color/button_text_colors"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Minha conta"
-                android:textAllCaps="false"
-                android:textColor="@color/green_pi"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_profile"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_meus_anuncios"
@@ -75,7 +27,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_minhas_vendas"

@@ -65,7 +65,7 @@ class PerfilFragment : Fragment() {
             return
         }
 
-        binding.btnProfile.setOnClickListener {
+        binding.toolbar.btnProfile.setOnClickListener {
             val action = PerfilFragmentDirections.actionPerfilFragmentToMinhaContaFragment()
             findNavController().navigate(action, navOptions)
         }
@@ -168,7 +168,7 @@ class PerfilFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     launch(Dispatchers.Main) {
-                        binding.txtApelido.text = user?.nickname
+                        binding.toolbar.txtApelido.text = user?.nickname
                     }
                 }
             } catch (e: Exception) {
