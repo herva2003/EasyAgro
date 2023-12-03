@@ -57,14 +57,14 @@ class MarketFragment : Fragment() {
         }
 
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
-        _binding?.btnAddProduto?.isEnabled = userPreferencesRepository.token != ""
+        binding.btnAddProduto.isEnabled = userPreferencesRepository.token != ""
 
-        _binding?.btnAddProduto?.setOnClickListener {
+        binding.btnAddProduto.setOnClickListener {
             val action = MarketFragmentDirections.actionMarketFragmentToAddProdutoFragment()
             findNavController().navigate(action, navOptions)
         }
 
-        _binding?.toolbar?.screenName?.text = "Mercado"
+        binding.toolbar.screenName.text = "Mercado"
 
         recyclerView.adapter = adapter
 

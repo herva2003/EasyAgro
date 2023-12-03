@@ -119,11 +119,10 @@ class TarefaFragment : Fragment() {
                     val customTime = customCalendar.timeInMillis
                     val currentTime = System.currentTimeMillis()
                     if (customTime > currentTime) {
-                        val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
+                        Data.Builder().putInt(NOTIFICATION_ID, 0).build()
                         val delay = customTime - currentTime
                         val titleNotification = binding.editText.text.toString()
                         scheduleNotification(delay, titleNotification)
-
 
                         val titleNotificationSchedule = getString(R.string.notification_schedule_title)
                         val patternNotificationSchedule =
@@ -193,51 +192,6 @@ class TarefaFragment : Fragment() {
             }
         }
     }
-
-
-
-
-
-//    private fun sendDataToServer(tarefa: Task) {
-//
-//        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
-//        val userId = userPreferencesRepository.userId
-//
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//        val apiService = retrofit.create(UserApi::class.java)
-//
-//        val gson = Gson()
-//        val tarefaJsonElement = gson.toJsonTree(tarefa)
-//
-//        val taskInserida: Task = gson.toJsonTree(tarefa)
-//
-//        val tarefaJson = JsonObject()
-//        tarefaJson.add("tarefa", tarefaJsonElement)
-//
-//        Log.d("oi",tarefaJsonElement.toString())
-//
-//        GlobalScope.launch(Dispatchers.IO) {
-//            try {
-//                val response = apiService.addTarefa(userId, tarefaJson).execute()
-//                if (response.isSuccessful) {
-//
-//                    launch(Dispatchers.Main) {
-//                        Toast.makeText(context, "Tarefa criada com sucesso!", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                } else {
-//                    Log.d("taf", "Falha ao criar tarefa: $response")
-//                }
-//
-//            }catch (e: Exception) {
-//                Log.d("taf", "Exception ao criar tarefa: ", e)
-//            }
-//        }
-//    }
 
     private fun validateInputFields(): Boolean {
         val name: Boolean = binding.editText.text.toString().trim().isNotEmpty()

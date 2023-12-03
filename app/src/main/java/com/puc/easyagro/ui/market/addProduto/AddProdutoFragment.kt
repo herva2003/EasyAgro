@@ -18,8 +18,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.Gson
+import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.MarketApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.DialogClearAdBinding
@@ -28,6 +33,7 @@ import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.model.MarketDTO
 import com.puc.easyagro.services.StorageFirebase
 import com.puc.easyagro.services.StorageFirebase.OnImageUploadListener
+import com.puc.easyagro.ui.market.MarketFragmentDirections
 import com.puc.easyagro.ui.market.getCategoriasAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -46,7 +52,7 @@ class AddProdutoFragment : Fragment() {
 
     private val listUrl = ArrayList<String>(5)
 
-
+    private lateinit var imageSlider: ImageSlider
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +66,14 @@ class AddProdutoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        imageSlider = binding.imageSlider
 
+        val navOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.fade_in)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.fade_out)
+            .build()
 
         binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -69,6 +82,8 @@ class AddProdutoFragment : Fragment() {
         binding.btnAnunciar.setOnClickListener {
             if (validateInputFields()) {
                 sendDataToServer(getFormData())
+                val action = AddProdutoFragmentDirections.actionAddProdutoFragmentToMarketFragment()
+                findNavController().navigate(action, navOptions)
             }
         }
 
@@ -135,11 +150,15 @@ class AddProdutoFragment : Fragment() {
 
         dialog.show()
     }
+
     private fun clearAd() {
         binding.anuncioInput.setText("")
         binding.descricaoInput.setText("")
         binding.precoInput.setText("")
         binding.anuncioInput.requestFocus()
+
+        listUrl.clear()
+        binding.imageSlider.setImageList(emptyList())
     }
 
     private fun getFormData(): MarketDTO {
@@ -162,6 +181,7 @@ class AddProdutoFragment : Fragment() {
         val category: Boolean =
             binding.categoriasSpinner.selectedItem.toString().trim().isNotEmpty()
         val description: Boolean = binding.descricaoInput.text.toString().trim().isNotEmpty()
+        val image: Boolean = listUrl.isNotEmpty()
 
         val blankMessage = "Esse campo não pode ser vazio"
 
@@ -182,13 +202,18 @@ class AddProdutoFragment : Fragment() {
             binding.descricaoInput.error = blankMessage
         }
 
-        if (!name || !price || !category || !description) {
+        if (!image) {
+            Toast.makeText(activity, "Por favor, selecione uma imagem!", Toast.LENGTH_SHORT).show()
+        }
+
+        if (!name || !price || !category || !description || !image) {
             Toast.makeText(activity, "Tente novamente!", Toast.LENGTH_SHORT).show()
             return false
         }
 
         return true
     }
+
 
     private fun sendDataToServer(produto: MarketDTO) {
 
@@ -220,9 +245,11 @@ class AddProdutoFragment : Fragment() {
                     val gson = Gson()
                     val produtoInserido: MarketDTO = gson.fromJson(response.body()?.string(), MarketDTO::class.java)
                     Log.d("mkt", "Produto inserido com sucesso: $produtoInserido")
+
                     launch(Dispatchers.Main) {
                         Toast.makeText(context, "Produto adicionado com sucesso!", Toast.LENGTH_SHORT).show()
                     }
+
                 } else {
                     Log.d("mkt", "Falha ao inserir produto: $response")
                 }
@@ -243,6 +270,12 @@ class AddProdutoFragment : Fragment() {
                         listUrl.add(imageUrl)
                         Log.d("photo", "Lista de URLs após upload: $listUrl")
 
+                        // Atualizar o imageSlider
+                        val imageList = mutableListOf<SlideModel>()
+                        for (url in listUrl) {
+                            imageList.add(SlideModel(url))
+                        }
+                        imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
                     }
 
                     override fun onFailure(errorMessage: String) {

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,25 +10,41 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_profile"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_options"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_recycler"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:listitem="@layout/item_option"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:ignore="UnknownIdInLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_perfil"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_option"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:ignore="UnknownIdInLayout" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_options" />
+        app:layout_constraintTop_toBottomOf="@+id/nested_recycler">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnTarefa"

@@ -24,59 +24,56 @@
             android:layout_height="wrap_content"
             tools:context=".ui.market.addProduto.AddProdutoFragment">
 
-            <com.google.android.material.carousel.MaskableFrameLayout
-                android:id="@+id/grey_rectangle"
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
-                android:layout_marginTop="60dp"
-                android:background="@color/grey_300"
+                app:iss_corner_radius="5"
+                android:layout_marginTop="55dp"
+                app:iss_delay="0"
+                app:iss_period="1000"
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:src="@drawable/outline_add_a_photo_24"
+                android:tint="@color/green_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_slider" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/image_view"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:clickable="true"
-                        android:src="@drawable/outline_add_a_photo_24"
-                        android:tint="@color/green_bar" />
-
-                    <TextView
-                        android:id="@+id/label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Incluir Fotos"
-                        android:textColor="@color/green_bar"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 de 6 adicionadas"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-            </com.google.android.material.carousel.MaskableFrameLayout>
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Incluir Fotos"
+                android:textColor="@color/green_bar"
+                android:textSize="13sp"
+                android:layout_marginStart="6dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titulo_anuncio_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="Título do anúncio*"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/grey_rectangle" />
+                app:layout_constraintTop_toBottomOf="@+id/label" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/anuncio_input"
@@ -185,7 +182,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="#018241"
+                android:backgroundTint="@color/green_pi"
                 android:text="Enviar Anúncio"
                 android:textAllCaps="false"
                 app:cornerRadius="20dp"

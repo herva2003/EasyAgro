@@ -50,7 +50,7 @@ class NotifyWork(context: Context, params: WorkerParameters) : Worker(context, p
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val bitmap = applicationContext.vectorToBitmap(R.drawable.ic_schedule_black_24dp)
-        val titleNotification = applicationContext.getString(R.string.notification_title)
+        val titleNotification = applicationContext.getString(R.string.app_name)
         val subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
         val pendingIntent = if (SDK_INT >= S) {
             getActivity(applicationContext, 0, intent, PendingIntent.FLAG_MUTABLE)
