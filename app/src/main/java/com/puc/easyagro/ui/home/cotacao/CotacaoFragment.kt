@@ -22,6 +22,7 @@ import com.puc.easyagro.model.Produto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -64,7 +65,6 @@ class CotacaoFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        checkStatusCot()
 
         val pullToRefresh = binding.pullToRefresh
         pullToRefresh.setOnRefreshListener {
@@ -85,8 +85,8 @@ class CotacaoFragment : Fragment() {
         })
     }
 
-    private fun checkStatusCot(){
 
+    private fun fetchDataFromServer() {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -96,128 +96,24 @@ class CotacaoFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.checkStatusCot()
-                Log.d("cot", "Resposta: $response")
+                val response = apiService.getProductsCepea()
+
                 if (response.isSuccessful) {
-                    val statusResponse = response.body()
-                    val status = statusResponse?.statusCot ?: false
-                    if (status) {
-                        fetchDataFromServer()
-                    } else {
-                        getCotacoesApi()
-                        updateStatusCot()
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("cot", "Deu erro, Resposta: $e")
-            }
-        }
-    }
+                    val cepeaProducts = response.body()
+                    val produtosList = cepeaProducts?.products ?: emptyList()
 
-    private fun fetchDataFromServer(){
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(CotacaoApi::class.java)
-
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val response = apiService.fetchDataFromMongoDB()
-                Log.d("cot", "Resposta: $response")
-                if (response.isSuccessful) {
-                    val cotacoes = response.body() ?: emptyList()
-                    Log.d("cot", "Cotações: $cotacoes")
-
-                    // Extrair a lista de produtos de cada cotação
-                    val produtosList = cotacoes.flatMap { it.produtos ?: emptyList() }
-
-                    launch(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) {
                         adapter.updateData(produtosList)
                     }
-                }
-            } catch (e: Exception) {
-                Log.e("cot", "Deu erro, Resposta: $e")
-            }
-        }
-    }
-
-    private fun getCotacoesApi() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.infosimples.com/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(CotacaoApiBasic::class.java)
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val response = service.getCotacao("3ugnDX4YiO4wNX0e_sfHxfLoyaY0yMi4n07srw0Y", "300")
-
-                if (response.code == 200) {
-                    val dados = response.data
-
-                    sendCotacoesToMongo(dados)
-
-                    Log.d("cot", "Todas as cotações: $dados")
-                } else if (response.code in 600..799) {
-                    var mensagem = "Um erro aconteceu. Leia para saber mais:\n"
-                    mensagem += "Código: ${response.code} (${response.code_message})\n"
-                    if (response.errors != null) {
-                        mensagem += response.errors.joinToString("; ")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("cot", "Erro durante a busca da cotação", e)
-            }
-        }
-    }
-
-    private fun sendCotacoesToMongo(dados: Any){
-        Log.d("cot", "Iniciando sendCotacoesToMongo com dados: $dados")
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(CotacaoApi::class.java)
-
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                Log.d("cot", "Enviando dados para MongoDB")
-                val response = apiService.sendDataToMongoDB(dados)
-                if (response.isSuccessful) {
-                    Log.d("cot", "Dados enviados com sucesso: $response")
-                    fetchDataFromServer()
                 } else {
-                    Log.d("cot", "Falha ao enviar dados, resposta: $response")
+                    // Trate o erro
+                    Log.e("cot", "Erro na resposta: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.d("cot", "Exceção capturada: ", e)
+                // Trate a exceção
+                Log.e("cot", "Deu erro na requisição", e)
             }
         }
     }
 
-    private fun updateStatusCot(){
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(CotacaoApi::class.java)
-
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val response = apiService.updateStatusCot()
-                Log.d("cot", "Resposta: $response")
-                if (!response.isSuccessful) {
-                    Log.e("cot", "Falha ao atualizar statusCot")
-                }
-            } catch (e: Exception) {
-                Log.e("cot", "Deu erro, Resposta: $e")
-            }
-        }
-    }
 }

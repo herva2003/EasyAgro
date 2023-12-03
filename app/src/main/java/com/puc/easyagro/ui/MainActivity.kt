@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.puc.easyagro.R
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.meuCadastroFragment -> navView.visibility = View.GONE
                 R.id.pagamentoFragment -> navView.visibility = View.GONE
                 R.id.comprasDetalhesFragment -> navView.visibility = View.GONE
+                R.id.addressFragment2 -> navView.isVisible = false;
 
                 else -> navView.visibility = View.VISIBLE
             }

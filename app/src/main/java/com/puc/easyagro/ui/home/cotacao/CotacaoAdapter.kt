@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
 import com.puc.easyagro.model.Cotacao
+import com.puc.easyagro.model.ProductCepeaDTO
 import com.puc.easyagro.model.Produto
 import java.text.Normalizer
 import java.util.regex.Pattern
 
-class CotacaoAdapter(private var produtosList: List<Produto>, private val onItemClickListener: () -> Unit) :
+class CotacaoAdapter(private var produtosList: List<ProductCepeaDTO>, private val onItemClickListener: () -> Unit) :
     RecyclerView.Adapter<CotacaoAdapter.ViewHolder>(), Filterable {
 
     var produtosListFiltered = produtosList
@@ -60,7 +61,7 @@ class CotacaoAdapter(private var produtosList: List<Produto>, private val onItem
                 produtosListFiltered = if (charString.isEmpty()) {
                     produtosList
                 } else {
-                    val filteredList = ArrayList<Produto>()
+                    val filteredList = ArrayList<ProductCepeaDTO>()
                     for (produto in produtosList) {
                         val produtoNome = removeAccents(produto.produto?.toLowerCase() ?: "")
                         if (produtoNome.contains(charString)) {
@@ -76,14 +77,14 @@ class CotacaoAdapter(private var produtosList: List<Produto>, private val onItem
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                produtosListFiltered = filterResults.values as ArrayList<Produto>
+                produtosListFiltered = filterResults.values as ArrayList<ProductCepeaDTO>
                 Log.d("cot", "Publicando resultados. Número de itens: ${produtosListFiltered.size}")
                 notifyDataSetChanged()
             }
         }
     }
 
-    fun updateData(newProdutosList: List<Produto>) {
+    fun updateData(newProdutosList: List<ProductCepeaDTO>) {
         this.produtosList = newProdutosList
         this.produtosListFiltered = newProdutosList
         notifyDataSetChanged()

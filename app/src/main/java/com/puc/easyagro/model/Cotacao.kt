@@ -1,5 +1,7 @@
 package com.puc.easyagro.model
 
+import java.time.Instant
+
 data class Produto (
     var data: String? = null,
     var produto: String? = null,
@@ -8,6 +10,22 @@ data class Produto (
     var local: String? = null,
     var unidade: String? = null,
 )
+
+data class CepeaProducts (
+    val id: String,
+    val updateAt: Instant,
+    val products: List<ProductCepeaDTO>
+)
+
+data class ProductCepeaDTO(
+    val data: String,
+    val produto: String,
+    val valor: String,
+    val nome: String,
+    val local: String,
+    val unidade: String
+)
+
 
 data class Cotacao (
     var produtos: List<Produto>? = null

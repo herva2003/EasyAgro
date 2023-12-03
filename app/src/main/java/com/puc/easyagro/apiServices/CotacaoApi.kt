@@ -1,8 +1,9 @@
 package com.puc.easyagro.apiServices
 
-import com.puc.easyagro.model.Cotacao
+import com.puc.easyagro.model.CepeaProducts
 import com.puc.easyagro.model.ResponseBody
 import com.puc.easyagro.model.StatusResponse
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -27,6 +28,6 @@ interface CotacaoApi {
     @POST("cotacoes")
     suspend fun sendDataToMongoDB(@Body data: Any): Response<Unit>
 
-    @GET("cotacoes/produtos")
-    suspend fun fetchDataFromMongoDB(): Response<List<Cotacao>>
+    @GET("api/cepea/products")
+    suspend fun getProductsCepea(): Response<CepeaProducts>
 }
