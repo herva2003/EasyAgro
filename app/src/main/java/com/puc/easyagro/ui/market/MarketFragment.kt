@@ -100,16 +100,16 @@ class MarketFragment : Fragment() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = apiService.getItemsMarket().execute()
+
                 if (response.isSuccessful) {
                     var marketList = response.body() ?: emptyList()
-
-                    Log.d("mkt", "Produtos: $marketList")
-
                     marketList = marketList.sortedBy { it.name }
 
                     launch(Dispatchers.Main) {
                         adapter.updateData(marketList)
                     }
+                } else {
+                    Log.e("mkt", "Erro na resposta: ${response.code()}")
                 }
             } catch (e: Exception) {
                 Log.e("mkt", "Exception during data fetch", e)
@@ -117,3 +117,5 @@ class MarketFragment : Fragment() {
         }
     }
 }
+
+

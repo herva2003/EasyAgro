@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.teethkids.utils.Utils
-import com.example.teethkids.utils.Utils.hideKeyboard
+import com.puc.easyagro.utils.Utils
+import com.puc.easyagro.utils.Utils.hideKeyboard
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants

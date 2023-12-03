@@ -65,6 +65,7 @@ class CotacaoFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
+        fetchDataFromServer()
 
         val pullToRefresh = binding.pullToRefresh
         pullToRefresh.setOnRefreshListener {
@@ -84,7 +85,6 @@ class CotacaoFragment : Fragment() {
             }
         })
     }
-
 
     private fun fetchDataFromServer() {
         val retrofit = Retrofit.Builder()

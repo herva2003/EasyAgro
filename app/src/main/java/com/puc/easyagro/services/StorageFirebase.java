@@ -11,7 +11,7 @@ import com.google.firebase.storage.UploadTask;
 public class StorageFirebase {
 
     private static final String TAG = "StorageFirebase";
-    private static final String STORAGE_PATH = "images/";
+    private static final String STORAGE_PATH = "images/produtosMercado";
 
     private FirebaseStorage storage;
     private StorageReference storageReference;

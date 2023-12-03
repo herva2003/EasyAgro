@@ -1,4 +1,4 @@
-package com.example.teethkids.utils
+package com.puc.easyagro.utils
 
 
 import android.content.Context
@@ -25,9 +25,4 @@ object Utils {
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
-
-
-
-
-
 }

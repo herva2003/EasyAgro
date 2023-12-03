@@ -14,8 +14,8 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_arrow"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
@@ -26,55 +26,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/label_btn_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="Voltar"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_arrow"
-            app:layout_constraintStart_toEndOf="@id/btn_arrow"
-            app:layout_constraintTop_toTopOf="@id/btn_arrow" />
-
-        <TextView
-            android:id="@+id/clicked_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="16dp"
-            android:text="Editar"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_arrow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_arrow" />
-
-        <TextView
             android:id="@+id/txt_apelido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:text="Nome do usuario"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/txt_endereco"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_endereco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
             android:text="Endereço"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_apelido" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>

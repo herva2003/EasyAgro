@@ -80,6 +80,7 @@ class MinhaContaFragment : Fragment() {
                     val user = response.body()
                     launch(Dispatchers.Main) {
                         binding.toolbar.txtApelido.text = user?.nickname
+                        binding.toolbar.txtEndereco.text = "${user?.address?.logradouro}, ${user?.address?.numero}"
                     }
                 }
             } catch (e: Exception) {

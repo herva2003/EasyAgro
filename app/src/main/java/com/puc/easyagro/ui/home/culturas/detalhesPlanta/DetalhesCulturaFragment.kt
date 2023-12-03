@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.puc.easyagro.databinding.FragmentDetalhesCulturaBinding
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.model.Cultura
 import com.puc.easyagro.apiServices.CulturasApiDetalhe
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class DetalhesCulturaFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DetalhesCulturaAdapter
+    private lateinit var imageView: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
         _binding = FragmentDetalhesCulturaBinding.inflate(inflater, container, false)
@@ -36,6 +39,8 @@ class DetalhesCulturaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imageView = binding.imgCrops
 
         recyclerView = binding.recyclerViewDetalhes
 
@@ -97,20 +102,20 @@ class DetalhesCulturaFragment : Fragment() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = apiService.getCulturas(itemId).execute()
-                Log.e("45", response.toString())
+                Log.e("dcf", response.toString())
                 if (response.isSuccessful) {
                     val detalhesCultura = response.body()
+                    Log.d("dcf", detalhesCultura.toString())
 
                     if (detalhesCultura != null) {
                         val cultura = Cultura(
                             _id = detalhesCultura._id,
                             nome = detalhesCultura.nome,
+                            imagem = detalhesCultura.imagem,
                             doencas = detalhesCultura.doencas?.map {},
                             pragas = detalhesCultura.pragas?.map {},
                             deficiencias = detalhesCultura.deficiencias?.map {}
                         )
-
-                        Log.d("Resposta da API", detalhesCultura.toString())
 
                         activity?.runOnUiThread {
 
@@ -121,14 +126,17 @@ class DetalhesCulturaFragment : Fragment() {
                             cultura.deficiencias?.let { todosTitulos.add("deficiencias") }
                             todosTitulos.sort()
 
+                            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                            Picasso.get().load(detalhesCultura.imagem).into(imageView)
+
                             adapter.updateData(todosTitulos)
                         }
                     }
                 } else {
-                    Log.e("45", "Código de status: ${response.code()}")
+                    Log.e("dcf", "Código de status: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("Resposta da API", "Erro de rede: ${e.message}")
+                Log.e("dcf", "Erro de rede: ${e.message}")
             }
         }
     }

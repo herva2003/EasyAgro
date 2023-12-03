@@ -3,6 +3,7 @@ package com.puc.easyagro.model
 data class Cultura(
     val _id: String? = null,
     val nome: String? = null,
+    val imagem: String? = null,
     val doencas: List<Unit>? = null,
     val pragas: List<Unit>? = null,
     val deficiencias: List<Unit>? = null

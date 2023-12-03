@@ -27,8 +27,6 @@ class MeuCadastroFragment : Fragment() {
 
     private var myAddress: AddressDto? = null
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMeuCadastroBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,7 +51,6 @@ class MeuCadastroFragment : Fragment() {
         }
 
         fetchUserFromServer()
-
     }
 
     private fun fetchUserFromServer() {
@@ -73,7 +70,7 @@ class MeuCadastroFragment : Fragment() {
                 val response = apiService.getUser(userId).execute()
                 if (response.isSuccessful) {
                     val user = response.body()
-                    Log.d("34",user?.address.toString())
+                    Log.d("mcf","User Address: ${user?.address.toString()}")
                     launch(Dispatchers.Main) {
                         binding.inputApelido.setText(user?.nickname)
                         binding.inputTelefone.setText(user?.phoneNumber)
@@ -82,7 +79,7 @@ class MeuCadastroFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("taf", "Exception during data fetch", e)
+                Log.e("mcf", "Exception during data fetch", e)
             }
         }
     }
@@ -93,7 +90,7 @@ class MeuCadastroFragment : Fragment() {
         val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
         val userId = userPreferencesRepository.userId
 
-        Log.d("taf",userId.toString())
+        Log.d("mcf", "UserId: $userId")
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -117,7 +114,7 @@ class MeuCadastroFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("taf", "Exception during data update", e)
+                Log.e("mcf", "Exception during data update", e)
             }
         }
     }
