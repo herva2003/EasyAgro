@@ -1,74 +1,37 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.perfil.buttons.CarrinhoFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/green_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/green_pi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_mercado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="17dp"
-        android:text="Carrinho"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/btn_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_arrow_back_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/grey_300"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mercado" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_return"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/buscar_produto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/backgroud_edittext"
         android:hint="Buscar produto"
         android:inputType="text"
-        android:background="@drawable/backgroud_edittext"
         android:paddingStart="24dp"
+        android:paddingTop="10dp"
         android:paddingEnd="24dp"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
         android:textColor="@color/grey_700"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_comprar"
         app:layout_constraintTop_toBottomOf="@+id/buscar_produto">
@@ -88,7 +51,7 @@
         android:layout_height="55dp"
         android:layout_marginBottom="40dp"
         android:backgroundTint="@color/green_bar"
-        android:text="Comprar agora"
+        android:text="Continuar a compra"
         android:textAllCaps="false"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

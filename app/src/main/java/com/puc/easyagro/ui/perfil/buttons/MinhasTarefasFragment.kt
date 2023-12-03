@@ -55,9 +55,11 @@ class MinhasTarefasFragment : Fragment() {
 
         adapter = TarefaAdapter(emptyList())
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.toolbar.screenName.text = "Minhas Terefas"
 
         recyclerView.adapter = adapter
 

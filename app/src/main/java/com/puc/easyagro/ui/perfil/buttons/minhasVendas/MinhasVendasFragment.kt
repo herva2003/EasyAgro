@@ -60,9 +60,11 @@ class MinhasVendasFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.toolbar.screenName.text = "Minhas Vendas"
 
         recyclerView.adapter = adapter
 

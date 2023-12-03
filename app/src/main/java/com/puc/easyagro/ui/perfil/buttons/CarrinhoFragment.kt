@@ -59,7 +59,7 @@ class CarrinhoFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -67,6 +67,8 @@ class CarrinhoFragment : Fragment() {
             val action = CarrinhoFragmentDirections.actionCarrinhoFragmentToPagamentoFragment()
             findNavController().navigate(action, navOptions)
         }
+
+        binding.toolbar.screenName.text = "Carrinho"
 
         recyclerView.adapter = adapter
 
