@@ -42,7 +42,7 @@ class MinhaContaFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        binding.btnArrow.setOnClickListener {
+        binding.toolbar.btnArrow.setOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -79,7 +79,7 @@ class MinhaContaFragment : Fragment() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     launch(Dispatchers.Main) {
-                        binding.txtApelido.text = user?.nickname
+                        binding.toolbar.txtApelido.text = user?.nickname
                     }
                 }
             } catch (e: Exception) {

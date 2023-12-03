@@ -7,74 +7,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.perfil.buttons.minhaConta.MinhaContaFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/green_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/green_pi"
-        android:elevation="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:elevation="2dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_arrow_back_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="2dp"
-        android:text="Minha Conta"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/green_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/green_rectangle"
-        app:layout_constraintHorizontal_bias="0.277"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/green_rectangle"
-        app:layout_constraintVertical_bias="0.484" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/green_rectangle2"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@color/green_pi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/green_rectangle" />
-
-    <TextView
-        android:id="@+id/txt_apelido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Nome do usuario"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/green_rectangle" />
-
-    <TextView
-        android:id="@+id/txt_endereco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Endereço"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/green_rectangle2"
-        app:layout_constraintStart_toStartOf="@+id/green_rectangle2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_apelido" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_profile_expanded"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_view_cadastro"
@@ -88,7 +23,7 @@
         android:textAllCaps="false"
         android:textColor="@color/button_text_colors"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/green_rectangle2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_view_privacidade"
