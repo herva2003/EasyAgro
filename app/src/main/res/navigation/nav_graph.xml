@@ -397,7 +397,7 @@
 
     <fragment
         android:id="@+id/addressFragment2"
-        android:name="AddressFragment"
+        android:name="com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro.AddressFragment"
         android:label="AddressFragment" >
         <argument
             android:name="usuario"

@@ -12,6 +12,7 @@ data class UserDTO(
     val login: String?,
     val password: String?,
     var phoneNumber: String?,
+    var imagem: String?,
     val cpf: String?
 ) : Parcelable {
 
@@ -24,6 +25,7 @@ data class UserDTO(
             dest?.writeString(login)
             dest?.writeString(password)
             dest?.writeString(phoneNumber)
+            dest?.writeString(imagem)
             dest?.writeString(cpf)
         }
 
@@ -33,6 +35,7 @@ data class UserDTO(
     }
 
     private constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),

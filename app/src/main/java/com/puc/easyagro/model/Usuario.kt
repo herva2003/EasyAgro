@@ -14,6 +14,7 @@ import android.os.Parcelable
     var nickname: String? = null,
     var name: String? = null,
     var phoneNumber: String? = null,
+    var imagem: String? = null,
     val cpf: String? = null,
     val address: AddressDto? = null,
     val _class: String? = null

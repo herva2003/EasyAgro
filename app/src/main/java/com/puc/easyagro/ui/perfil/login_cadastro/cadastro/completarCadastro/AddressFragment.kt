@@ -1,3 +1,5 @@
+package com.puc.easyagro.ui.perfil.login_cadastro.cadastro.completarCadastro
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -50,7 +52,7 @@ class AddressFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 val cep = binding.edtZipe.unMasked
-                Log.d("122", cep)
+                Log.d("cad", cep)
                 if (cep.isNotEmpty() && isValidCep(cep)) {
                     lifecycleScope.launch {
                         getAddressByCep(cep)
@@ -75,7 +77,8 @@ class AddressFragment : Fragment() {
                 val city = binding.edtCity.text.toString().trim()
                 val state = binding.edtState.text.toString().trim()
 
-                val addressDto = AddressDto(cep = zipe, logradouro = street, numero = number, bairro = neighborhood, localidade = city, uf = state)
+                val addressDto = AddressDto(cep = zipe, logradouro = street, numero = number,
+                    bairro = neighborhood, localidade = city, uf = state)
 
                 val userDTO = UserDTO2(
                     name = usuario.name,
@@ -83,19 +86,16 @@ class AddressFragment : Fragment() {
                     login = usuario.login,
                     password = usuario.password,
                     phoneNumber = usuario.phoneNumber,
+                    imagem = usuario.imagem,
                     cpf = usuario.cpf,
                     address = addressDto
                 )
 
-
-                Log.d("12", userDTO.toString())
+                Log.d("cad", userDTO.toString())
 
                 registerUser(userDTO)
             }
         }
-
-
-
     }
 
     private fun registerUser(conta: UserDTO2) {
@@ -108,7 +108,7 @@ class AddressFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                Log.d("cad", "Criando conta: ${conta?.login}")
+                Log.d("cad", "Criando conta: $conta")
                 val response = apiService.addUser(conta).execute()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
@@ -164,10 +164,10 @@ class AddressFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("AddAddressDialog", "Erro na resposta: ${e.message}")
+                Log.e("cad", "Erro na resposta: ${e.message}")
             }
         } catch (e: Exception) {
-            Log.e("AddAddressDialog", "Erro ao criar Retrofit: ${e.message}")
+            Log.e("cad", "Erro ao criar Retrofit: ${e.message}")
         }
     }
 

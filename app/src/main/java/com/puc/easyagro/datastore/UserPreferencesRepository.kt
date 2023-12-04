@@ -7,6 +7,7 @@ private const val USER_PREFERENCES_NAME = "prefs_tokens"
 
 private const val UID_KEY = "uid"
 private const val USER_ID = "userID"
+private const val USER_NAME = "nickname"
 private const val FCMTOKEN_KEY = "fcmToken"
 
 /**
@@ -28,6 +29,11 @@ class UserPreferencesRepository private constructor(context: Context) {
     var userId: String = ""
         get() {
             return sharedPreferences.getString(USER_ID, "")!!
+        }
+
+    var userName: String = ""
+        get() {
+            return sharedPreferences.getString(USER_NAME, "")!!
         }
 
     fun updateUserId(newUid: String) {

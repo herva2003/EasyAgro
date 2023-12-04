@@ -171,7 +171,8 @@ class AddProdutoFragment : Fragment() {
         val description = binding.descricaoInput.text.toString()
 
 
-        return MarketDTO(name = name, price = price, category = category, description = description, userId = userId,images = listUrl)
+        return MarketDTO(name = name, price = price, category = category,
+            description = description, userId = userId, images = listUrl)
     }
 
     private fun validateInputFields(): Boolean {

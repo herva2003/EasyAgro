@@ -7,16 +7,6 @@
     tools:context=".ui.perfil.buttons.minhaConta.meuCadastro.MeuCadastroFragment">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
         android:id="@+id/arrow_image"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -28,25 +18,42 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/img_cardView"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrow_image">
+
+        <ImageView
+            android:id="@+id/img_pfp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/img_cardView" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
         android:text="Nome"
         android:textColor="@color/black"
@@ -54,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input_nome"
@@ -123,18 +130,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_telefone" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/btn_ver_endereco"
-        android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="26dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="25dp"
-    android:text="Ver meu endereco"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/input_telefone" />
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:elevation="10dp"
+        android:text="Ver meu endereco"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_telefone" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:src="@drawable/outline_add_a_photo_24"
+        android:tint="@color/green_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ver_endereco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_ver_endereco"
+        app:layout_constraintTop_toTopOf="@+id/btn_ver_endereco" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_update"
@@ -152,15 +172,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/img_selfie"
-        android:layout_width="202dp"
-        android:layout_height="199dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

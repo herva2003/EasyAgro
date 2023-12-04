@@ -26,9 +26,6 @@ class CadastroFragment : Fragment() {
         return binding.root
     }
 
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,7 +62,8 @@ class CadastroFragment : Fragment() {
         val senha = binding.inputSenha.text.toString().trim()
         val cpf = binding.inputCpf.text.toString().trim()
 
-        return UserDTO(login = email, password = senha, nickname = null, name = null,phoneNumber = null, cpf = cpf)
+        return UserDTO(login = email, password = senha,
+            nickname = null, name = null, phoneNumber = null, cpf = cpf, imagem = null)
     }
 
     private fun validateInputFields(): Boolean {

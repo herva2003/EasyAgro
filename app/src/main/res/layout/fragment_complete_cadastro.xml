@@ -101,11 +101,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_telefone" />
 
-
-
-
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
@@ -138,16 +133,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_telefone" />
 
-    <ImageView
-        android:id="@+id/edit_image"
-        android:layout_width="43dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_camera"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:clickable="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/outline_add_a_photo_24"
+        android:tint="@color/green_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_camera" />
+
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:iss_corner_radius="5"
+        app:iss_delay="0"
+        app:iss_period="1000"
+        app:iss_selected_dot="@drawable/default_selected_dot"
+        app:iss_unselected_dot="@drawable/default_unselected_dot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

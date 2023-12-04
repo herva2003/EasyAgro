@@ -5,17 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.ImageSlider
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentPerfilBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.perfil.tarefas.TarefaAdapter
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,6 +35,8 @@ class PerfilFragment : Fragment() {
     private lateinit var recyclerViewOpcoes: RecyclerView
     private lateinit var adapterOpcoes: PerfilAdapter
 
+    private lateinit var imageView: ImageView
+
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
 
@@ -42,6 +47,8 @@ class PerfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        imageView = binding.toolbarPerfil.profileImage
 
         recyclerViewTarefas = binding.recyclerViewPerfil
         val numberOfColumnsTarefas = 1
@@ -79,7 +86,7 @@ class PerfilFragment : Fragment() {
             return
         }
 
-        binding.toolbar.btnProfile.setOnClickListener {
+        binding.toolbarPerfil.btnProfile.setOnClickListener {
             val action = PerfilFragmentDirections.actionPerfilFragmentToMinhaContaFragment()
             findNavController().navigate(action, navOptions)
         }
@@ -151,8 +158,12 @@ class PerfilFragment : Fragment() {
                 val response = apiService.getUser(userId).execute()
                 if (response.isSuccessful) {
                     val user = response.body()
+                    Log.d("perfilF", "Seu perfil: $user")
                     launch(Dispatchers.Main) {
-                        binding.toolbar.txtApelido.text = user?.nickname
+                        binding.toolbarPerfil.txtApelido.text = user?.nickname
+
+                        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                        Picasso.get().load(user?.imagem).into(imageView)
                     }
                 }
             } catch (e: Exception) {

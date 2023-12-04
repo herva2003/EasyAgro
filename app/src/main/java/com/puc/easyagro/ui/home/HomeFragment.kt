@@ -14,6 +14,7 @@ import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.CotacaoApi
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentHomeBinding
+import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.home.cotacao.CotacaoAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,6 +39,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userName = userPreferencesRepository.userName
+
         recyclerView = binding.recyclerViewHome
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -46,6 +50,8 @@ class HomeFragment : Fragment() {
         adapter = CotacaoAdapter(emptyList()) {}
 
         recyclerView.adapter = adapter
+
+        binding.toolbar.txtNome.text = userName
 
         fetchDataFromServer()
 
@@ -56,12 +62,12 @@ class HomeFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        _binding?.btnCulturas?.setOnClickListener {
+        binding.btnCulturas.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCulturasFragment()
             findNavController().navigate(action, navOptions)
         }
 
-        _binding?.btnCotacao?.setOnClickListener {
+        binding.btnCotacao.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCotacaoFragment()
             findNavController().navigate(action, navOptions)
         }

@@ -35,6 +35,7 @@ data class UserDTO2(
     val login: String?,
     val password: String?,
     var phoneNumber: String?,
+    var imagem: String?,
     val cpf: String?,
     val address: AddressDto?
 )
