@@ -13,12 +13,11 @@ public class StorageFirebase {
     private static final String TAG = "StorageFirebase";
     private static final String STORAGE_PATH = "images/produtosMercado";
 
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
+    private final StorageReference storageReference;
 
-    public StorageFirebase() {
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference(STORAGE_PATH);
+    public StorageFirebase(String storagePath) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference(storagePath);
     }
 
     public void uploadImage(Uri imageUri, final OnImageUploadListener listener) {

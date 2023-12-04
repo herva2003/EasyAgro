@@ -262,7 +262,7 @@ class AddProdutoFragment : Fragment() {
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val storageFirebase = StorageFirebase()
+            val storageFirebase = StorageFirebase("images/produtosMercado")
             val imageUri = result.data?.data
             if (imageUri != null) {
 
@@ -290,7 +290,7 @@ class AddProdutoFragment : Fragment() {
     }
 
     private fun openGallery() {
-        val storageFirebase = StorageFirebase()  // Crie uma nova instância aqui
+        val storageFirebase = StorageFirebase("images/produtosMercado")
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         pickImage.launch(galleryIntent)
     }
