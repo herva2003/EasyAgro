@@ -135,7 +135,7 @@ class PagamentoFragment : Fragment() {
                     )
                 )
                 val pixPaymentDTO = PixPaymentDTO(
-                    transactionAmount = priceTotal,
+                    transactionAmount = produtoSend!!.price!!,
                     productDescription = "compra feita pelo app",
                     payer = payerDTO,
                     buyerId = userPreferencesRepository.userId,
