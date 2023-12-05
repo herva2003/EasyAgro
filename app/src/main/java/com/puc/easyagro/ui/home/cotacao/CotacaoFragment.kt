@@ -12,13 +12,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.CotacaoApi
-import com.puc.easyagro.apiServices.CotacaoApiBasic
 import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentCotacaoBinding
-import com.puc.easyagro.model.Produto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

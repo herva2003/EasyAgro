@@ -16,6 +16,7 @@ import com.puc.easyagro.constants.Constants
 import com.puc.easyagro.databinding.FragmentHomeBinding
 import com.puc.easyagro.datastore.UserPreferencesRepository
 import com.puc.easyagro.ui.home.cotacao.CotacaoAdapter
+import com.puc.easyagro.ui.market.MarketFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,20 +48,23 @@ class HomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
 
-        adapter = CotacaoAdapter(emptyList()) {}
-
-        recyclerView.adapter = adapter
-
-        binding.toolbar.txtNome.text = userName
-
-        fetchDataFromServer()
-
         val navOptions = NavOptions.Builder()
             .setEnterAnim(R.anim.fade_in)
             .setExitAnim(R.anim.fade_out)
             .setPopEnterAnim(R.anim.fade_in)
             .setPopExitAnim(R.anim.fade_out)
             .build()
+
+        adapter = CotacaoAdapter(emptyList()) {
+            val action = HomeFragmentDirections.actionHomeFragmentToCotacaoFragment()
+            findNavController().navigate(action, navOptions)
+        }
+
+        recyclerView.adapter = adapter
+
+        binding.toolbar.txtNome.text = userName
+
+        fetchDataFromServer()
 
         binding.btnCulturas.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCulturasFragment()

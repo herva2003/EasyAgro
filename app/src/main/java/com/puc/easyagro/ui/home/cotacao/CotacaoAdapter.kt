@@ -9,9 +9,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.puc.easyagro.R
-import com.puc.easyagro.model.Cotacao
 import com.puc.easyagro.model.ProductCepeaDTO
-import com.puc.easyagro.model.Produto
 import java.text.Normalizer
 import java.util.regex.Pattern
 
@@ -42,6 +40,11 @@ class CotacaoAdapter(private var produtosList: List<ProductCepeaDTO>, private va
         holder.valorCotacao.text = produto.valor
         holder.unidadeCotacao.text = "(${produto.unidade})"
         holder.dataCotacao.text = "Atualizado em ${produto.data}"
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener()
+        }
+
     }
 
     override fun getItemCount(): Int {
