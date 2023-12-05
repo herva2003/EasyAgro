@@ -54,13 +54,15 @@ class MinhasComprasFragment : Fragment() {
 
         adapter = MinhasComprasAdapter(emptyList()) { order ->
             val products = order.products
+            val status = order.status
+            val pix = order.pix
 
             val gson = Gson()
             val productsJson = gson.toJson(products)
 
             val orderId = order.id
 
-            val action = MinhasComprasFragmentDirections.actionMinhasComprasFragmentToComprasDetalhesFragment(productsJson)
+            val action = MinhasComprasFragmentDirections.actionMinhasComprasFragmentToComprasDetalhesFragment(productsJson,status,pix)
             findNavController().navigate(action, navOptions)
         }
 

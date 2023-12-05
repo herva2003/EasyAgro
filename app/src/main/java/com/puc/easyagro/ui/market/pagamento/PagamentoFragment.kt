@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -29,10 +30,14 @@ import com.puc.easyagro.model.PayerDTO
 import com.puc.easyagro.model.PayerIdentificationDTO
 import com.puc.easyagro.model.PixPaymentDTO
 import com.puc.easyagro.model.PixPaymentResponseDTO
+import com.puc.easyagro.model.Produto
 import com.puc.easyagro.model.ProdutosPix
+import com.puc.easyagro.model.Usuario
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,10 +94,12 @@ class PagamentoFragment : Fragment() {
 
             val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
             val carrinhoList = adapter.getData()
+           // val user: Usuario = fetchUser()
+            val priceTotal = calculateTotalPrice(carrinhoList)
 
             val payerDTO = PayerDTO(
-                firstName = "josé",
-                lastName = "silva",
+                firstName = "jose",
+                lastName = "lima",
                 email = "vivofixodante@gmail.com",
                 identification = PayerIdentificationDTO(
                     type = "cpf",
@@ -102,7 +109,7 @@ class PagamentoFragment : Fragment() {
 
             if (produtoSend == null && carrinhoList.isNotEmpty()) {
                 val pixPaymentDTO = PixPaymentDTO(
-                    transactionAmount = BigDecimal(1),
+                    transactionAmount = priceTotal,
                     productDescription = "compra feita pelo app",
                     payer = payerDTO,
                     buyerId = userPreferencesRepository.userId,
@@ -128,7 +135,7 @@ class PagamentoFragment : Fragment() {
                     )
                 )
                 val pixPaymentDTO = PixPaymentDTO(
-                    transactionAmount = BigDecimal(2),
+                    transactionAmount = priceTotal,
                     productDescription = "compra feita pelo app",
                     payer = payerDTO,
                     buyerId = userPreferencesRepository.userId,
@@ -143,6 +150,39 @@ class PagamentoFragment : Fragment() {
         binding.btnVerCodigoPix.setOnClickListener {
             showCopyCodeDialog(qrCode)
         }
+    }
+
+    private fun fetchUser(): Usuario {
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiService = retrofit.create(UserApi::class.java)
+
+        var user: Usuario? = null
+
+        runBlocking {
+            try {
+                val response = apiService.getUser(userId).execute()
+                if (response.isSuccessful) {
+                    user = response.body()
+                    Log.d("perfilF", "Seu perfil: $user")
+                } else {
+
+                }
+            } catch (e: Exception) {
+                Log.e("taf", "Exception during data fetch", e)
+            }
+        }
+        return user ?: throw IllegalStateException("Erro ao buscar usuário")
+    }
+
+    private fun calculateTotalPrice(carrinhoList: List<Market>): BigDecimal {
+        return carrinhoList.map { it.price ?: BigDecimal.ZERO }.sumByDouble { it.toDouble() }.toBigDecimal()
     }
 
     private fun makePayment(pixPaymentDTO: PixPaymentDTO) {

@@ -313,6 +313,12 @@
             <argument
                 android:name="products"
                 app:argType="string" />
+            <argument
+                android:name="status"
+                app:argType="string" />
+            <argument
+                android:name="pix"
+                app:argType="string" />
         </action>
     </fragment>
 
@@ -388,6 +394,12 @@
             app:destination="@id/comprasDetalhesFragment" >
             <argument
                 android:name="productsJson"
+                app:argType="string" />
+            <argument
+                android:name="status"
+                app:argType="string" />
+            <argument
+                android:name="pix"
                 app:argType="string" />
             <argument
                 android:name="orderId"

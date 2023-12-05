@@ -47,6 +47,7 @@ data class Order(
     val totalPrice: BigDecimal,
     val createdAt: String,
     val status: String,
+    val pix: String,
     val products: List<Product>
 )
 
