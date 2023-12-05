@@ -252,6 +252,10 @@ class ViewItemMarketFragment : Fragment() {
     }
 
     private fun fetchDataFromServer(itemId: String) {
+
+        val userPreferencesRepository = UserPreferencesRepository.getInstance(requireContext())
+        val userId = userPreferencesRepository.userId
+
         val baseUrl = Constants.BASE_URL
 
         val retrofit = Retrofit.Builder()
@@ -270,6 +274,7 @@ class ViewItemMarketFragment : Fragment() {
                     if (detalhesItemMarket != null) {
                         val mercado = Market(
                             id = detalhesItemMarket.id,
+                            userId = detalhesItemMarket.userId,
                             name = detalhesItemMarket.name,
                             price = detalhesItemMarket.price,
                             description = detalhesItemMarket.description,
@@ -281,6 +286,14 @@ class ViewItemMarketFragment : Fragment() {
                         launch(Dispatchers.Main) {
                             binding.txtPrecoValor.text = "R$${mercado.price}"
                             binding.txtDescricaoValor.text = mercado.description
+
+                            Log.d("mkt", "userId: $userId, mercado.id: ${mercado.userId}")
+
+                            if (userId == mercado.userId){
+                                binding.btnComprar.visibility = View.GONE
+                                binding.btnCoracao.visibility = View.GONE
+                                binding.btnAddCarrinho.visibility = View.GONE
+                            }
 
                             // Verificar se o campo 'imageUrl' existe e não está vazio
                             val imageList = mutableListOf<SlideModel>()

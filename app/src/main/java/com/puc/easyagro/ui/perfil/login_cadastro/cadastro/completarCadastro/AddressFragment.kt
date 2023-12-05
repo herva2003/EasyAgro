@@ -175,7 +175,7 @@ class AddressFragment : Fragment() {
         return zipeCode.length >= 8
     }
 
-    fun isValid(): Boolean {
+    private fun isValid(): Boolean {
         val zipe = binding.edtZipe.unMasked
         val street = binding.edtStreet.text.toString().trim()
         val number = binding.edtNumber.text.toString().trim()

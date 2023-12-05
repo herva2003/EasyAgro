@@ -312,14 +312,23 @@
                 android:layout_width="309dp"
                 android:layout_height="55dp"
                 android:backgroundTint="@color/green_bar"
-                android:layout_marginBottom="50dp"
                 android:text="Comprar agora"
+                android:layout_marginBottom="80dp"
                 android:textAllCaps="false"
                 app:cornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_add_carrinho" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/det_anunciante" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
