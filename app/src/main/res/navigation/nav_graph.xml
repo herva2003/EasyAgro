@@ -297,6 +297,9 @@
         <action
             android:id="@+id/action_minhasVendasFragment_to_perfilFragment"
             app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_minhasVendasFragment_to_comprasDetalhesFragment"
+            app:destination="@id/comprasDetalhesFragment" />
     </fragment>
 
     <fragment

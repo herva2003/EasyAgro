@@ -12,6 +12,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.puc.easyagro.R
 import com.puc.easyagro.apiServices.UserApi
 import com.puc.easyagro.constants.Constants
@@ -54,9 +55,9 @@ class MinhasVendasFragment : Fragment() {
             .setPopExitAnim(R.anim.fade_out)
             .build()
 
-        adapter = MinhasVendasAdapter(emptyList()) { itemId, _ ->
+        adapter = MinhasVendasAdapter(emptyList()) {
             val action =
-                MeusAnunciosFragmentDirections.actionMeusAnunciosToViewItemMarketFragment(itemId)
+                MinhasVendasFragmentDirections.actionMinhasVendasFragmentToComprasDetalhesFragment()
             findNavController().navigate(action, navOptions)
         }
 
@@ -103,16 +104,14 @@ class MinhasVendasFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val response = apiService.getSellerProducts(userId)?.execute()
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        val carrinhoList = response.body() ?: emptyList()
+                val response = apiService.getSellerProducts(userId).execute()
+                if (response.isSuccessful) {
+                    val carrinhoList = response.body() ?: emptyList()
 
-                        Log.d("minhasCompras", "Produtos: $carrinhoList")
+                    Log.d("minhasCompras", "Produtos: $carrinhoList")
 
-                        launch(Dispatchers.Main) {
-                            adapter.updateData(carrinhoList)
-                        }
+                    launch(Dispatchers.Main) {
+                        adapter.updateData(carrinhoList)
                     }
                 }
             } catch (e: Exception) {

@@ -12,31 +12,35 @@ import com.puc.easyagro.R
 import com.puc.easyagro.model.Order
 import com.puc.easyagro.model.Product
 import com.puc.easyagro.model.ProdutosPix
+import com.puc.easyagro.ui.perfil.buttons.minhasCompras.MinhasComprasAdapter
 import java.text.Normalizer
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 import java.util.regex.Pattern
 
-class MinhasVendasAdapter(private var vendasList: List<ProdutosPix>, private val onItemClickListener: (String, String) -> Unit) :
+class MinhasVendasAdapter(private var vendasList: List<ProdutosPix>, private val onItemClickListener: (ProdutosPix) -> Unit) :
     RecyclerView.Adapter<MinhasVendasAdapter.ViewHolder>(), Filterable {
 
     var vendasListFiltered = vendasList
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nomeItemMarket: TextView = itemView.findViewById(R.id.nome_item_market)
+        val transictionId: TextView = itemView.findViewById(R.id.txt_transiction_id)
+        val totalPrice: TextView = itemView.findViewById(R.id.txt_price_compras)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_market, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_compras, parent, false)
         return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemMarket = vendasListFiltered[position]
-        holder.nomeItemMarket.text = itemMarket.productId
+        val itemCompras = vendasListFiltered[position]
+        holder.transictionId.text = itemCompras.productId
+        holder.totalPrice.text = "R$ " + itemCompras.price.toString()
 
         holder.itemView.setOnClickListener {
-            itemMarket.productId?.let { id ->
-                itemMarket.productId?.let { it1 -> onItemClickListener(id, it1) }
-            }
+            onItemClickListener(itemCompras)
         }
     }
 
