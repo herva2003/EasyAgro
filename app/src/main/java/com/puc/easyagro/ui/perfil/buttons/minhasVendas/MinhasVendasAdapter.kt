@@ -27,6 +27,7 @@ class MinhasVendasAdapter(private var vendasList: List<ProdutosPix>, private val
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val transictionId: TextView = itemView.findViewById(R.id.txt_transiction_id)
         val totalPrice: TextView = itemView.findViewById(R.id.txt_price_compras)
+        val quantity: TextView = itemView.findViewById(R.id.txt_status)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +39,7 @@ class MinhasVendasAdapter(private var vendasList: List<ProdutosPix>, private val
         val itemCompras = vendasListFiltered[position]
         holder.transictionId.text = itemCompras.productId
         holder.totalPrice.text = "R$ " + itemCompras.price.toString()
+        holder.quantity.text = "Quantidade comprada: " + itemCompras.quantity.toString()
 
         holder.itemView.setOnClickListener {
             onItemClickListener(itemCompras)

@@ -56,9 +56,9 @@ class MinhasVendasFragment : Fragment() {
             .build()
 
         adapter = MinhasVendasAdapter(emptyList()) {
-            val action =
-                MinhasVendasFragmentDirections.actionMinhasVendasFragmentToComprasDetalhesFragment()
-            findNavController().navigate(action, navOptions)
+//            val action =
+//                MinhasVendasFragmentDirections.actionMinhasVendasFragmentToComprasDetalhesFragment()
+//            findNavController().navigate(action, navOptions)
         }
 
         binding.toolbar.btnArrow.setOnClickListener {
