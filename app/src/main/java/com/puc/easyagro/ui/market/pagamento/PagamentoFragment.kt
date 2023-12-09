@@ -98,12 +98,12 @@ class PagamentoFragment : Fragment() {
             val priceTotal = calculateTotalPrice(carrinhoList)
 
             val payerDTO = PayerDTO(
-                firstName = "jose",
-                lastName = "lima",
-                email = "vivofixodante@gmail.com",
+                firstName = "fdfd",
+                lastName = "dfd",
+                email = "343",
                 identification = PayerIdentificationDTO(
                     type = "cpf",
-                    number = "30089374894"
+                    number = "34"
                 )
             )
 
